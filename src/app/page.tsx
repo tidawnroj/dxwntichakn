@@ -8,7 +8,7 @@ import { BlurFade } from "@/components/ui/blur-fade"
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
 import { AuroraText } from "@/components/ui/aurora-text"
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler"
-import { Download, GraduationCap, MapPin, User, ChevronRight, Home as HomeIcon, FileText, Mail } from "lucide-react"
+import { Download, GraduationCap, MapPin, User, ChevronRight, Home as HomeIcon, FileText, Mail, Phone } from "lucide-react"
 import { GitHubLogoIcon, InstagramLogoIcon } from "@radix-ui/react-icons"
 import { ProjectsSection } from "@/components/ProjectsSection"
 import { SkillsSection } from "@/components/SkillsSection"
@@ -144,7 +144,7 @@ export default function Home() {
               name="Contact Information"
               className="lg:col-span-1 lg:row-span-2"
               background={<div className="absolute inset-0 bg-neutral-100/50 dark:bg-neutral-800/50" />}
-              Icon={User}
+              Icon={Phone}
               description="TEL: 092-9129230 • MAIL: tidawnroj@gmail.com"
               href="#"
               cta="Contact Me"
