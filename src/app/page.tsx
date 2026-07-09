@@ -20,6 +20,7 @@ import { GlyphMatrix } from "@/components/ui/glyph-matrix"
 import { TextAnimate } from "@/components/ui/text-animate"
 import { ScrollVelocityContainer, ScrollVelocityRow } from "@/components/ui/scroll-based-velocity"
 import { SidebarNav } from "@/components/SidebarNav"
+import { KineticText } from "@/components/ui/kinetic-text"
 
 export default function Home() {
   const [loading, setLoading] = useState(true)
@@ -73,15 +74,11 @@ export default function Home() {
               </h1>
             </BlurFade>
             
-            <TextAnimate 
-              animation="fadeIn" 
-              by="word" 
-              className="text-xl text-muted-foreground max-w-xl leading-relaxed mx-auto md:mx-0"
-              startOnView
-              once
-            >
-              AI Innovator and Medical Tech Developer. I love building things that solve real-world problems and pushing the boundaries of what's possible with technology.
-            </TextAnimate>
+            <KineticText 
+              as="p"
+              text="AI Innovator and Medical Tech Developer. I love building things that solve real-world problems and pushing the boundaries of what's possible with technology."
+              className="text-xl text-muted-foreground max-w-xl leading-relaxed mx-auto md:mx-0 font-medium"
+            />
           </div>
           
           <BlurFade delay={0.3} inView>

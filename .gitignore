@@ -42,3 +42,9 @@ next-env.d.ts
 
 # Local Netlify folder
 .netlify
+
+# agents
+.agents/
+google-cloud-sdk/
+google-cloud-cli-darwin-x86_64.tar.gz
+skills-lock.json
