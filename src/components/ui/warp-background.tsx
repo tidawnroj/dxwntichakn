@@ -33,24 +33,18 @@ const Beam = ({
   const ar = Math.floor((numericX * 13.1 + index * 7.9) % 10) + 1;
 
   return (
-    <motion.div
+    <div
       style={
         {
           "--x": `${x}`,
           "--width": `${width}`,
           "--aspect-ratio": `${ar}`,
           "--background": `linear-gradient(hsl(${hue} 80% 60%), transparent)`,
+          "--duration": `${duration}s`,
+          animationDelay: `${delay}s`,
         } as React.CSSProperties
       }
-      className="absolute top-0 left-[var(--x)] aspect-[1/var(--aspect-ratio)] w-[var(--width)] [background:var(--background)]"
-      initial={{ y: "100vmax", x: "-50%" }}
-      animate={{ y: "-100%", x: "-50%" }}
-      transition={{
-        duration,
-        delay,
-        repeat: Infinity,
-        ease: "linear",
-      }}
+      className="absolute top-0 left-[var(--x)] aspect-[1/var(--aspect-ratio)] w-[var(--width)] [background:var(--background)] animate-warp-beam"
     />
   )
 }

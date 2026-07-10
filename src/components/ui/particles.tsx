@@ -103,12 +103,29 @@ export const Particles: React.FC<ParticlesProps> = ({
   const onMouseMoveRef = useRef<() => void>(() => {})
   const animateRef = useRef<() => void>(() => {})
 
+  const [isInView, setIsInView] = useState(true)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting)
+      },
+      { threshold: 0.01 }
+    )
+    observer.observe(canvas)
+    return () => observer.disconnect()
+  }, [])
+
   useEffect(() => {
     if (canvasRef.current) {
       context.current = canvasRef.current.getContext("2d")
     }
     initCanvasRef.current()
-    animateRef.current()
+    if (isInView) {
+      animateRef.current()
+    }
 
     const handleResize = () => {
       if (resizeTimeout.current) {
@@ -124,13 +141,14 @@ export const Particles: React.FC<ParticlesProps> = ({
     return () => {
       if (rafID.current != null) {
         window.cancelAnimationFrame(rafID.current)
+        rafID.current = null
       }
       if (resizeTimeout.current) {
         clearTimeout(resizeTimeout.current)
       }
       window.removeEventListener("resize", handleResize)
     }
-  }, [color])
+  }, [color, isInView])
 
   useEffect(() => {
     onMouseMoveRef.current()

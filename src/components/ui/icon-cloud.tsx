@@ -209,8 +209,25 @@ export function IconCloud({ icons, images }: IconCloudProps) {
     setIsDragging(false)
   }
 
+  const [isInView, setIsInView] = useState(false)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting)
+      },
+      { threshold: 0.05 }
+    )
+    observer.observe(canvas)
+    return () => observer.disconnect()
+  }, [])
+
   // Animation and rendering
   useEffect(() => {
+    if (!isInView) return
+
     const canvas = canvasRef.current
     const ctx = canvas?.getContext("2d")
     if (canvas && ctx) {
@@ -304,7 +321,7 @@ export function IconCloud({ icons, images }: IconCloudProps) {
         cancelAnimationFrame(animationFrameRef.current)
       }
     }
-  }, [icons, images, iconPositions, isDragging, mousePos, targetRotation])
+  }, [icons, images, iconPositions, isDragging, mousePos, targetRotation, isInView])
 
   return (
     <canvas
