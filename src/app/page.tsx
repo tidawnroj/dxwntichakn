@@ -8,7 +8,7 @@ import { BlurFade } from "@/components/ui/blur-fade"
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
 import { AuroraText } from "@/components/ui/aurora-text"
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler"
-import { Download, GraduationCap, MapPin, User, ChevronRight, Home as HomeIcon, FileText, Mail } from "lucide-react"
+import { Download, GraduationCap, MapPin, User, ChevronRight, Home as HomeIcon, FileText, Mail, Phone } from "lucide-react"
 import { GitHubLogoIcon, InstagramLogoIcon } from "@radix-ui/react-icons"
 import { ProjectsSection } from "@/components/ProjectsSection"
 import { SkillsSection } from "@/components/SkillsSection"
@@ -21,6 +21,9 @@ import { TextAnimate } from "@/components/ui/text-animate"
 import { ScrollVelocityContainer, ScrollVelocityRow } from "@/components/ui/scroll-based-velocity"
 import { SidebarNav } from "@/components/SidebarNav"
 import { KineticText } from "@/components/ui/kinetic-text"
+import { Marquee } from "@/components/ui/marquee"
+import { AnimatedList } from "@/components/ui/animated-list"
+import { AnimatedCircularProgressBar } from "@/components/ui/animated-circular-progress-bar"
 
 export default function Home() {
   const [loading, setLoading] = useState(true)
@@ -125,7 +128,17 @@ export default function Home() {
             <BentoCard
               name="Tichakorn Rojsirphisal"
               className="lg:col-span-2 lg:row-span-1"
-              background={<div className="absolute inset-0 bg-neutral-100/50 dark:bg-neutral-800/50" />}
+              background={
+                <div className="absolute inset-0 bg-neutral-100/50 dark:bg-neutral-800/50 overflow-hidden flex flex-col justify-end">
+                  <Marquee className="[mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)] [--duration:25s] opacity-25 dark:opacity-15 pointer-events-none mb-6">
+                    {["React", "Next.js", "TypeScript", "Tailwind CSS", "Python", "TensorFlow", "C/C++", "Embedded Systems", "Artificial Intelligence", "Medical Technology", "Git/GitHub"].map((tech) => (
+                      <span key={tech} className="text-[10px] font-mono border px-2.5 py-1 rounded-full whitespace-nowrap bg-background text-foreground shadow-sm">
+                        {tech}
+                      </span>
+                    ))}
+                  </Marquee>
+                </div>
+              }
               Icon={User}
               description="Prince Royal's College • Science-Math Track • Technology Gifted Program"
               href="#"
@@ -133,8 +146,19 @@ export default function Home() {
             />
             <BentoCard
               name="High School GPAX"
-              className="lg:col-span-1 lg:row-span-1 bg-primary text-primary-foreground"
-              background={<div className="absolute inset-0" />}
+              className="lg:col-span-1 lg:row-span-1 bg-primary text-primary-foreground overflow-hidden"
+              background={
+                <div className="absolute right-4 top-4 opacity-30 lg:opacity-70 group-hover:scale-105 transition-transform duration-300 pointer-events-none">
+                  <AnimatedCircularProgressBar
+                    max={4.0}
+                    min={0.0}
+                    value={3.75}
+                    gaugePrimaryColor="currentColor"
+                    gaugeSecondaryColor="rgba(255, 255, 255, 0.15)"
+                    className="size-24 text-sm font-bold text-primary-foreground"
+                  />
+                </div>
+              }
               Icon={GraduationCap}
               description="3.75 / 4.00"
               href="#"
@@ -143,8 +167,30 @@ export default function Home() {
             <BentoCard
               name="Contact Information"
               className="lg:col-span-1 lg:row-span-2"
-              background={<div className="absolute inset-0 bg-neutral-100/50 dark:bg-neutral-800/50" />}
-              Icon={User}
+              background={
+                <div className="absolute inset-0 bg-neutral-100/50 dark:bg-neutral-800/50 overflow-hidden">
+                  <div className="absolute top-[130px] left-4 right-4 bottom-4 overflow-hidden opacity-30 group-hover:opacity-60 transition-opacity pointer-events-none select-none">
+                    <AnimatedList delay={3000} className="gap-2">
+                      {[
+                        { name: "Git Push", desc: "Main branch updated", icon: "💻", time: "1m ago" },
+                        { name: "New Message", desc: "From tidawnroj@gmail.com", icon: "✉️", time: "5m ago" },
+                        { name: "Incoming Call", desc: "Line active on 092-9129230", icon: "📞", time: "10m ago" },
+                        { name: "Instagram", desc: "@dxwntichakn linked", icon: "📸", time: "1h ago" },
+                      ].map((item, idx) => (
+                        <div key={idx} className="flex items-center gap-3 w-full p-2.5 rounded-lg border border-border/50 bg-background/80 dark:bg-background/40 backdrop-blur-sm shadow-[0_2px_8px_rgba(0,0,0,0.02)] text-[10px] font-mono leading-none">
+                          <span className="text-xs">{item.icon}</span>
+                          <div className="flex-grow min-w-0">
+                            <div className="font-semibold text-foreground truncate">{item.name}</div>
+                            <div className="text-[8px] text-muted-foreground truncate mt-0.5">{item.desc}</div>
+                          </div>
+                          <span className="text-[8px] text-muted-foreground whitespace-nowrap">{item.time}</span>
+                        </div>
+                      ))}
+                    </AnimatedList>
+                  </div>
+                </div>
+              }
+              Icon={Phone}
               description="TEL: 092-9129230 • MAIL: tidawnroj@gmail.com"
               href="#"
               cta="Contact Me"
@@ -152,7 +198,19 @@ export default function Home() {
              <BentoCard
               name="Residence"
               className="lg:col-span-2 lg:row-span-1"
-              background={<div className="absolute inset-0 bg-neutral-100/50 dark:bg-neutral-800/50" />}
+              background={
+                <div className="absolute inset-0 bg-neutral-100/50 dark:bg-neutral-800/50 overflow-hidden flex items-center justify-end">
+                  <div className="w-[240px] h-full overflow-hidden [mask-image:linear-gradient(to_left,white_20%,transparent_100%)] opacity-20 pointer-events-none pr-4">
+                    <Marquee vertical className="[--duration:20s] gap-2">
+                      {["Chiang Mai, TH", "San Kamphaeng", "18.7439° N", "99.1200° E", "DEK-70 Portfolio", "Prince Royal's", "Technology Gifted"].map((item, idx) => (
+                        <span key={idx} className="text-[10px] font-mono border px-3 py-1.5 rounded text-foreground bg-background whitespace-nowrap text-center shadow-sm">
+                          {item}
+                        </span>
+                      ))}
+                    </Marquee>
+                  </div>
+                </div>
+              }
               Icon={MapPin}
               description="49/2 Moo 8, San Kamphaeng, Chiang Mai, Thailand 50130"
               href="#"
