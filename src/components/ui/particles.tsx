@@ -177,7 +177,7 @@ export const Particles: React.FC<ParticlesProps> = ({
   const resizeCanvas = () => {
     if (canvasContainerRef.current && canvasRef.current && context.current) {
       canvasSize.current.w = canvasContainerRef.current.offsetWidth
-      canvasSize.current.h = canvasContainerRef.current.offsetHeight
+      canvasSize.current.h = typeof window !== "undefined" ? window.innerHeight : 800
 
       canvasRef.current.width = canvasSize.current.w * dpr
       canvasRef.current.height = canvasSize.current.h * dpr
@@ -329,7 +329,7 @@ export const Particles: React.FC<ParticlesProps> = ({
       aria-hidden="true"
       {...props}
     >
-      <canvas ref={canvasRef} className="size-full" />
+      <canvas ref={canvasRef} className="sticky top-0 h-screen w-full" />
     </div>
   )
 }
