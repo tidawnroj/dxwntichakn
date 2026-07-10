@@ -41,6 +41,8 @@ export function GlyphMatrix({
   // animation. Defaults to #6B7280.
   const rgbaRef = useRef({ r: 107, g: 114, b: 128, a: 1 })
 
+  const colorChangedRef = useRef(false)
+
   // Resolve the CSS color string to RGBA (handles hex, rgb, hsl, oklch, ...).
   useEffect(() => {
     const probe = document.createElement("canvas")
@@ -56,6 +58,7 @@ export function GlyphMatrix({
     probeCtx.fillRect(0, 0, 1, 1)
     const [r, g, b, a] = probeCtx.getImageData(0, 0, 1, 1).data
     rgbaRef.current = { r, g, b, a: a / 255 }
+    colorChangedRef.current = true
   }, [color])
 
   useEffect(() => {
@@ -72,6 +75,7 @@ export function GlyphMatrix({
     let raf = 0
     let last = 0
     let stopped = false
+    let needsFullRedraw = true
 
     const resize = () => {
       const dpr = window.devicePixelRatio || 1
@@ -90,9 +94,11 @@ export function GlyphMatrix({
       alphas = new Array(cols * rows)
         .fill(0)
         .map(() => 0.05 + Math.random() * 0.35)
+
+      needsFullRedraw = true
     }
 
-    const draw = () => {
+    const drawFull = () => {
       const { clientWidth: w, clientHeight: h } = canvas
       ctx.clearRect(0, 0, w, h)
 
@@ -109,36 +115,70 @@ export function GlyphMatrix({
           ctx.fillText(cells[i], x * cellSize, y * cellSize)
         }
       }
+      needsFullRedraw = false
+    }
+
+    const drawMutations = (mutatedIndices: number[]) => {
+      ctx.font = `${cellSize - 2}px ui-monospace, SFMono-Regular, Menlo, monospace`
+      ctx.textBaseline = "top"
+
+      const { r, g, b, a: colorAlpha } = rgbaRef.current
+      for (const i of mutatedIndices) {
+        const y = Math.floor(i / cols)
+        const x = i % cols
+
+        // Clear the exact cell bounding box
+        ctx.clearRect(x * cellSize, y * cellSize, cellSize, cellSize)
+
+        // Draw new character in the cell
+        const fade = fadeBottom > 0 ? 1 - (y / rows) * fadeBottom : 1
+        const a = alphas[i] * fade * colorAlpha
+        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${a})`
+        ctx.fillText(cells[i], x * cellSize, y * cellSize)
+      }
     }
 
     const tick = (t: number) => {
       if (stopped) return
 
+      if (colorChangedRef.current) {
+        needsFullRedraw = true
+        colorChangedRef.current = false
+      }
+
       if (t - last >= interval) {
         last = t
 
         const total = cols * rows
-        const mutations = Math.max(1, Math.floor(total * mutationRate))
+        if (total > 0) {
+          const mutations = Math.max(1, Math.floor(total * mutationRate))
+          const mutatedIndices: number[] = []
 
-        for (let n = 0; n < mutations; n++) {
-          const i = Math.floor(Math.random() * total)
-          cells[i] = glyphs[Math.floor(Math.random() * glyphs.length)]
-          alphas[i] = 0.05 + Math.random() * 0.45
+          for (let n = 0; n < mutations; n++) {
+            const i = Math.floor(Math.random() * total)
+            cells[i] = glyphs[Math.floor(Math.random() * glyphs.length)]
+            alphas[i] = 0.05 + Math.random() * 0.45
+            mutatedIndices.push(i)
+          }
+
+          if (needsFullRedraw) {
+            drawFull()
+          } else {
+            drawMutations(mutatedIndices)
+          }
         }
-
-        draw()
       }
 
       raf = requestAnimationFrame(tick)
     }
 
     resize()
-    draw()
+    drawFull()
     raf = requestAnimationFrame(tick)
 
     const ro = new ResizeObserver(() => {
       resize()
-      draw()
+      drawFull()
     })
     ro.observe(canvas)
 
