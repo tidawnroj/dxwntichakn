@@ -2,7 +2,7 @@ import { BlurFade } from "@/components/ui/blur-fade";
 import { MagicCard } from "@/components/ui/magic-card";
 import { IconCloud } from "@/components/ui/icon-cloud";
 
-export function SkillsSection() {
+export function SkillsSection({ isReady = true }: { isReady?: boolean }) {
   return (
     <section id="skills" className="py-20 w-full max-w-5xl mx-auto space-y-12">
       <BlurFade delay={0.1} inView>
@@ -36,19 +36,21 @@ export function SkillsSection() {
                 </div>
               </div>
               <div className="relative mt-8 flex w-full max-w-lg items-center justify-center overflow-hidden rounded-lg bg-background">
-                <IconCloud
-                  images={[
-                    "https://cdn.simpleicons.org/cplusplus/00599C",
-                    "https://cdn.simpleicons.org/python/3776AB",
-                    "https://cdn.simpleicons.org/react/61DAFB",
-                    "https://cdn.simpleicons.org/nodedotjs/339933",
-                    "https://cdn.simpleicons.org/swift/F05138",
-                    "https://cdn.simpleicons.org/arduino/00979D",
-                    "https://cdn.simpleicons.org/figma/F24E1E",
-                    "https://cdn.simpleicons.org/vercel/000000",
-                    "https://cdn.simpleicons.org/nextdotjs/000000"
-                  ]}
-                />
+                {isReady && (
+                  <IconCloud
+                    images={[
+                      "https://cdn.simpleicons.org/cplusplus/00599C",
+                      "https://cdn.simpleicons.org/python/3776AB",
+                      "https://cdn.simpleicons.org/react/61DAFB",
+                      "https://cdn.simpleicons.org/nodedotjs/339933",
+                      "https://cdn.simpleicons.org/swift/F05138",
+                      "https://cdn.simpleicons.org/arduino/00979D",
+                      "https://cdn.simpleicons.org/figma/F24E1E",
+                      "https://cdn.simpleicons.org/vercel/000000",
+                      "https://cdn.simpleicons.org/nextdotjs/000000"
+                    ]}
+                  />
+                )}
               </div>
             </div>
           </MagicCard>

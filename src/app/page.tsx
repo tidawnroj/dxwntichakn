@@ -27,6 +27,7 @@ import { AnimatedCircularProgressBar } from "@/components/ui/animated-circular-p
 
 export default function Home() {
   const [loading, setLoading] = useState(true)
+  const [isReady, setIsReady] = useState(false)
 
   // Disable page scrolling while loading
   useEffect(() => {
@@ -34,9 +35,13 @@ export default function Home() {
       document.body.style.overflow = "hidden"
     } else {
       document.body.style.overflow = "unset"
-    }
-    return () => {
-      document.body.style.overflow = "unset"
+      const timer = setTimeout(() => {
+        setIsReady(true)
+      }, 1000)
+      return () => {
+        document.body.style.overflow = "unset"
+        clearTimeout(timer)
+      }
     }
   }, [loading])
 
@@ -52,9 +57,11 @@ export default function Home() {
           transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}
         >
         <SidebarNav />
-        <div className="fixed inset-0 z-0 pointer-events-none opacity-50">
-          <GlyphMatrix className="w-full h-full" color="#22c55e" />
-        </div>
+        {isReady && (
+          <div className="fixed inset-0 z-0 pointer-events-none opacity-50">
+            <GlyphMatrix className="w-full h-full" color="#22c55e" />
+          </div>
+        )}
         <main className="min-h-screen p-8 max-w-5xl mx-auto space-y-24 relative z-10">
         <SmoothCursor />
       <header className="sticky top-4 z-40 flex justify-between items-center py-2.5 px-6 bg-background/80 backdrop-blur-md border border-border/50 rounded-full shadow-lg w-full max-w-md mx-auto">
@@ -90,7 +97,7 @@ export default function Home() {
                 alt="Tichakorn Rojsirphisal"
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
               />
-              <Meteors number={20} />
+              {isReady && <Meteors number={20} />}
             </div>
           </BlurFade>
         </section>
@@ -217,8 +224,8 @@ export default function Home() {
           </BentoGrid>
         </BlurFade>
       </section>
-      <ProjectsSection />
-      <SkillsSection />
+      <ProjectsSection isReady={isReady} />
+      <SkillsSection isReady={isReady} />
       <TimelineSection />
 
       <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">

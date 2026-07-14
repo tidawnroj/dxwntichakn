@@ -338,7 +338,7 @@ const certificatesData = [
   }
 ];
 
-export function ProjectsSection() {
+export function ProjectsSection({ isReady = true }: { isReady?: boolean }) {
   const [activeSection, setActiveSection] = useState<"projects" | "achievements" | "certificates">("projects");
   const [activeProject, setActiveProject] = useState<string>("");
   const [isStatsRowVisible, setIsStatsRowVisible] = useState<boolean>(true);
@@ -708,13 +708,15 @@ export function ProjectsSection() {
 
   return (
     <section id="projects" className="py-20 relative w-full">
-      <Particles
-        className="absolute inset-0 z-0"
-        quantity={100}
-        ease={80}
-        color="#ffffff"
-        refresh
-      />
+      {isReady && (
+        <Particles
+          className="absolute inset-0 z-0"
+          quantity={100}
+          ease={80}
+          color="#ffffff"
+          refresh
+        />
+      )}
 
       {/* Morphed Top-Right Floating Sub-Navigator */}
       <AnimatePresence>
