@@ -41,18 +41,16 @@ export default function Home() {
   }, [loading])
 
   return (
-    <>
-      <AnimatePresence mode="wait">
-        {loading && (
-          <IntroLoader key="loader" onComplete={() => setLoading(false)} />
-        )}
-      </AnimatePresence>
-
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: loading ? 0 : 1, y: loading ? 15 : 0 }}
-        transition={{ duration: 0.85, delay: 0.25, ease: [0.76, 0, 0.24, 1] }}
-      >
+    <AnimatePresence mode="wait">
+      {loading ? (
+        <IntroLoader key="loader" onComplete={() => setLoading(false)} />
+      ) : (
+        <motion.div
+          key="content"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}
+        >
         <SidebarNav />
         <div className="fixed inset-0 z-0 pointer-events-none opacity-50">
           <GlyphMatrix className="w-full h-full" color="#22c55e" />
@@ -304,6 +302,7 @@ export default function Home() {
       </div>
     </main>
     </motion.div>
-    </>
+      )}
+    </AnimatePresence>
   );
 }
