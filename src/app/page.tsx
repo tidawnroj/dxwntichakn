@@ -49,9 +49,9 @@ export default function Home() {
       </AnimatePresence>
 
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: loading ? 0 : 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: loading ? 0 : 1, y: loading ? 15 : 0 }}
+        transition={{ duration: 0.85, delay: 0.25, ease: [0.76, 0, 0.24, 1] }}
       >
         <SidebarNav />
         <div className="fixed inset-0 z-0 pointer-events-none opacity-50">
