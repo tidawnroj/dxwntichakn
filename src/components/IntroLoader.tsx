@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { motion, Variants } from "framer-motion"
+import { motion } from "framer-motion"
 import { Ripple } from "@/components/ui/ripple"
 
 export function IntroLoader({ onComplete }: { onComplete: () => void }) {
@@ -23,45 +23,19 @@ export function IntroLoader({ onComplete }: { onComplete: () => void }) {
     return () => clearInterval(timer)
   }, [onComplete])
 
-  const pathVariants: Variants = {
-    initial: {
-      d: "M 0 0 L 100 0 L 100 100 Q 50 100 0 100 Z"
-    },
-    exit: {
-      d: [
-        "M 0 0 L 100 0 L 100 100 Q 50 100 0 100 Z",
-        "M 0 0 L 100 0 L 100 0 Q 50 120 0 0 Z",
-        "M 0 0 L 100 0 L 100 0 Q 50 0 0 0 Z"
-      ],
-      transition: {
-        duration: 0.85,
-        times: [0, 0.45, 1],
-        ease: [0.76, 0, 0.24, 1] as any
-      }
-    }
-  }
-
   return (
-    <div className="fixed inset-0 z-[9999] overflow-hidden select-none pointer-events-none flex flex-col items-center justify-center">
-      {/* Dynamic SVG Liquid Transition Backdrop */}
-      <svg 
-        className="absolute inset-0 w-full h-full fill-background" 
-        viewBox="0 0 100 100" 
-        preserveAspectRatio="none"
-      >
-        <motion.path
-          variants={pathVariants}
-          initial="initial"
-          exit="exit"
-        />
-      </svg>
-
+    <motion.div 
+      className="fixed top-0 left-0 w-full h-screen z-[9999] bg-background flex flex-col items-center justify-center select-none"
+      initial={{ y: 0 }}
+      exit={{ y: "-100vh" }}
+      transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+    >
       {/* Foreground Content */}
       <motion.div 
-        className="z-10 flex flex-col items-center space-y-8 max-w-lg w-full px-4 justify-center pointer-events-auto"
+        className="z-10 flex flex-col items-center space-y-8 max-w-lg w-full px-4 justify-center"
         initial={{ opacity: 1 }}
         exit={{ opacity: 0, y: -20 }}
-        transition={{ duration: 0.35, ease: "easeOut" }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
       >
         {/* Ripple background */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none -z-10">
@@ -93,6 +67,15 @@ export function IntroLoader({ onComplete }: { onComplete: () => void }) {
           </span>
         </div>
       </motion.div>
-    </div>
+
+      {/* Pinned Curved Bottom SVG */}
+      <svg 
+        className="absolute top-full left-0 w-full h-[15vh] fill-background pointer-events-none" 
+        viewBox="0 0 100 100" 
+        preserveAspectRatio="none"
+      >
+        <path d="M 0 0 L 100 0 Q 50 100 0 0 Z" />
+      </svg>
+    </motion.div>
   )
 }
