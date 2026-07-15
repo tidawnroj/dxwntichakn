@@ -38,8 +38,8 @@ function MatrixRain() {
       ctx.fillStyle = isDark ? "rgba(10, 10, 10, 0.06)" : "rgba(250, 250, 250, 0.08)"
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-      // Theme-adaptive green rain matching Scroll Mode brand
-      ctx.fillStyle = isDark ? "rgba(34, 197, 94, 0.2)" : "rgba(22, 163, 74, 0.15)"
+      // Theme-adaptive blue rain matching Scroll Mode brand
+      ctx.fillStyle = isDark ? "rgba(59, 130, 246, 0.2)" : "rgba(37, 99, 235, 0.15)"
       ctx.font = `${fontSize}px monospace`
 
       for (let i = 0; i < rainDrops.length; i++) {
@@ -72,14 +72,14 @@ export default function TabPage() {
     return (
       <div className="space-y-6">
         <div className="space-y-2">
-          <p className="text-[#22c55e] text-sm font-mono font-bold">$ whoami</p>
+          <p className="text-[#3b82f6] text-sm font-mono font-bold">$ whoami</p>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground font-mono">
             Hi, I'm <br/>
-            <span className="text-[#22c55e] neon-text">Tichakorn</span>
+            <span className="text-[#3b82f6] neon-text">Tichakorn</span>
           </h1>
         </div>
         <div className="space-y-4">
-          <p className="text-[#22c55e] text-sm font-mono font-bold">$ info --role</p>
+          <p className="text-[#3b82f6] text-sm font-mono font-bold">$ info --role</p>
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl font-mono">
             AI Innovator and Medical Tech Developer. I love building things that solve real-world problems and pushing the boundaries of what's possible with technology.
           </p>
@@ -111,23 +111,23 @@ export default function TabPage() {
     return (
       <div className="space-y-6 font-mono text-xs">
         <div className="space-y-2 border-b border-border pb-2">
-          <p className="text-[#22c55e] text-sm font-bold">$ cat projects.js</p>
+          <p className="text-[#3b82f6] text-sm font-bold">$ cat projects.js</p>
           <h2 className="text-xl font-bold text-foreground">Project Repositories</h2>
         </div>
         <div className="space-y-4 max-h-[300px] overflow-y-auto pr-2 scrollbar-thin">
           {projects.map((proj, idx) => (
             <div 
               key={idx} 
-              className="border border-border hover:border-[#22c55e]/55 p-4 rounded bg-card/60 space-y-2 transition-all shadow-sm"
+              className="border border-border hover:border-[#3b82f6]/55 p-4 rounded bg-card/60 space-y-2 transition-all shadow-sm"
             >
               <div className="flex justify-between items-center">
                 <span className="text-foreground font-bold text-sm">📁 {proj.name}</span>
-                <span className="text-[9px] text-[#22c55e] border border-[#22c55e]/30 px-2 py-0.5 rounded bg-[#22c55e]/5 font-bold">active</span>
+                <span className="text-[9px] text-[#3b82f6] border border-[#3b82f6]/30 px-2 py-0.5 rounded bg-[#3b82f6]/5 font-bold">active</span>
               </div>
               <div className="text-[10px] text-muted-foreground font-semibold">{proj.track}</div>
               <p className="text-xs text-muted-foreground leading-relaxed">{proj.desc}</p>
               {proj.detail && (
-                <div className="text-[9px] text-[#22c55e] bg-[#22c55e]/5 border border-[#22c55e]/20 p-2 rounded font-bold">
+                <div className="text-[9px] text-[#3b82f6] bg-[#3b82f6]/5 border border-[#3b82f6]/20 p-2 rounded font-bold">
                   ★ {proj.detail}
                 </div>
               )}
@@ -148,13 +148,13 @@ export default function TabPage() {
     return (
       <div className="space-y-6 font-mono text-xs">
         <div className="space-y-2 border-b border-border pb-2">
-          <p className="text-[#22c55e] text-sm font-bold">$ python skills.py --list</p>
+          <p className="text-[#3b82f6] text-sm font-bold">$ python skills.py --list</p>
           <h2 className="text-xl font-bold text-foreground">Imported Skill Modules</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {categories.map((cat, idx) => (
             <div key={idx} className="space-y-2 bg-card/60 p-4 border border-border rounded-lg shadow-sm">
-              <h3 className="text-[#22c55e] font-bold text-xs flex items-center">
+              <h3 className="text-[#3b82f6] font-bold text-xs flex items-center">
                 <ChevronRight className="w-3.5 h-3.5 mr-1" />
                 {cat.name}
               </h3>
@@ -162,7 +162,7 @@ export default function TabPage() {
                 {cat.skills.map((skill) => (
                   <span 
                     key={skill}
-                    className="border border-[#22c55e]/25 text-[#22c55e] px-2 py-0.5 rounded bg-[#22c55e]/5 font-mono text-[9px] hover:border-[#22c55e] transition-all cursor-default font-bold"
+                    className="border border-[#3b82f6]/25 text-[#3b82f6] px-2 py-0.5 rounded bg-[#3b82f6]/5 font-mono text-[9px] hover:border-[#3b82f6] transition-all cursor-default font-bold"
                   >
                     {skill}
                   </span>
@@ -179,7 +179,7 @@ export default function TabPage() {
     return (
       <div className="space-y-6 font-mono text-xs">
         <div className="space-y-2 border-b border-border pb-2">
-          <p className="text-[#22c55e] text-sm font-bold">$ cat contact.json</p>
+          <p className="text-[#3b82f6] text-sm font-bold">$ cat contact.json</p>
           <h2 className="text-xl font-bold text-foreground">Contact & Timeline</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -187,10 +187,10 @@ export default function TabPage() {
           <div className="bg-card/60 border border-border p-4 rounded-lg space-y-3 shadow-sm">
             <h3 className="text-foreground font-bold">// Contact Info</h3>
             <div className="space-y-2 text-muted-foreground">
-              <p><span className="text-[#22c55e] font-bold">"email":</span> "tidawnroj@gmail.com"</p>
-              <p><span className="text-[#22c55e] font-bold">"phone":</span> "092-9129230"</p>
-              <p><span className="text-[#22c55e] font-bold">"location":</span> "Chiang Mai, Thailand"</p>
-              <p><span className="text-[#22c55e] font-bold">"status":</span> "Open to Innovation"</p>
+              <p><span className="text-[#3b82f6] font-bold">"email":</span> "tidawnroj@gmail.com"</p>
+              <p><span className="text-[#3b82f6] font-bold">"phone":</span> "092-9129230"</p>
+              <p><span className="text-[#3b82f6] font-bold">"location":</span> "Chiang Mai, Thailand"</p>
+              <p><span className="text-[#3b82f6] font-bold">"status":</span> "Open to Innovation"</p>
             </div>
           </div>
 
@@ -199,13 +199,13 @@ export default function TabPage() {
             <h3 className="text-foreground font-bold">// Execution Timeline</h3>
             <div className="space-y-3 relative border-l border-border pl-4 py-1">
               <div className="relative">
-                <div className="absolute -left-[21px] top-1.5 w-2 h-2 rounded-full bg-[#22c55e] shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
-                <span className="text-[9px] font-bold text-[#22c55e]">2026</span>
+                <div className="absolute -left-[21px] top-1.5 w-2 h-2 rounded-full bg-[#3b82f6] shadow-[0_0_8px_rgba(59,130,246,0.6)]" />
+                <span className="text-[9px] font-bold text-[#3b82f6]">2026</span>
                 <p className="text-muted-foreground mt-0.5 text-[10px]">Presented REBEXs globally @ CSITF Shanghai</p>
               </div>
               <div className="relative">
                 <div className="absolute -left-[21px] top-1.5 w-2 h-2 rounded-full bg-neutral-300 dark:bg-neutral-700" />
-                <span className="text-[9px] font-bold text-[#22c55e]">2025</span>
+                <span className="text-[9px] font-bold text-[#3b82f6]">2025</span>
                 <p className="text-muted-foreground mt-0.5 text-[10px]">Won Medical Track @ CEDT Innovation Summit</p>
               </div>
               <div className="relative">
@@ -221,12 +221,12 @@ export default function TabPage() {
   }
 
   return (
-    <div className={`${jetbrainsMono.className} bg-background text-foreground font-mono selection:bg-[#22c55e] selection:text-background min-h-screen relative flex flex-col justify-between overflow-x-hidden z-10`}>
+    <div className={`${jetbrainsMono.className} bg-background text-foreground font-mono selection:bg-[#3b82f6] selection:text-background min-h-screen relative flex flex-col justify-between overflow-x-hidden z-10`}>
       {/* Custom styles override */}
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes glow {
-          0%, 100% { text-shadow: 0 0 5px rgba(34,197,94,0.4); color: #22c55e; }
-          50% { text-shadow: 0 0 15px rgba(34,197,94,0.8); color: #22c55e; }
+          0%, 100% { text-shadow: 0 0 5px rgba(59,130,246,0.4); color: #3b82f6; }
+          50% { text-shadow: 0 0 15px rgba(59,130,246,0.8); color: #3b82f6; }
         }
         .neon-text {
           animation: glow 2s infinite ease-in-out;
@@ -234,26 +234,26 @@ export default function TabPage() {
         .terminal-window {
           background: rgba(255, 255, 255, 0.85);
           backdrop-filter: blur(10px);
-          border: 1px solid rgba(34, 197, 94, 0.3);
+          border: 1px solid rgba(59, 130, 246, 0.3);
         }
         .dark .terminal-window {
           background: rgba(10, 10, 10, 0.85);
-          border: 1px solid rgba(34, 197, 94, 0.3);
+          border: 1px solid rgba(59, 130, 246, 0.3);
         }
         .tab-active {
           background: var(--muted);
-          border-bottom: 2px solid #22c55e;
-          color: #22c55e;
+          border-bottom: 2px solid #3b82f6;
+          color: #3b82f6;
           font-weight: bold;
         }
         .glass-nav {
           background: rgba(255, 255, 255, 0.8);
           backdrop-filter: blur(12px);
-          border: 1px solid rgba(34, 197, 94, 0.25);
+          border: 1px solid rgba(59, 130, 246, 0.25);
         }
         .dark .glass-nav {
           background: rgba(26, 26, 26, 0.7);
-          border: 1px solid rgba(34, 197, 94, 0.25);
+          border: 1px solid rgba(59, 130, 246, 0.25);
         }
         @keyframes scroll {
           0% { transform: translateX(0); }
@@ -292,7 +292,7 @@ export default function TabPage() {
                       : "text-muted-foreground hover:bg-muted/50"
                   }`}
                 >
-                  <span className={`${activeTab === tab.id ? "text-[#22c55e]" : "text-muted-foreground"} mr-2`}>
+                  <span className={`${activeTab === tab.id ? "text-[#3b82f6]" : "text-muted-foreground"} mr-2`}>
                     {tab.label}
                   </span>
                 </button>
@@ -342,22 +342,22 @@ export default function TabPage() {
           <section className="lg:col-span-5 flex justify-center">
             <div className="relative group">
               {/* Geometric Glitch Frames */}
-              <div className="absolute -inset-4 border border-[#22c55e]/25 rounded-full animate-pulse"></div>
-              <div className="absolute -inset-8 border border-[#22c55e]/15 rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
+              <div className="absolute -inset-4 border border-[#3b82f6]/25 rounded-full animate-pulse"></div>
+              <div className="absolute -inset-8 border border-[#3b82f6]/15 rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
               
               {/* Image Container */}
-              <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-[#22c55e]/45 relative z-10 bg-muted">
+              <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-[#3b82f6]/45 relative z-10 bg-muted">
                 <img 
                   alt="Tichakorn Profile" 
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" 
                   src="/profile.png"
                 />
                 {/* Scanline Effect Overlay */}
-                <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.08)_50%),linear-gradient(90deg,rgba(34,197,94,0.03),rgba(34,197,94,0.01),rgba(34,197,94,0.03))] bg-[length:100%_2px,3px_100%]"></div>
+                <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.08)_50%),linear-gradient(90deg,rgba(59,130,246,0.03),rgba(59,130,246,0.01),rgba(59,130,246,0.03))] bg-[length:100%_2px,3px_100%]"></div>
               </div>
 
               {/* ID Badge Decor */}
-              <div className="absolute -bottom-4 -right-4 bg-card border border-border px-4 py-2 text-[10px] text-[#22c55e] z-20 shadow-xl leading-relaxed select-none font-bold">
+              <div className="absolute -bottom-4 -right-4 bg-card border border-border px-4 py-2 text-[10px] text-[#3b82f6] z-20 shadow-xl leading-relaxed select-none font-bold">
                 STATUS: ACTIVE<br/>
                 LEVEL: DEV_GEN_70
               </div>
@@ -369,10 +369,10 @@ export default function TabPage() {
       {/* Scrolling Identity Bar */}
       <div className="fixed bottom-24 w-full bg-card/65 border-y border-border py-4 overflow-hidden whitespace-nowrap z-0 select-none backdrop-blur-sm">
         <div className="flex ticker-scroll">
-          <span className="text-3xl md:text-5xl font-bold text-transparent px-8" style={{ WebkitTextStroke: "1px rgba(34, 197, 94, 0.35)" }}>
+          <span className="text-3xl md:text-5xl font-bold text-transparent px-8" style={{ WebkitTextStroke: "1px rgba(59, 130, 246, 0.35)" }}>
             • TICHAKORN • PORTFOLIO • DXWNTICHAKN • TICHAKORN • PORTFOLIO • DXWNTICHAKN •
           </span>
-          <span className="text-3xl md:text-5xl font-bold text-transparent px-8" style={{ WebkitTextStroke: "1px rgba(34, 197, 94, 0.35)" }}>
+          <span className="text-3xl md:text-5xl font-bold text-transparent px-8" style={{ WebkitTextStroke: "1px rgba(59, 130, 246, 0.35)" }}>
             • TICHAKORN • PORTFOLIO • DXWNTICHAKN • TICHAKORN • PORTFOLIO • DXWNTICHAKN •
           </span>
         </div>
@@ -408,8 +408,8 @@ export default function TabPage() {
               onClick={() => setActiveTab(item.id as any)}
               className={`p-2 rounded-lg transition-all cursor-pointer ${
                 activeTab === item.id 
-                  ? "bg-[#22c55e]/10 text-[#22c55e]" 
-                  : "text-muted-foreground hover:text-[#22c55e] hover:bg-[#22c55e]/5"
+                  ? "bg-[#3b82f6]/10 text-[#3b82f6]" 
+                  : "text-muted-foreground hover:text-[#3b82f6] hover:bg-[#3b82f6]/5"
               }`}
               title={item.title}
             >
@@ -418,11 +418,11 @@ export default function TabPage() {
           ))}
           <div className="h-6 w-[1px] bg-border mx-1" />
           {/* GitHub Link */}
-          <a href="https://github.com/tidawnroj" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg text-muted-foreground hover:text-[#22c55e] hover:bg-[#22c55e]/5 transition-all">
+          <a href="https://github.com/tidawnroj" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg text-muted-foreground hover:text-[#3b82f6] hover:bg-[#3b82f6]/5 transition-all">
             <GitHubLogoIcon className="h-5 w-5" />
           </a>
           {/* Instagram Link */}
-          <a href="https://instagram.com/dxwntichakn" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg text-muted-foreground hover:text-[#22c55e] hover:bg-[#22c55e]/5 transition-all">
+          <a href="https://instagram.com/dxwntichakn" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg text-muted-foreground hover:text-[#3b82f6] hover:bg-[#3b82f6]/5 transition-all">
             <InstagramLogoIcon className="h-5 w-5" />
           </a>
         </div>
