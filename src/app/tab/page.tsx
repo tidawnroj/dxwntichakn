@@ -76,22 +76,27 @@ export default function TabPage() {
   const [nextTab, setNextTab] = useState<"index.html" | "projects.js" | "skills.py" | "contact.json" | null>(null)
   const [tabTransitionActive, setTabTransitionActive] = useState(false)
   const [isRedirecting, setIsRedirecting] = useState(false)
-  const [introStage, setIntroStage] = useState<"tree" | "morph" | "done">("tree")
+  const [introStage, setIntroStage] = useState<"dial" | "tree" | "morph" | "done">("dial")
 
   // File Tree Intro transition on page mount
   useEffect(() => {
-    // 1. Initially, the File Tree is visible and dxwntichakn runs Dialtext reveal.
-    // Start camera zoom ("morph" stage) at 2000ms
+    // 1. Large dxwntichakn runs Dialtext reveal from 0ms to 1600ms
+    const treeTimer = setTimeout(() => {
+      setIntroStage("tree")
+    }, 1600)
+
+    // 2. File Tree displays and title shrinks down. Start camera zoom ("morph" stage) at 3200ms
     const morphTimer = setTimeout(() => {
       setIntroStage("morph")
-    }, 2000)
-
-    // 2. Morph and fade out at 3200ms
-    const doneTimer = setTimeout(() => {
-      setIntroStage("done")
     }, 3200)
 
+    // 3. Complete morphing and fade out at 4400ms
+    const doneTimer = setTimeout(() => {
+      setIntroStage("done")
+    }, 4400)
+
     return () => {
+      clearTimeout(treeTimer)
       clearTimeout(morphTimer)
       clearTimeout(doneTimer)
     }
@@ -573,6 +578,25 @@ export default function TabPage() {
             transition={{ duration: 0.6, ease: "easeInOut" }}
             className="fixed inset-0 bg-white z-[99999] flex flex-col items-center justify-center select-none"
           >
+            {/* Stage 1: Large dxwntichakn centered */}
+            {introStage === "dial" && (
+              <div className="text-center">
+                <motion.div 
+                  layoutId="tree-title-morph" 
+                  style={{ display: "inline-block" }}
+                >
+                  <DiaTextReveal 
+                    text="dxwntichakn" 
+                    textColor="#1a1a1a"
+                    colors={["#3b82f6", "#2563eb", "#1d4ed8", "#1e3a8a"]} 
+                    duration={1.2}
+                    className="text-4xl md:text-6xl font-bold font-sans tracking-tight"
+                  />
+                </motion.div>
+              </div>
+            )}
+
+            {/* Stage 2 & 3: File Tree displayed and title shrunk down / zoomed */}
             {(introStage === "tree" || introStage === "morph") && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -595,13 +619,18 @@ export default function TabPage() {
                   className="flex items-center gap-1.5 pb-2 border-b border-neutral-200 mb-2 text-xs font-bold font-sans tracking-tight"
                 >
                   <span>📁</span>
-                  <DiaTextReveal 
-                    text="dxwntichakn" 
-                    textColor="#1a1a1a"
-                    colors={["#3b82f6", "#2563eb", "#1d4ed8", "#1e3a8a"]} 
-                    duration={1.2}
-                    className="text-xs font-bold font-sans tracking-tight"
-                  />
+                  <motion.div 
+                    layoutId="tree-title-morph" 
+                    style={{ display: "inline-block" }}
+                  >
+                    <DiaTextReveal 
+                      text="dxwntichakn" 
+                      textColor="#1a1a1a"
+                      colors={["#3b82f6", "#2563eb", "#1d4ed8", "#1e3a8a"]} 
+                      duration={1.2}
+                      className="text-xs font-bold font-sans tracking-tight"
+                    />
+                  </motion.div>
                 </motion.div>
 
                 {/* File Tree Structure */}
