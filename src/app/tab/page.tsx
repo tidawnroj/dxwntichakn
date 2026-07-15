@@ -178,7 +178,7 @@ export default function TabPage() {
   const [nextTab, setNextTab] = useState<"index.html" | "projects.js" | "skills.py" | "contact.json" | null>(null)
   const [tabTransitionActive, setTabTransitionActive] = useState(false)
   const [isRedirecting, setIsRedirecting] = useState(false)
-  const [introStage, setIntroStage] = useState<"dial" | "tree" | "morph" | "laser" | "done">("dial")
+  const [introStage, setIntroStage] = useState<"dial" | "tree" | "morph" | "laser" | "reveal" | "done">("dial")
   const [tabReveal, setTabReveal] = useState(false)
 
   // Trigger reveal curtain transition from Scroll Mode
@@ -206,15 +206,21 @@ export default function TabPage() {
       setIntroStage("laser")
     }, 4400)
 
-    // 4. Laser wireframes finish drawing (takes 1.2s). Fully transition to active done homepage at 5600ms.
+    // 4. Laser wireframes finish drawing (takes 1.2s). Trigger curtain reveal at 5600ms.
+    const revealTimer = setTimeout(() => {
+      setIntroStage("reveal")
+    }, 5600)
+
+    // 5. Curtain slides down and back up (1.6s total). Fully reveal homepage at 7200ms.
     const doneTimer = setTimeout(() => {
       setIntroStage("done")
-    }, 5600)
+    }, 7200)
 
     return () => {
       clearTimeout(treeTimer)
       clearTimeout(morphTimer)
       clearTimeout(laserTimer)
+      clearTimeout(revealTimer)
       clearTimeout(doneTimer)
     }
   }, [])
@@ -456,7 +462,7 @@ export default function TabPage() {
 
       {/* IDE Style Header with Laser Draw */}
       <LaserBox active={introStage === "laser"} type="header">
-        <header className={cn("fixed top-0 w-full z-50 bg-card transition-all duration-300", (introStage === "laser" || introStage === "morph" || introStage === "dial") ? "border-b-0" : "border-b border-border")}>
+        <header className={cn("fixed top-0 w-full z-50 bg-card transition-all duration-300", (introStage === "laser" || introStage === "morph" || introStage === "dial" || introStage === "reveal") ? "border-b-0" : "border-b border-border")}>
           <div className="flex items-center justify-between h-12 overflow-x-auto no-scrollbar">
             <div className="flex items-center h-full">
               {/* Tabs (Hidden during intro stages, fades in at done) */}
@@ -490,7 +496,7 @@ export default function TabPage() {
             {/* Right Controls */}
             <div className="flex items-center gap-3 h-full pr-4">
               <div className="hidden md:flex items-center px-4 border-l border-border h-full font-mono select-none font-bold">
-                {(introStage === "morph" || introStage === "laser" || introStage === "done") && (
+                {(introStage === "morph" || introStage === "laser" || introStage === "reveal" || introStage === "done") && (
                   <motion.div 
                     layoutId="project-title-morph" 
                     style={{ display: "inline-block" }}
@@ -777,9 +783,53 @@ export default function TabPage() {
       {/* Redirect Curtain Transition */}
       <NorenRedirect active={isRedirecting} to="/" />
 
+      {/* Intro Home Reveal Curtain (after laser stage) */}
+      {introStage === "reveal" && (
+        <div className="fixed inset-0 flex z-[99998] pointer-events-none">
+          {[0, 1, 2].map((i) => (
+            <motion.div
+              key={`intro-reveal-panel-${i}`}
+              custom={i}
+              variants={{
+                initial: { y: "-100%" },
+                animate: (i: number) => ({
+                  y: ["-100%", "0%", "0%", "0%", "0%", "-100%"],
+                  transition: {
+                    duration: 1.6,
+                    times: [0, 0.25, 0.35, 0.65, 0.75, 1.0],
+                    ease: [0.76, 0, 0.24, 1],
+                    delay: i * 0.08
+                  }
+                })
+              }}
+              initial="initial"
+              animate="animate"
+              className="h-full flex-1 bg-white relative border-r last:border-r-0"
+            >
+              {/* Glowing blue border fades in on enter, fades out on exit */}
+              <motion.div
+                className="absolute inset-0 border border-[#3b82f6] pointer-events-none z-10"
+                animate={{
+                  opacity: [1, 1, 0, 0, 1, 1]
+                }}
+                transition={{
+                  duration: 1.6,
+                  times: [0, 0.25, 0.35, 0.65, 0.75, 1.0],
+                  ease: "easeInOut",
+                  delay: i * 0.08
+                }}
+                style={{
+                  boxShadow: "inset 0 0 15px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.5)"
+                }}
+              />
+            </motion.div>
+          ))}
+        </div>
+      )}
+
       {/* File Tree Intro Transition & Zoom Morphing on Mount */}
       <AnimatePresence>
-        {introStage !== "done" && (
+        {(introStage !== "done" && introStage !== "reveal") && (
           <motion.div
             key="intro-overlay"
             initial={{ backgroundColor: "rgba(255, 255, 255, 1)" }}
