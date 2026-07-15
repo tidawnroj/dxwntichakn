@@ -317,7 +317,6 @@ export default function TabPage() {
           <div className="flex items-center h-full">
             {/* File Explorer Mock-up on left */}
             <div className="hidden md:flex items-center px-4 border-r border-border text-xs text-foreground uppercase h-full font-mono select-none font-bold">
-              <span className="mr-2 text-sm">📁</span>
               <LineShadowText shadowColor="#3b82f6" className="font-extrabold tracking-wider text-sm">
                 PROJECT_TICHAKORN
               </LineShadowText>
