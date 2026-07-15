@@ -30,6 +30,27 @@ export default function Home() {
   const [showPage, setShowPage] = useState(false)
   const [isReady, setIsReady] = useState(false)
   const [isRedirecting, setIsRedirecting] = useState(false)
+  const [norenReveal, setNorenReveal] = useState(false)
+
+  // Skip IntroLoader if navigating back from Tab Mode
+  useEffect(() => {
+    if (typeof window !== "undefined" && sessionStorage.getItem("fromTabMode")) {
+      sessionStorage.removeItem("fromTabMode")
+      setLoading(false)
+      setShowPage(true)
+      setNorenReveal(true)
+    }
+  }, [])
+
+  // Manage reveal curtain duration on mount
+  useEffect(() => {
+    if (norenReveal) {
+      const timer = setTimeout(() => {
+        setNorenReveal(false)
+      }, 1000)
+      return () => clearTimeout(timer)
+    }
+  }, [norenReveal])
 
   // Disable page scrolling while loading
   useEffect(() => {
@@ -336,6 +357,40 @@ export default function Home() {
           
           {/* Transition redirect handler */}
           <NorenRedirect active={isRedirecting} to="/tab" />
+
+          {/* Page Reveal Curtain Transition on Mount */}
+          {norenReveal && (
+            <div className="fixed inset-0 flex z-[99999] pointer-events-none">
+              {[0, 1, 2].map((i) => (
+                <motion.div
+                  key={`reveal-panel-${i}`}
+                  custom={i}
+                  variants={{
+                    initial: { y: "0%", borderRightColor: "#ffffff", boxShadow: "0 0 0px rgba(59, 130, 246, 0)" },
+                    animate: (i: number) => ({
+                      y: "100%",
+                      borderRightColor: ["#ffffff", "#ffffff", "#3b82f6", "#3b82f6"],
+                      boxShadow: [
+                        "0 0 0px rgba(59, 130, 246, 0)",
+                        "0 0 0px rgba(59, 130, 246, 0)",
+                        "0 0 15px rgba(59, 130, 246, 0.3)",
+                        "0 0 15px rgba(59, 130, 246, 0.3)"
+                      ],
+                      transition: {
+                        duration: 0.9,
+                        times: [0, 0.25, 0.5, 1.0],
+                        ease: [0.76, 0, 0.24, 1],
+                        delay: i * 0.08
+                      }
+                    })
+                  }}
+                  initial="initial"
+                  animate="animate"
+                  className="h-full flex-1 bg-white border-r last:border-r-0"
+                />
+              ))}
+            </div>
+          )}
         </motion.div>
       )}
     </>
