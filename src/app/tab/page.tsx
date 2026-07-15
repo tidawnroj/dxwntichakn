@@ -612,7 +612,14 @@ export default function TabPage() {
                 className="max-w-xs w-full border p-5 rounded-lg font-mono text-xs text-[#1a1a1a]"
               >
                 {/* Explorer Header - dxwntichakn via DiaTextReveal */}
-                <div className="pb-2 border-b border-neutral-200 mb-2 h-6 flex items-center gap-1.5 text-xs text-neutral-400 font-bold uppercase tracking-wider relative">
+                <motion.div 
+                  animate={introStage === "dial" || introStage === "morph" 
+                    ? { borderBottomColor: "rgba(229, 229, 229, 0)" } 
+                    : { borderBottomColor: "rgba(229, 229, 229, 1)" }
+                  }
+                  transition={{ duration: 0.4 }}
+                  className="pb-2 border-b mb-2 h-6 flex items-center gap-1.5 text-xs text-neutral-400 font-bold tracking-wider relative normal-case"
+                >
                   <motion.div 
                     animate={introStage === "morph" || introStage === "dial" ? { opacity: 0 } : { opacity: 1 }}
                     transition={{ duration: 0.4 }}
@@ -624,23 +631,23 @@ export default function TabPage() {
                   {/* Single element animating from center large to header slot (NO morph warp!) */}
                   <motion.div 
                     animate={introStage === "dial" 
-                      ? { scale: 3.5, x: 140, y: 100, originX: 0.5, originY: 0.5 }
+                      ? { scale: 5.0, x: 140, y: 90, originX: 0.5, originY: 0.5 }
                       : introStage === "morph"
                         ? { scale: 1, x: 0, y: 0, opacity: 0 }
                         : { scale: 1, x: 0, y: 0, opacity: 1 }
                     }
                     transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-                    className="absolute font-sans font-bold text-[#1a1a1a] left-[20px]"
+                    className="absolute font-sans font-bold text-[#1a1a1a] left-[20px] normal-case"
                   >
                     <DiaTextReveal 
                       text="dxwntichakn" 
                       textColor="#1a1a1a"
                       colors={["#3b82f6", "#2563eb", "#1d4ed8", "#1e3a8a"]} 
                       duration={1.2}
-                      className="text-xs font-bold font-sans tracking-tight"
+                      className="text-xs font-bold font-sans tracking-tight normal-case"
                     />
                   </motion.div>
-                </div>
+                </motion.div>
 
                 {/* File Tree Structure */}
                 <div className="space-y-1.5">
