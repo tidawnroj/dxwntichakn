@@ -76,27 +76,22 @@ export default function TabPage() {
   const [nextTab, setNextTab] = useState<"index.html" | "projects.js" | "skills.py" | "contact.json" | null>(null)
   const [tabTransitionActive, setTabTransitionActive] = useState(false)
   const [isRedirecting, setIsRedirecting] = useState(false)
-  const [introStage, setIntroStage] = useState<"dial" | "tree" | "morph" | "done">("dial")
+  const [introStage, setIntroStage] = useState<"tree" | "morph" | "done">("tree")
 
   // File Tree Intro transition on page mount
   useEffect(() => {
-    // 1. Dial Text Reveal runs from 0ms to 1600ms
-    const treeTimer = setTimeout(() => {
-      setIntroStage("tree")
-    }, 1600)
-
-    // 2. File Tree displays, then starts zooming/morphing at 3200ms
+    // 1. Initially, the File Tree is visible and dxwntichakn runs Dialtext reveal.
+    // Start camera zoom ("morph" stage) at 2000ms
     const morphTimer = setTimeout(() => {
       setIntroStage("morph")
-    }, 3200)
+    }, 2000)
 
-    // 3. Complete morphing and fade out by 4200ms
+    // 2. Morph and fade out at 3200ms
     const doneTimer = setTimeout(() => {
       setIntroStage("done")
-    }, 4200)
+    }, 3200)
 
     return () => {
-      clearTimeout(treeTimer)
       clearTimeout(morphTimer)
       clearTimeout(doneTimer)
     }
@@ -578,64 +573,58 @@ export default function TabPage() {
             transition={{ duration: 0.6, ease: "easeInOut" }}
             className="fixed inset-0 bg-white z-[99999] flex flex-col items-center justify-center select-none"
           >
-            {introStage === "dial" && (
-              <div className="text-center">
-                <DiaTextReveal 
-                  text="dxwntichakn" 
-                  textColor="#1a1a1a"
-                  colors={["#3b82f6", "#2563eb", "#1d4ed8", "#1e3a8a"]} 
-                  duration={1.2}
-                  className="text-4xl md:text-6xl font-bold font-sans tracking-tight"
-                />
-              </div>
-            )}
-
             {(introStage === "tree" || introStage === "morph") && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={introStage === "morph" 
                   ? { 
                       opacity: [1, 1, 0], 
-                      scale: 1.45,
-                      y: -120,
-                      x: -220,
+                      scale: 2.2, // Zoom in deeper so only PROJECT_TICHAKORN is clearly visible
+                      y: 70, // Shift to center PROJECT_TICHAKORN on screen while zooming
+                      x: 80,
                       transition: { duration: 1.0, times: [0, 0.4, 1.0], ease: "easeInOut" } 
                     } 
-                  : { opacity: 1, scale: 1 }
+                  : { opacity: 1, scale: 1, y: 0, x: 0 }
                 }
                 className="max-w-xs w-full bg-[#f8f9fa] border border-neutral-200 p-5 rounded-lg shadow-sm font-mono text-xs text-[#1a1a1a]"
               >
-                <div className="flex items-center gap-1.5 pb-2 border-b border-neutral-200 mb-2 text-[10px] text-neutral-400 font-bold uppercase tracking-wider">
-                  <span>📁</span> Explorer
-                </div>
+                {/* Explorer Header - dxwntichakn via DiaTextReveal */}
+                <motion.div 
+                  animate={introStage === "morph" ? { opacity: 0 } : { opacity: 1 }}
+                  transition={{ duration: 0.4 }}
+                  className="flex items-center gap-1.5 pb-2 border-b border-neutral-200 mb-2 text-xs font-bold font-sans tracking-tight"
+                >
+                  <span>📁</span>
+                  <DiaTextReveal 
+                    text="dxwntichakn" 
+                    textColor="#1a1a1a"
+                    colors={["#3b82f6", "#2563eb", "#1d4ed8", "#1e3a8a"]} 
+                    duration={1.2}
+                    className="text-xs font-bold font-sans tracking-tight"
+                  />
+                </motion.div>
 
                 {/* File Tree Structure */}
                 <div className="space-y-1.5">
+                  {/* Root Node - PROJECT_TICHAKORN */}
                   <div className="flex items-center gap-1.5">
                     <span className="text-[#3b82f6] text-sm">📁</span>
-                    {introStage === "morph" ? (
-                      <motion.div 
-                        layoutId="project-title-morph" 
-                        style={{ display: "inline-block" }}
-                      >
-                        <span className="font-extrabold text-[#1a1a1a] tracking-wider text-[13px]">
-                          PROJECT_TICHAKORN
-                        </span>
-                      </motion.div>
-                    ) : (
-                      <motion.div 
-                        layoutId="project-title-morph" 
-                        style={{ display: "inline-block" }}
-                      >
-                        <span className="font-extrabold text-[#1a1a1a] tracking-wider text-[13px]">
-                          PROJECT_TICHAKORN
-                        </span>
-                      </motion.div>
-                    )}
+                    <motion.div 
+                      layoutId="project-title-morph" 
+                      style={{ display: "inline-block" }}
+                    >
+                      <span className="font-extrabold text-[#1a1a1a] tracking-wider text-[13px]">
+                        PROJECT_TICHAKORN
+                      </span>
+                    </motion.div>
                   </div>
                   
-                  {/* Nested nodes matching user's diagram */}
-                  <div className="pl-4 border-l border-neutral-200 ml-2 space-y-1.5 py-0.5">
+                  {/* Nested nodes (fades out during zoom-in morph stage) */}
+                  <motion.div 
+                    animate={introStage === "morph" ? { opacity: 0 } : { opacity: 1 }}
+                    transition={{ duration: 0.4 }}
+                    className="pl-4 border-l border-neutral-200 ml-2 space-y-1.5 py-0.5"
+                  >
                     <div className="flex items-center gap-1.5 text-neutral-500">
                       <span>📁</span> <span>src</span>
                     </div>
@@ -661,7 +650,7 @@ export default function TabPage() {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
               </motion.div>
             )}
