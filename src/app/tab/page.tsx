@@ -341,14 +341,6 @@ export default function TabPage() {
       <header className="fixed top-0 w-full z-50 bg-card border-b border-border">
         <div className="flex items-center justify-between h-12 overflow-x-auto no-scrollbar">
           <div className="flex items-center h-full">
-            {/* File Explorer Mock-up on left */}
-            <div className="hidden md:flex items-center px-4 border-r border-border text-xs text-foreground uppercase h-full font-mono select-none font-bold">
-              <motion.div layoutId="project-title-morph" style={{ display: "inline-block" }}>
-                <LineShadowText shadowColor="#3b82f6" className="font-extrabold tracking-wider text-sm">
-                  PROJECT_TICHAKORN
-                </LineShadowText>
-              </motion.div>
-            </div>
             {/* Tabs */}
             <nav className="flex h-full select-none">
               {[
@@ -375,7 +367,14 @@ export default function TabPage() {
           </div>
 
           {/* Right Controls */}
-          <div className="flex items-center gap-3 px-4">
+          <div className="flex items-center gap-3 h-full pr-4">
+            <div className="hidden md:flex items-center px-4 border-l border-border h-full font-mono select-none font-bold">
+              <motion.div layoutId="project-title-morph" style={{ display: "inline-block" }}>
+                <LineShadowText shadowColor="#3b82f6" className="font-extrabold tracking-wider text-sm">
+                  PROJECT_TICHAKORN
+                </LineShadowText>
+              </motion.div>
+            </div>
             <button
               onClick={() => {
                 if (typeof window !== "undefined") {
@@ -578,33 +577,14 @@ export default function TabPage() {
             transition={{ duration: 0.6, ease: "easeInOut" }}
             className="fixed inset-0 bg-white z-[99999] flex flex-col items-center justify-center select-none"
           >
-            {/* Stage 1: Large dxwntichakn centered */}
-            {introStage === "dial" && (
-              <div className="text-center">
-                <motion.div 
-                  layoutId="tree-title-morph" 
-                  style={{ display: "inline-block" }}
-                >
-                  <DiaTextReveal 
-                    text="dxwntichakn" 
-                    textColor="#1a1a1a"
-                    colors={["#3b82f6", "#2563eb", "#1d4ed8", "#1e3a8a"]} 
-                    duration={1.2}
-                    className="text-4xl md:text-6xl font-bold font-sans tracking-tight"
-                  />
-                </motion.div>
-              </div>
-            )}
-
-            {/* Stage 2 & 3: File Tree displayed and title shrunk down / zoomed */}
-            {(introStage === "tree" || introStage === "morph") && (
+            {(introStage === "dial" || introStage === "tree" || introStage === "morph") && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={introStage === "morph" 
                   ? { 
                       opacity: [1, 1, 0], 
-                      scale: 2.2, // Zoom in deeper so only PROJECT_TICHAKORN is clearly visible
-                      y: 70, // Shift to center PROJECT_TICHAKORN on screen while zooming
+                      scale: 2.2,
+                      y: 70,
                       x: 80,
                       transition: { duration: 1.0, times: [0, 0.4, 1.0], ease: "easeInOut" } 
                     } 
@@ -613,15 +593,25 @@ export default function TabPage() {
                 className="max-w-xs w-full bg-[#f8f9fa] border border-neutral-200 p-5 rounded-lg shadow-sm font-mono text-xs text-[#1a1a1a]"
               >
                 {/* Explorer Header - dxwntichakn via DiaTextReveal */}
-                <motion.div 
-                  animate={introStage === "morph" ? { opacity: 0 } : { opacity: 1 }}
-                  transition={{ duration: 0.4 }}
-                  className="flex items-center gap-1.5 pb-2 border-b border-neutral-200 mb-2 text-xs font-bold font-sans tracking-tight"
-                >
-                  <span>📁</span>
+                <div className="pb-2 border-b border-neutral-200 mb-2 h-6 flex items-center gap-1.5 text-xs text-neutral-400 font-bold uppercase tracking-wider relative">
                   <motion.div 
-                    layoutId="tree-title-morph" 
-                    style={{ display: "inline-block" }}
+                    animate={introStage === "morph" ? { opacity: 0 } : { opacity: 1 }}
+                    transition={{ duration: 0.4 }}
+                    className="flex items-center"
+                  >
+                    <span>📁</span>
+                  </motion.div>
+                  
+                  {/* Single element animating from center large to header slot */}
+                  <motion.div 
+                    animate={introStage === "dial" 
+                      ? { scale: 3.5, x: 120, y: 90, originX: 0.5, originY: 0.5 }
+                      : introStage === "morph"
+                        ? { scale: 1, x: 0, y: 0, opacity: 0 }
+                        : { scale: 1, x: 0, y: 0, opacity: 1 }
+                    }
+                    transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+                    className="absolute font-sans font-bold text-[#1a1a1a] left-[20px]"
                   >
                     <DiaTextReveal 
                       text="dxwntichakn" 
@@ -631,7 +621,7 @@ export default function TabPage() {
                       className="text-xs font-bold font-sans tracking-tight"
                     />
                   </motion.div>
-                </motion.div>
+                </div>
 
                 {/* File Tree Structure */}
                 <div className="space-y-1.5">
@@ -642,15 +632,20 @@ export default function TabPage() {
                       layoutId="project-title-morph" 
                       style={{ display: "inline-block" }}
                     >
-                      <span className="font-extrabold text-[#1a1a1a] tracking-wider text-[13px]">
+                      <span className="font-extrabold text-[#1a1a1a] tracking-wider text-sm">
                         PROJECT_TICHAKORN
                       </span>
                     </motion.div>
                   </div>
                   
-                  {/* Nested nodes (fades out during zoom-in morph stage) */}
+                  {/* Nested nodes (fades in during tree stage, fades out in morph stage) */}
                   <motion.div 
-                    animate={introStage === "morph" ? { opacity: 0 } : { opacity: 1 }}
+                    animate={introStage === "dial" 
+                      ? { opacity: 0 } 
+                      : introStage === "morph" 
+                        ? { opacity: 0 } 
+                        : { opacity: 1 }
+                    }
                     transition={{ duration: 0.4 }}
                     className="pl-4 border-l border-neutral-200 ml-2 space-y-1.5 py-0.5"
                   >
