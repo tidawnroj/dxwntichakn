@@ -79,49 +79,94 @@ function LaserBox({
 }: { 
   active: boolean; 
   children: React.ReactNode; 
-  type?: "rect" | "circle" 
+  type?: "rect" | "circle" | "header" | "dock" 
 }) {
   return (
     <div className="relative w-full h-full">
       {active && (
-        <svg className="absolute inset-0 w-full h-full pointer-events-none z-30 overflow-visible" viewBox="0 0 100 100" preserveAspectRatio="none">
-          {type === "rect" ? (
-            <motion.rect
-              x="0.2"
-              y="0.2"
-              width="99.6"
-              height="99.6"
-              rx="1.5"
-              ry="1.5"
-              fill="none"
-              stroke="#3b82f6"
-              strokeWidth="0.8"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1.2, ease: "easeInOut" }}
-              style={{ 
-                filter: "drop-shadow(0 0 6px rgba(59, 130, 246, 0.85))",
-                strokeLinecap: "round"
-              }}
-            />
-          ) : (
-            <motion.circle
-              cx="50"
-              cy="50"
-              r="49"
-              fill="none"
-              stroke="#3b82f6"
-              strokeWidth="0.8"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1.2, ease: "easeInOut" }}
-              style={{ 
-                filter: "drop-shadow(0 0 6px rgba(59, 130, 246, 0.85))",
-                strokeLinecap: "round"
-              }}
-            />
+        <>
+          {type === "rect" && (
+            <svg className="absolute inset-0 w-full h-full pointer-events-none z-30 overflow-visible" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <motion.rect
+                x="0.2"
+                y="0.2"
+                width="99.6"
+                height="99.6"
+                rx="1.5"
+                ry="1.5"
+                fill="none"
+                stroke="#3b82f6"
+                strokeWidth="0.8"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.2, ease: "easeInOut" }}
+                style={{ 
+                  filter: "drop-shadow(0 0 6px rgba(59, 130, 246, 0.85))",
+                  strokeLinecap: "round"
+                }}
+              />
+            </svg>
           )}
-        </svg>
+          {type === "circle" && (
+            <svg className="absolute inset-0 w-full h-full pointer-events-none z-30 overflow-visible" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <motion.circle
+                cx="50"
+                cy="50"
+                r="49"
+                fill="none"
+                stroke="#3b82f6"
+                strokeWidth="0.8"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.2, ease: "easeInOut" }}
+                style={{ 
+                  filter: "drop-shadow(0 0 6px rgba(59, 130, 246, 0.85))",
+                  strokeLinecap: "round"
+                }}
+              />
+            </svg>
+          )}
+          {type === "header" && (
+            <svg className="absolute bottom-0 left-0 w-full h-[2px] pointer-events-none z-30 overflow-visible" viewBox="0 0 100 2" preserveAspectRatio="none">
+              <motion.line
+                x1="0"
+                y1="1"
+                x2="100"
+                y2="1"
+                stroke="#3b82f6"
+                strokeWidth="2"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.2, ease: "easeInOut" }}
+                style={{ 
+                  filter: "drop-shadow(0 0 6px rgba(59, 130, 246, 0.9))"
+                }}
+              />
+            </svg>
+          )}
+          {type === "dock" && (
+            <svg className="absolute inset-0 w-full h-full pointer-events-none z-30 overflow-visible" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <motion.rect
+                x="0.2"
+                y="0.2"
+                width="99.6"
+                height="99.6"
+                rx="15"
+                ry="15"
+                fill="none"
+                stroke="#3b82f6"
+                strokeWidth="0.8"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.2, ease: "easeInOut" }}
+                style={{ 
+                  filter: "drop-shadow(0 0 6px rgba(59, 130, 246, 0.85))",
+                  strokeLinecap: "round"
+                }}
+              />
+            </svg>
+          )}
+        </>
       )}
       {children}
     </div>
@@ -400,69 +445,80 @@ export default function TabPage() {
       {/* Matrix Background */}
       <MatrixRain />
 
-      {/* IDE Style Header */}
-      <header className="fixed top-0 w-full z-50 bg-card border-b border-border">
-        <div className="flex items-center justify-between h-12 overflow-x-auto no-scrollbar">
-          <div className="flex items-center h-full">
-            {/* Tabs */}
-            <nav className="flex h-full select-none">
-              {[
-                { id: "index.html", label: "index.html" },
-                { id: "projects.js", label: "projects.js" },
-                { id: "skills.py", label: "skills.py" },
-                { id: "contact.json", label: "contact.json" }
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => handleTabChange(tab.id as any)}
-                  className={`flex items-center px-6 h-full text-sm border-r border-border transition-colors cursor-pointer font-mono ${
-                    activeTab === tab.id 
-                      ? "tab-active" 
-                      : "text-muted-foreground hover:bg-muted/50"
-                  }`}
-                >
-                  <span className={`${activeTab === tab.id ? "text-[#3b82f6]" : "text-muted-foreground"} mr-2`}>
-                    {tab.label}
-                  </span>
-                </button>
-              ))}
-            </nav>
-          </div>
-
-          {/* Right Controls */}
-          <div className="flex items-center gap-3 h-full pr-4">
-            <div className="hidden md:flex items-center px-4 border-l border-border h-full font-mono select-none font-bold">
-              <motion.div layoutId="project-title-morph" style={{ display: "inline-block" }}>
-                <LineShadowText shadowColor="#3b82f6" className="font-extrabold tracking-wider text-sm">
-                  PROJECT_TICHAKORN
-                </LineShadowText>
-              </motion.div>
+      {/* IDE Style Header with Laser Draw */}
+      <LaserBox active={introStage === "laser"} type="header">
+        <header className={cn("fixed top-0 w-full z-50 bg-card transition-all duration-300", (introStage === "laser" || introStage === "morph" || introStage === "dial") ? "border-b-0" : "border-b border-border")}>
+          <div className="flex items-center justify-between h-12 overflow-x-auto no-scrollbar">
+            <div className="flex items-center h-full">
+              {/* Tabs (Hidden during intro stages, fades in at done) */}
+              <nav 
+                className="flex h-full select-none transition-opacity duration-500"
+                style={{ opacity: introStage === "done" ? 1 : 0 }}
+              >
+                {[
+                  { id: "index.html", label: "index.html" },
+                  { id: "projects.js", label: "projects.js" },
+                  { id: "skills.py", label: "skills.py" },
+                  { id: "contact.json", label: "contact.json" }
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => handleTabChange(tab.id as any)}
+                    className={`flex items-center px-6 h-full text-sm border-r border-border transition-colors cursor-pointer font-mono ${
+                      activeTab === tab.id 
+                        ? "tab-active" 
+                        : "text-muted-foreground hover:bg-muted/50"
+                    }`}
+                  >
+                    <span className={`${activeTab === tab.id ? "text-[#3b82f6]" : "text-muted-foreground"} mr-2`}>
+                      {tab.label}
+                    </span>
+                  </button>
+                ))}
+              </nav>
             </div>
-            <button
-              onClick={() => {
-                if (typeof window !== "undefined") {
-                  sessionStorage.setItem("fromTabMode", "true")
-                }
-                setIsRedirecting(true)
-              }}
-              className="text-[9px] font-mono font-bold tracking-wider uppercase border border-border px-3 py-1.5 rounded-full bg-background hover:bg-muted active:scale-95 transition-all shadow-sm cursor-pointer flex items-center gap-1 text-muted-foreground"
-            >
-              <LogOut className="w-3 h-3" /> Scroll Mode
-            </button>
-            <AnimatedThemeToggler />
+
+            {/* Right Controls */}
+            <div className="flex items-center gap-3 h-full pr-4">
+              {/* PROJECT_TICHAKORN is visible from morph stage onwards */}
+              <div className="hidden md:flex items-center px-4 border-l border-border h-full font-mono select-none font-bold">
+                <motion.div layoutId="project-title-morph" style={{ display: "inline-block" }}>
+                  <LineShadowText shadowColor="#3b82f6" className="font-extrabold tracking-wider text-sm">
+                    PROJECT_TICHAKORN
+                  </LineShadowText>
+                </motion.div>
+              </div>
+              {/* Buttons (Hidden during intro stages, fades in at done) */}
+              <div 
+                className="flex items-center gap-3 transition-opacity duration-500"
+                style={{ opacity: introStage === "done" ? 1 : 0 }}
+              >
+                <button
+                  onClick={() => {
+                    if (typeof window !== "undefined") {
+                      sessionStorage.setItem("fromTabMode", "true")
+                    }
+                    setIsRedirecting(true)
+                  }}
+                  className="text-[9px] font-mono font-bold tracking-wider uppercase border border-border px-3 py-1.5 rounded-full bg-background hover:bg-muted active:scale-95 transition-all shadow-sm cursor-pointer flex items-center gap-1 text-muted-foreground"
+                >
+                  <LogOut className="w-3 h-3" /> Scroll Mode
+                </button>
+                <AnimatedThemeToggler />
+              </div>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
+      </LaserBox>
 
       {/* Hero Section */}
       <main className="min-h-screen flex items-center justify-center pt-20 pb-32 px-4 relative z-10">
         <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Terminal UI Container */}
           <section className="lg:col-span-7 relative h-full">
             <LaserBox active={introStage === "laser"} type="rect">
               <motion.div
-                animate={introStage === "laser" ? { opacity: [0, 0, 1] } : { opacity: 1 }}
-                transition={{ duration: 1.2, times: [0, 0.4, 1.0] }}
+                animate={introStage === "done" ? { opacity: 1 } : { opacity: 0 }}
+                transition={{ duration: 0.5 }}
                 className="terminal-window p-8 rounded-lg shadow-2xl relative overflow-hidden flex flex-col justify-between w-full h-full"
               >
                 {/* Terminal Header Controls */}
@@ -496,8 +552,8 @@ export default function TabPage() {
               <div className="relative">
                 <LaserBox active={introStage === "laser"} type="circle">
                   <motion.div
-                    animate={introStage === "laser" ? { opacity: [0, 0, 1] } : { opacity: 1 }}
-                    transition={{ duration: 1.2, times: [0, 0.4, 1.0] }}
+                    animate={introStage === "done" ? { opacity: 1 } : { opacity: 0 }}
+                    transition={{ duration: 0.5 }}
                     className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-[#3b82f6] relative z-10 bg-card shadow-[0_0_30px_rgba(59,130,246,0.2)] dark:shadow-[0_0_40px_rgba(59,130,246,0.3)] transition-all duration-300"
                   >
                     <img 
@@ -511,8 +567,8 @@ export default function TabPage() {
 
               {/* ID Badge Decor */}
               <motion.div 
-                animate={introStage === "laser" ? { opacity: [0, 0, 1] } : { opacity: 1 }}
-                transition={{ duration: 1.2, times: [0, 0.5, 1.0] }}
+                animate={introStage === "done" ? { opacity: 1 } : { opacity: 0 }}
+                transition={{ duration: 0.5 }}
                 className="absolute -bottom-4 -right-4 bg-card border border-border px-4 py-2 text-[10px] text-[#3b82f6] z-20 shadow-xl leading-relaxed select-none font-bold"
               >
                 STATUS: ACTIVE<br/>
@@ -535,57 +591,62 @@ export default function TabPage() {
         </div>
       </div>
 
-      {/* Floating Navigation */}
+      {/* Floating Navigation with Laser Draw */}
       <footer className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 select-none">
-        <Dock direction="middle">
-          {[
-            { id: "index.html", title: "Home", icon: <HomeIcon className="w-5 h-5" /> },
-            { id: "projects.js", title: "Projects", icon: <FileText className="w-5 h-5" /> },
-            { id: "skills.py", title: "Skills", icon: (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
-              </svg>
-            )},
-            { id: "contact.json", title: "Contact", icon: <Mail className="w-5 h-5" /> }
-          ].map((item) => (
-            <DockIcon key={item.id}>
-              <div className="group relative w-full h-full flex items-center justify-center">
-                <button
-                  onClick={() => handleTabChange(item.id as any)}
-                  className={`w-full h-full flex items-center justify-center rounded-full transition-all duration-200 hover:scale-125 hover:-translate-y-1.5 active:scale-95 cursor-pointer ${
-                    activeTab === item.id 
-                      ? "bg-[#3b82f6]/15 text-[#3b82f6]" 
-                      : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
-                  }`}
-                  aria-label={item.title}
-                >
-                  {item.icon}
-                </button>
-                <span className="pointer-events-none absolute -top-10 scale-0 transition-all duration-200 rounded bg-neutral-900/90 dark:bg-neutral-100/90 px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-neutral-50 dark:text-neutral-900 shadow-md group-hover:scale-100 origin-bottom">
-                  {item.title}
-                </span>
-              </div>
-            </DockIcon>
-          ))}
+        <LaserBox active={introStage === "laser"} type="dock">
+          <div 
+            className="transition-opacity duration-500"
+            style={{ opacity: introStage === "done" ? 1 : 0 }}
+          >
+            <Dock direction="middle">
+              {[
+                { id: "index.html", title: "Home", icon: <HomeIcon className="w-5 h-5" /> },
+                { id: "projects.js", title: "Projects", icon: <FileText className="w-5 h-5" /> },
+                { id: "skills.py", title: "Skills", icon: (
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
+                  </svg>
+                )},
+                { id: "contact.json", title: "Contact", icon: <Mail className="w-5 h-5" /> }
+              ].map((item) => (
+                <DockIcon key={item.id}>
+                  <div className="group relative w-full h-full flex items-center justify-center">
+                    <button
+                      onClick={() => handleTabChange(item.id as any)}
+                      className={`w-full h-full flex items-center justify-center rounded-full transition-all duration-200 hover:scale-125 hover:-translate-y-1.5 active:scale-95 cursor-pointer ${
+                        activeTab === item.id 
+                          ? "bg-[#3b82f6]/15 text-[#3b82f6]" 
+                          : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                      }`}
+                      aria-label={item.title}
+                    >
+                      {item.icon}
+                    </button>
+                    <span className="pointer-events-none absolute -top-10 scale-0 transition-all duration-200 rounded bg-neutral-900/90 dark:bg-neutral-100/90 px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-neutral-50 dark:text-neutral-900 shadow-md group-hover:scale-100 origin-bottom">
+                      {item.title}
+                    </span>
+                  </div>
+                </DockIcon>
+              ))}
 
-          {/* Separator */}
-          <div className="h-6 w-[1px] bg-border mx-1 self-center" />
+              {/* Separator */}
+              <div className="h-6 w-[1px] bg-border mx-1 self-center" />
 
-          {/* GitHub Icon */}
-          <DockIcon>
-            <div className="group relative w-full h-full flex items-center justify-center">
-              <a 
-                href="https://github.com/tidawnroj" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="w-full h-full flex items-center justify-center rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800/50 hover:scale-125 hover:-translate-y-1.5 active:scale-95 transition-all duration-200 text-muted-foreground hover:text-foreground"
-                aria-label="GitHub"
-              >
-                <GitHubLogoIcon className="w-5 h-5" />
-              </a>
-              <span className="pointer-events-none absolute -top-10 scale-0 transition-all duration-200 rounded bg-neutral-900/90 dark:bg-neutral-100/90 px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-neutral-50 dark:text-neutral-900 shadow-md group-hover:scale-100 origin-bottom">
-                GitHub
-              </span>
+              {/* GitHub Icon */}
+              <DockIcon>
+                <div className="group relative w-full h-full flex items-center justify-center">
+                  <a 
+                    href="https://github.com/tidawnroj" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="w-full h-full flex items-center justify-center rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800/50 hover:scale-125 hover:-translate-y-1.5 active:scale-95 transition-all duration-200 text-muted-foreground hover:text-foreground"
+                    aria-label="GitHub"
+                  >
+                    <GitHubLogoIcon className="w-5 h-5" />
+                  </a>
+                  <span className="pointer-events-none absolute -top-10 scale-0 transition-all duration-200 rounded bg-neutral-900/90 dark:bg-neutral-100/90 px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-neutral-50 dark:text-neutral-900 shadow-md group-hover:scale-100 origin-bottom">
+                    GitHub
+                  </span>
             </div>
           </DockIcon>
 
@@ -607,6 +668,8 @@ export default function TabPage() {
             </div>
           </DockIcon>
         </Dock>
+          </div>
+        </LaserBox>
       </footer>
 
       {/* Tab Switch Curtain Transition */}
