@@ -15,6 +15,8 @@ import { motion, AnimatePresence } from "framer-motion"
 import { LineShadowText } from "@/components/ui/line-shadow-text"
 import { DiaTextReveal } from "@/components/ui/dia-text-reveal"
 import { cn } from "@/lib/utils"
+import { Tree, Folder, File } from "@/components/ui/file-tree"
+import type { TreeViewElement } from "@/components/ui/file-tree"
 
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] })
 
@@ -173,7 +175,71 @@ function LaserBox({
   );
 }
 
+const PROJECT_TREE: TreeViewElement[] = [
+  {
+    id: "project",
+    type: "folder",
+    isSelectable: true,
+    name: "PROJECT_TICHAKORN",
+    children: [
+      {
+        id: "src",
+        type: "folder",
+        isSelectable: true,
+        name: "src",
+        children: [
+          {
+            id: "app",
+            type: "folder",
+            isSelectable: true,
+            name: "app",
+            children: [
+              { id: "layout-tsx", isSelectable: true, name: "layout.tsx" },
+              { id: "page-tsx", isSelectable: true, name: "page.tsx" },
+              { id: "globals-css", isSelectable: true, name: "globals.css" },
+            ],
+          },
+          {
+            id: "components",
+            type: "folder",
+            isSelectable: true,
+            name: "components",
+            children: [
+              { id: "sidebar-nav", isSelectable: true, name: "SidebarNav.tsx" },
+              { id: "intro-loader", isSelectable: true, name: "IntroLoader.tsx" },
+              {
+                id: "ui",
+                type: "folder",
+                isSelectable: true,
+                name: "ui",
+                children: [
+                  { id: "dock", isSelectable: true, name: "dock.tsx" },
+                  { id: "file-tree", isSelectable: true, name: "file-tree.tsx" },
+                  { id: "noren-redirect", isSelectable: true, name: "noren-redirect.tsx" },
+                ],
+              },
+            ],
+          },
+          {
+            id: "lib",
+            type: "folder",
+            isSelectable: true,
+            name: "lib",
+            children: [
+              { id: "utils", isSelectable: true, name: "utils.ts" },
+            ],
+          },
+        ],
+      },
+      { id: "package-json", isSelectable: true, name: "package.json" },
+      { id: "tsconfig", isSelectable: true, name: "tsconfig.json" },
+      { id: "tailwind-config", isSelectable: true, name: "tailwind.config.ts" },
+    ],
+  },
+]
+
 export default function TabPage() {
+
   const [activeTab, setActiveTab] = useState<"index.html" | "projects.js" | "skills.py" | "contact.json">("index.html")
   const [nextTab, setNextTab] = useState<"index.html" | "projects.js" | "skills.py" | "contact.json" | null>(null)
   const [tabTransitionActive, setTabTransitionActive] = useState(false)
@@ -885,7 +951,7 @@ export default function TabPage() {
                     transition={{ duration: 0.4 }}
                     className="flex items-center"
                   >
-                    <span>📁</span>
+                    <svg className="size-4 text-[#3b82f6]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" /></svg>
                   </motion.div>
                   {/* Space reservation for header slot */}
                   <div className="h-6 w-24" />
@@ -911,70 +977,25 @@ export default function TabPage() {
                   />
                 </motion.div>
 
-                {/* File Tree Structure */}
-                <div className="space-y-2">
-                  {/* Root Node - PROJECT_TICHAKORN */}
-                  <div className="flex items-center gap-1.5">
-                    <motion.div 
-                      animate={introStage === "morph" || introStage === "dial" ? { opacity: 0 } : { opacity: 1 }}
-                      transition={{ duration: 0.4 }}
-                      className="flex items-center"
-                    >
-                      <span className="text-[#3b82f6] text-base">📁</span>
-                    </motion.div>
-                    
-                    {(introStage === "dial" || introStage === "tree") && (
-                      <motion.div 
-                        layoutId="project-title-morph" 
-                        style={{ display: "inline-block" }}
-                        animate={introStage === "dial" ? { opacity: 0 } : { opacity: 1 }}
-                        transition={{ duration: 0.4 }}
-                      >
-                        <span className="font-extrabold text-[#1a1a1a] tracking-wider text-sm select-none">
-                          PROJECT_TICHAKORN
-                        </span>
-                      </motion.div>
-                    )}
-                  </div>
-                  
-                  {/* Nested nodes (fades in during tree stage, fades out in morph stage) */}
-                  <motion.div 
-                    animate={introStage === "dial" 
+                {/* File Tree Structure - Magic UI Tree */}
+                <motion.div
+                  animate={introStage === "dial" 
+                    ? { opacity: 0 } 
+                    : introStage === "morph" 
                       ? { opacity: 0 } 
-                      : introStage === "morph" 
-                        ? { opacity: 0 } 
-                        : { opacity: 1 }
-                    }
-                    transition={{ duration: 0.4 }}
-                    className="pl-5 border-l border-neutral-200 ml-2.5 space-y-2 py-0.5"
-                  >
-                    <div className="flex items-center gap-1.5 text-neutral-500 text-sm">
-                      <span>📁</span> <span>src</span>
-                    </div>
-                    <div className="pl-5 border-l border-neutral-200 ml-2.5 space-y-1.5">
-                      <div className="flex items-center gap-1.5 text-neutral-500 text-sm">
-                        <span>📁</span> <span>app</span>
-                      </div>
-                      <div className="pl-5 border-l border-neutral-200 ml-2.5 space-y-1 text-xs text-neutral-400">
-                        <div className="flex items-center gap-1">
-                          <span>📄</span> <span>layout.tsx</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <span>📄</span> <span>page.tsx</span>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-center gap-1.5 text-neutral-500 text-sm">
-                        <span>📁</span> <span>components</span>
-                      </div>
-                      <div className="pl-5 border-l border-neutral-200 ml-2.5 space-y-1 text-xs text-neutral-400">
-                        <div className="flex items-center gap-1">
-                          <span>📄</span> <span>SidebarNav.tsx</span>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
+                      : { opacity: 1 }
+                  }
+                  transition={{ duration: 0.4 }}
+                  className="overflow-hidden"
+                  style={{ height: "180px" }}
+                >
+                  <Tree
+                    className="bg-transparent h-full w-full p-0 font-mono text-xs [&_button]:text-[#374151] [&_button]:gap-1.5 [&_button]:py-0.5 [&_button:hover]:bg-neutral-100 [&_button:hover]:rounded [&_.lucide-folder]:text-[#3b82f6] [&_.lucide-folder-open]:text-[#3b82f6] [&_.lucide-file]:text-neutral-400 [&_span]:truncate"
+                    initialSelectedId="page-tsx"
+                    initialExpandedItems={["project", "src", "app", "components"]}
+                    elements={PROJECT_TREE}
+                  />
+                </motion.div>
               </motion.div>
             )}
           </motion.div>
