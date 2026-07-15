@@ -90,12 +90,12 @@ export default function TabPage() {
     if (tabTransitionActive && nextTab) {
       const timer = setTimeout(() => {
         setActiveTab(nextTab)
-      }, 450)
+      }, 600)
       
       const endTimer = setTimeout(() => {
         setTabTransitionActive(false)
         setNextTab(null)
-      }, 950)
+      }, 1800)
 
       return () => {
         clearTimeout(timer)
@@ -510,12 +510,25 @@ export default function TabPage() {
             key={`tab-transition-panel-${i}`}
             custom={i}
             variants={{
-              initial: { y: "-100%" },
+              initial: { y: "-100%", borderRightColor: "#3b82f6", boxShadow: "0 0 15px rgba(59, 130, 246, 0.3)" },
               animate: (i: number) => ({
-                y: tabTransitionActive ? ["-100%", "0%", "100%"] : "-100%",
+                y: tabTransitionActive ? ["-100%", "0%", "0%", "0%", "0%", "100%"] : "-100%",
+                borderRightColor: tabTransitionActive 
+                  ? ["#3b82f6", "#3b82f6", "#ffffff", "#ffffff", "#3b82f6", "#3b82f6"] 
+                  : "#3b82f6",
+                boxShadow: tabTransitionActive
+                  ? [
+                      "0 0 15px rgba(59, 130, 246, 0.3)",
+                      "0 0 15px rgba(59, 130, 246, 0.3)",
+                      "0 0 0px rgba(59, 130, 246, 0)",
+                      "0 0 0px rgba(59, 130, 246, 0)",
+                      "0 0 15px rgba(59, 130, 246, 0.3)",
+                      "0 0 15px rgba(59, 130, 246, 0.3)"
+                    ]
+                  : "0 0 15px rgba(59, 130, 246, 0.3)",
                 transition: {
-                  duration: 0.8,
-                  times: [0, 0.5, 1],
+                  duration: 1.6,
+                  times: [0, 0.25, 0.35, 0.65, 0.75, 1.0],
                   ease: [0.76, 0, 0.24, 1],
                   delay: i * 0.08
                 }
@@ -523,7 +536,7 @@ export default function TabPage() {
             }}
             initial="initial"
             animate="animate"
-            className="h-full flex-1 bg-background border-r border-border/10 last:border-r-0"
+            className="h-full flex-1 bg-white border-r last:border-r-0"
           />
         ))}
       </div>
@@ -539,11 +552,19 @@ export default function TabPage() {
               key={`reveal-panel-${i}`}
               custom={i}
               variants={{
-                initial: { y: "0%" },
+                initial: { y: "0%", borderRightColor: "#ffffff", boxShadow: "0 0 0px rgba(59, 130, 246, 0)" },
                 animate: (i: number) => ({
                   y: "100%",
+                  borderRightColor: ["#ffffff", "#ffffff", "#3b82f6", "#3b82f6"],
+                  boxShadow: [
+                    "0 0 0px rgba(59, 130, 246, 0)",
+                    "0 0 0px rgba(59, 130, 246, 0)",
+                    "0 0 15px rgba(59, 130, 246, 0.3)",
+                    "0 0 15px rgba(59, 130, 246, 0.3)"
+                  ],
                   transition: {
-                    duration: 0.55,
+                    duration: 0.9,
+                    times: [0, 0.25, 0.5, 1.0],
                     ease: [0.76, 0, 0.24, 1],
                     delay: i * 0.08
                   }
@@ -551,7 +572,7 @@ export default function TabPage() {
               }}
               initial="initial"
               animate="animate"
-              className="h-full flex-1 bg-background border-r border-border/10 last:border-r-0"
+              className="h-full flex-1 bg-white border-r last:border-r-0"
             />
           ))}
         </div>
