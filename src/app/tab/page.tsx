@@ -2,11 +2,12 @@
 
 import { useState, useEffect } from "react"
 import { JetBrains_Mono } from "next/font/google"
-import { ChevronRight, LogOut } from "lucide-react"
+import { ChevronRight, LogOut, Home as HomeIcon, FileText, Mail } from "lucide-react"
 import { GitHubLogoIcon, InstagramLogoIcon } from "@radix-ui/react-icons"
 import { NorenTransition } from "@/components/ui/noren-transition"
 import { NorenRedirect } from "@/components/ui/noren-redirect"
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler"
+import { Dock, DockIcon } from "@/components/ui/dock"
 
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] })
 
@@ -377,53 +378,77 @@ export default function TabPage() {
       </div>
 
       {/* Floating Navigation */}
-      <footer className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4 select-none">
-        <div className="glass-nav rounded-2xl flex items-center justify-around p-3 shadow-2xl">
+      <footer className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 select-none">
+        <Dock direction="middle">
           {[
-            { id: "index.html", title: "Home", icon: (
-              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
-              </svg>
-            )},
-            { id: "projects.js", title: "Projects", icon: (
-              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
-              </svg>
-            )},
+            { id: "index.html", title: "Home", icon: <HomeIcon className="w-5 h-5" /> },
+            { id: "projects.js", title: "Projects", icon: <FileText className="w-5 h-5" /> },
             { id: "skills.py", title: "Skills", icon: (
-              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
               </svg>
             )},
-            { id: "contact.json", title: "Contact", icon: (
-              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
-              </svg>
-            )}
+            { id: "contact.json", title: "Contact", icon: <Mail className="w-5 h-5" /> }
           ].map((item) => (
-            <button
-              key={item.id}
-              onClick={() => setActiveTab(item.id as any)}
-              className={`p-2 rounded-lg transition-all cursor-pointer ${
-                activeTab === item.id 
-                  ? "bg-[#3b82f6]/10 text-[#3b82f6]" 
-                  : "text-muted-foreground hover:text-[#3b82f6] hover:bg-[#3b82f6]/5"
-              }`}
-              title={item.title}
-            >
-              {item.icon}
-            </button>
+            <DockIcon key={item.id}>
+              <div className="group relative w-full h-full flex items-center justify-center">
+                <button
+                  onClick={() => setActiveTab(item.id as any)}
+                  className={`w-full h-full flex items-center justify-center rounded-full transition-all duration-200 hover:scale-125 hover:-translate-y-1.5 active:scale-95 cursor-pointer ${
+                    activeTab === item.id 
+                      ? "bg-[#3b82f6]/15 text-[#3b82f6]" 
+                      : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                  }`}
+                  aria-label={item.title}
+                >
+                  {item.icon}
+                </button>
+                <span className="pointer-events-none absolute -top-10 scale-0 transition-all duration-200 rounded bg-neutral-900/90 dark:bg-neutral-100/90 px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-neutral-50 dark:text-neutral-900 shadow-md group-hover:scale-100 origin-bottom">
+                  {item.title}
+                </span>
+              </div>
+            </DockIcon>
           ))}
-          <div className="h-6 w-[1px] bg-border mx-1" />
-          {/* GitHub Link */}
-          <a href="https://github.com/tidawnroj" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg text-muted-foreground hover:text-[#3b82f6] hover:bg-[#3b82f6]/5 transition-all">
-            <GitHubLogoIcon className="h-5 w-5" />
-          </a>
-          {/* Instagram Link */}
-          <a href="https://instagram.com/dxwntichakn" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg text-muted-foreground hover:text-[#3b82f6] hover:bg-[#3b82f6]/5 transition-all">
-            <InstagramLogoIcon className="h-5 w-5" />
-          </a>
-        </div>
+
+          {/* Separator */}
+          <div className="h-6 w-[1px] bg-border mx-1 self-center" />
+
+          {/* GitHub Icon */}
+          <DockIcon>
+            <div className="group relative w-full h-full flex items-center justify-center">
+              <a 
+                href="https://github.com/tidawnroj" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-full h-full flex items-center justify-center rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800/50 hover:scale-125 hover:-translate-y-1.5 active:scale-95 transition-all duration-200 text-muted-foreground hover:text-foreground"
+                aria-label="GitHub"
+              >
+                <GitHubLogoIcon className="w-5 h-5" />
+              </a>
+              <span className="pointer-events-none absolute -top-10 scale-0 transition-all duration-200 rounded bg-neutral-900/90 dark:bg-neutral-100/90 px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-neutral-50 dark:text-neutral-900 shadow-md group-hover:scale-100 origin-bottom">
+                GitHub
+              </span>
+            </div>
+          </DockIcon>
+
+          {/* Instagram Icon */}
+          <DockIcon>
+            <div className="group relative w-full h-full flex items-center justify-center">
+              <a 
+                href="https://instagram.com/dxwntichakn" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-full h-full flex items-center justify-center rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800/50 hover:scale-125 hover:-translate-y-1.5 active:scale-95 transition-all duration-200 text-muted-foreground hover:text-foreground"
+                aria-label="Instagram"
+              >
+                <InstagramLogoIcon className="w-5 h-5" />
+              </a>
+              <span className="pointer-events-none absolute -top-10 scale-0 transition-all duration-200 rounded bg-neutral-900/90 dark:bg-neutral-100/90 px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-neutral-50 dark:text-neutral-900 shadow-md group-hover:scale-100 origin-bottom">
+                Instagram
+              </span>
+            </div>
+          </DockIcon>
+        </Dock>
       </footer>
 
       {/* Redirect Curtain Transition */}
