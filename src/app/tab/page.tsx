@@ -78,9 +78,9 @@ export default function TabPage() {
       <div className="space-y-6">
         <div className="space-y-2">
           <p className="text-[#3b82f6] text-sm font-mono font-bold">$ whoami</p>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tighter text-foreground font-mono flex flex-wrap gap-x-3 items-center">
-            <TextAnimate animation="blurInUp" by="character">Hi, I'm</TextAnimate>
-            <AuroraText>Tichakorn</AuroraText>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tighter text-foreground font-mono leading-tight">
+            <span className="block"><TextAnimate animation="blurInUp" by="character">Hi, I'm</TextAnimate></span>
+            <span className="block mt-2"><AuroraText>Tichakorn</AuroraText></span>
           </h1>
         </div>
         <div className="space-y-4">
