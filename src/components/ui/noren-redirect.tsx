@@ -14,6 +14,9 @@ export function NorenRedirect({ active, to }: NorenRedirectProps) {
 
   useEffect(() => {
     if (active) {
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem(to === "/tab" ? "fromScrollMode" : "fromTabMode", "true")
+      }
       // Trigger navigation when the panels cover the screen and fade to white (duration 0.65s + max delay 0.16s)
       const timer = setTimeout(() => {
         router.push(to)
@@ -24,20 +27,10 @@ export function NorenRedirect({ active, to }: NorenRedirectProps) {
 
   const panelVariants: Variants = {
     initial: {
-      y: "-100%",
-      borderRightColor: "#3b82f6",
-      boxShadow: "0 0 15px rgba(59, 130, 246, 0.3)"
+      y: "-100%"
     },
     animate: (i: number) => ({
       y: active ? ["-100%", "0%", "0%"] : "-100%",
-      borderRightColor: active ? ["#3b82f6", "#3b82f6", "#ffffff"] : "#3b82f6",
-      boxShadow: active 
-        ? [
-            "0 0 15px rgba(59, 130, 246, 0.3)",
-            "0 0 15px rgba(59, 130, 246, 0.3)",
-            "0 0 0px rgba(59, 130, 246, 0)"
-          ]
-        : "0 0 15px rgba(59, 130, 246, 0.3)",
       transition: {
         duration: 0.65,
         times: [0, 0.7, 1.0],
@@ -58,8 +51,12 @@ export function NorenRedirect({ active, to }: NorenRedirectProps) {
           variants={panelVariants}
           initial="initial"
           animate="animate"
-          className="h-full flex-1 bg-white border-r last:border-r-0"
-        />
+          className="h-full flex-1 bg-white relative border-r last:border-r-0"
+        >
+          {/* Glowing blue leading borders */}
+          <div className="absolute top-0 left-0 right-0 h-[4px] bg-[#3b82f6] shadow-[0_0_15px_#3b82f6,0_0_30px_#3b82f6]" />
+          <div className="absolute bottom-0 left-0 right-0 h-[4px] bg-[#3b82f6] shadow-[0_0_15px_#3b82f6,0_0_30px_#3b82f6]" />
+        </motion.div>
       ))}
     </div>
   )

@@ -179,6 +179,15 @@ export default function TabPage() {
   const [tabTransitionActive, setTabTransitionActive] = useState(false)
   const [isRedirecting, setIsRedirecting] = useState(false)
   const [introStage, setIntroStage] = useState<"dial" | "tree" | "morph" | "laser" | "done">("dial")
+  const [tabReveal, setTabReveal] = useState(false)
+
+  // Trigger reveal curtain transition from Scroll Mode
+  useEffect(() => {
+    if (typeof window !== "undefined" && sessionStorage.getItem("fromScrollMode")) {
+      sessionStorage.removeItem("fromScrollMode")
+      setTabReveal(true)
+    }
+  }, [])
 
   // File Tree Intro transition on page mount
   useEffect(() => {
@@ -679,22 +688,9 @@ export default function TabPage() {
             key={`tab-transition-panel-${i}`}
             custom={i}
             variants={{
-              initial: { y: "-100%", borderRightColor: "#3b82f6", boxShadow: "0 0 15px rgba(59, 130, 246, 0.3)" },
+              initial: { y: "-100%" },
               animate: (i: number) => ({
-                y: tabTransitionActive ? ["-100%", "0%", "0%", "0%", "0%", "100%"] : "-100%",
-                borderRightColor: tabTransitionActive 
-                  ? ["#3b82f6", "#3b82f6", "#ffffff", "#ffffff", "#3b82f6", "#3b82f6"] 
-                  : "#3b82f6",
-                boxShadow: tabTransitionActive
-                  ? [
-                      "0 0 15px rgba(59, 130, 246, 0.3)",
-                      "0 0 15px rgba(59, 130, 246, 0.3)",
-                      "0 0 0px rgba(59, 130, 246, 0)",
-                      "0 0 0px rgba(59, 130, 246, 0)",
-                      "0 0 15px rgba(59, 130, 246, 0.3)",
-                      "0 0 15px rgba(59, 130, 246, 0.3)"
-                    ]
-                  : "0 0 15px rgba(59, 130, 246, 0.3)",
+                y: tabTransitionActive ? ["-100%", "0%", "0%", "0%", "0%", "-100%"] : "-100%",
                 transition: {
                   duration: 1.6,
                   times: [0, 0.25, 0.35, 0.65, 0.75, 1.0],
@@ -705,10 +701,47 @@ export default function TabPage() {
             }}
             initial="initial"
             animate="animate"
-            className="h-full flex-1 bg-white border-r last:border-r-0"
-          />
+            className="h-full flex-1 bg-white relative border-r last:border-r-0"
+          >
+            {/* Glowing blue leading borders */}
+            <div className="absolute top-0 left-0 right-0 h-[4px] bg-[#3b82f6] shadow-[0_0_15px_#3b82f6,0_0_30px_#3b82f6]" />
+            <div className="absolute bottom-0 left-0 right-0 h-[4px] bg-[#3b82f6] shadow-[0_0_15px_#3b82f6,0_0_30px_#3b82f6]" />
+          </motion.div>
         ))}
       </div>
+
+      {/* Mount Reveal Transition from Scroll Mode */}
+      {tabReveal && (
+        <div className="fixed inset-0 flex z-[99999] pointer-events-none">
+          {[0, 1, 2].map((i) => (
+            <motion.div
+              key={`tab-reveal-panel-${i}`}
+              custom={i}
+              variants={{
+                initial: { y: "0%" },
+                animate: (i: number) => ({
+                  y: "-100%",
+                  transition: {
+                    duration: 0.65,
+                    ease: [0.76, 0, 0.24, 1],
+                    delay: i * 0.08
+                  }
+                })
+              }}
+              initial="initial"
+              animate="animate"
+              onAnimationComplete={() => {
+                if (i === 2) setTabReveal(false)
+              }}
+              className="h-full flex-1 bg-white relative border-r last:border-r-0"
+            >
+              {/* Glowing blue leading borders */}
+              <div className="absolute top-0 left-0 right-0 h-[4px] bg-[#3b82f6] shadow-[0_0_15px_#3b82f6,0_0_30px_#3b82f6]" />
+              <div className="absolute bottom-0 left-0 right-0 h-[4px] bg-[#3b82f6] shadow-[0_0_15px_#3b82f6,0_0_30px_#3b82f6]" />
+            </motion.div>
+          ))}
+        </div>
+      )}
 
       {/* Redirect Curtain Transition */}
       <NorenRedirect active={isRedirecting} to="/" />

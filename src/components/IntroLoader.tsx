@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
+import { motion, Variants } from "framer-motion"
 import { Ripple } from "@/components/ui/ripple"
 
 export function IntroLoader({ onComplete }: { onComplete: () => void }) {
@@ -23,19 +23,60 @@ export function IntroLoader({ onComplete }: { onComplete: () => void }) {
     return () => clearInterval(timer)
   }, [onComplete])
 
+  // 3 vertical noren panels for staggered exit
+  const panelVariants: Variants = {
+    initial: {
+      y: "0%"
+    },
+    exit: (i: number) => ({
+      y: "-100vh",
+      transition: {
+        duration: 0.8,
+        ease: [0.76, 0, 0.24, 1],
+        delay: i * 0.1
+      }
+    })
+  }
+
   return (
     <motion.div 
-      className="fixed top-0 left-0 w-full h-screen z-[9999] bg-background flex flex-col items-center justify-center select-none"
-      initial={{ y: 0 }}
-      exit={{ y: "-100vh" }}
-      transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+      className="fixed inset-0 z-[9999] overflow-hidden select-none pointer-events-none flex flex-col items-center justify-center"
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 1 }} // Dummy exit to keep wrapper in DOM
+      transition={{ duration: 1.0 }} // Matches total animation time (0.2s delay + 0.8s duration)
     >
+      {/* Staggered Noren Backdrop Panels */}
+      <div className="absolute inset-0 flex w-full h-full pointer-events-none">
+        {[0, 1, 2].map((i) => (
+          <motion.div
+            key={`loader-panel-${i}`}
+            custom={i}
+            variants={panelVariants}
+            initial="initial"
+            exit="exit"
+            className="h-full flex-1 bg-background relative border-r border-border/10 last:border-r-0 pointer-events-auto"
+          >
+            {/* Glowing blue leading borders */}
+            <div className="absolute top-0 left-0 right-0 h-[4px] bg-[#3b82f6] shadow-[0_0_15px_#3b82f6,0_0_30px_#3b82f6]" />
+            <div className="absolute bottom-0 left-0 right-0 h-[4px] bg-[#3b82f6] shadow-[0_0_15px_#3b82f6,0_0_30px_#3b82f6]" />
+            {/* Individual curved bottom for each panel */}
+            <svg 
+              className="absolute top-full left-0 w-full h-[15vh] fill-background pointer-events-none" 
+              viewBox="0 0 100 100" 
+              preserveAspectRatio="none"
+            >
+              <path d="M 0 0 L 100 0 Q 50 100 0 0 Z" />
+            </svg>
+          </motion.div>
+        ))}
+      </div>
+
       {/* Foreground Content */}
       <motion.div 
-        className="z-10 flex flex-col items-center space-y-8 max-w-lg w-full px-4 justify-center"
+        className="z-10 flex flex-col items-center space-y-8 max-w-lg w-full px-4 justify-center pointer-events-auto"
         initial={{ opacity: 1 }}
         exit={{ opacity: 0, y: -20 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
+        transition={{ duration: 0.35, ease: "easeOut" }}
       >
         {/* Ripple background */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none -z-10">
@@ -67,15 +108,6 @@ export function IntroLoader({ onComplete }: { onComplete: () => void }) {
           </span>
         </div>
       </motion.div>
-
-      {/* Pinned Curved Bottom SVG */}
-      <svg 
-        className="absolute top-full left-0 w-full h-[15vh] fill-background pointer-events-none" 
-        viewBox="0 0 100 100" 
-        preserveAspectRatio="none"
-      >
-        <path d="M 0 0 L 100 0 Q 50 100 0 0 Z" />
-      </svg>
     </motion.div>
   )
 }
