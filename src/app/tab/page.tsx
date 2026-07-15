@@ -572,37 +572,56 @@ export default function TabPage() {
         {introStage !== "done" && (
           <motion.div
             key="intro-overlay"
-            initial={{ opacity: 1 }}
+            initial={{ backgroundColor: "rgba(255, 255, 255, 1)" }}
+            animate={introStage === "morph"
+              ? { backgroundColor: "rgba(255, 255, 255, 0)" }
+              : { backgroundColor: "rgba(255, 255, 255, 1)" }
+            }
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="fixed inset-0 bg-white z-[99999] flex flex-col items-center justify-center select-none"
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+            className="fixed inset-0 z-[99999] flex flex-col items-center justify-center select-none pointer-events-none"
           >
             {(introStage === "dial" || introStage === "tree" || introStage === "morph") && (
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={introStage === "morph" 
-                  ? { 
-                      opacity: [1, 1, 0], 
-                      scale: 2.2,
-                      y: 70,
-                      x: 80,
-                      transition: { duration: 1.0, times: [0, 0.4, 1.0], ease: "easeInOut" } 
-                    } 
-                  : { opacity: 1, scale: 1, y: 0, x: 0 }
+                initial={{ 
+                  backgroundColor: "rgba(248, 249, 250, 0)",
+                  borderColor: "rgba(229, 229, 229, 0)",
+                  boxShadow: "0 0 0px rgba(0, 0, 0, 0)"
+                }}
+                animate={
+                  introStage === "dial"
+                    ? {
+                        backgroundColor: "rgba(248, 249, 250, 0)",
+                        borderColor: "rgba(229, 229, 229, 0)",
+                        boxShadow: "0 0 0px rgba(0, 0, 0, 0)"
+                      }
+                    : introStage === "morph"
+                      ? {
+                          backgroundColor: "rgba(248, 249, 250, 0)",
+                          borderColor: "rgba(229, 229, 229, 0)",
+                          boxShadow: "0 0 0px rgba(0, 0, 0, 0)",
+                          transition: { duration: 0.4 }
+                        }
+                      : {
+                          backgroundColor: "rgba(248, 249, 250, 1)",
+                          borderColor: "rgba(229, 229, 229, 1)",
+                          boxShadow: "0 1px 2px rgba(0, 0, 0, 0.05)"
+                        }
                 }
-                className="max-w-xs w-full bg-[#f8f9fa] border border-neutral-200 p-5 rounded-lg shadow-sm font-mono text-xs text-[#1a1a1a]"
+                transition={{ duration: 0.5 }}
+                className="max-w-xs w-full border p-5 rounded-lg font-mono text-xs text-[#1a1a1a]"
               >
                 {/* Explorer Header - dxwntichakn via DiaTextReveal */}
                 <div className="pb-2 border-b border-neutral-200 mb-2 h-6 flex items-center gap-1.5 text-xs text-neutral-400 font-bold uppercase tracking-wider relative">
                   <motion.div 
-                    animate={introStage === "morph" ? { opacity: 0 } : { opacity: 1 }}
+                    animate={introStage === "morph" || introStage === "dial" ? { opacity: 0 } : { opacity: 1 }}
                     transition={{ duration: 0.4 }}
                     className="flex items-center"
                   >
                     <span>📁</span>
                   </motion.div>
                   
-                  {/* Single element animating from center large to header slot */}
+                  {/* Single element animating from center large to header slot (NO morph warp!) */}
                   <motion.div 
                     animate={introStage === "dial" 
                       ? { scale: 3.5, x: 120, y: 90, originX: 0.5, originY: 0.5 }
@@ -627,10 +646,30 @@ export default function TabPage() {
                 <div className="space-y-1.5">
                   {/* Root Node - PROJECT_TICHAKORN */}
                   <div className="flex items-center gap-1.5">
-                    <span className="text-[#3b82f6] text-sm">📁</span>
+                    <motion.div 
+                      animate={introStage === "morph" || introStage === "dial" ? { opacity: 0 } : { opacity: 1 }}
+                      transition={{ duration: 0.4 }}
+                      className="flex items-center"
+                    >
+                      <span className="text-[#3b82f6] text-sm">📁</span>
+                    </motion.div>
+                    
                     <motion.div 
                       layoutId="project-title-morph" 
                       style={{ display: "inline-block" }}
+                      animate={introStage === "morph"
+                        ? {
+                            x: [0, 80, "calc(50vw - 220px)"],
+                            y: [0, 70, "calc(-50vh + 24px)"],
+                            scale: [1, 2.0, 1],
+                            transition: {
+                              duration: 1.2,
+                              times: [0, 0.4, 1.0],
+                              ease: "easeInOut"
+                            }
+                          }
+                        : { x: 0, y: 0, scale: 1 }
+                      }
                     >
                       <span className="font-extrabold text-[#1a1a1a] tracking-wider text-sm">
                         PROJECT_TICHAKORN
