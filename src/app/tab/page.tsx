@@ -12,6 +12,7 @@ import { AuroraText } from "@/components/ui/aurora-text"
 import { TextAnimate } from "@/components/ui/text-animate"
 import { KineticText } from "@/components/ui/kinetic-text"
 import { motion } from "framer-motion"
+import { LineShadowText } from "@/components/ui/line-shadow-text"
 
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] })
 
@@ -297,6 +298,14 @@ export default function TabPage() {
         .ticker-scroll {
           animation: scroll 30s linear infinite;
         }
+        @keyframes line-shadow {
+          0% { background-position: 0 0; }
+          100% { background-position: 100% -100%; }
+        }
+        .animate-line-shadow::after {
+          background-size: 0.06em 0.06em;
+          animation: line-shadow 15s linear infinite;
+        }
       `}} />
 
       {/* Matrix Background */}
@@ -307,8 +316,11 @@ export default function TabPage() {
         <div className="flex items-center justify-between h-12 overflow-x-auto no-scrollbar">
           <div className="flex items-center h-full">
             {/* File Explorer Mock-up on left */}
-            <div className="hidden md:flex items-center px-4 border-r border-border text-xs text-muted-foreground uppercase tracking-widest h-full font-mono select-none">
-              <span className="mr-2">📁</span> Project_Tichakorn
+            <div className="hidden md:flex items-center px-4 border-r border-border text-xs text-foreground uppercase h-full font-mono select-none font-bold">
+              <span className="mr-2 text-sm">📁</span>
+              <LineShadowText shadowColor="#3b82f6" className="font-extrabold tracking-wider text-sm">
+                PROJECT_TICHAKORN
+              </LineShadowText>
             </div>
             {/* Tabs */}
             <nav className="flex h-full select-none">
