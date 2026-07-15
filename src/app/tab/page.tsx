@@ -84,15 +84,6 @@ export default function TabPage() {
             AI Innovator and Medical Tech Developer. I love building things that solve real-world problems and pushing the boundaries of what's possible with technology.
           </p>
         </div>
-        <div className="pt-6">
-          <button 
-            onClick={() => setActiveTab("projects.js")}
-            className="bg-transparent border border-[#22c55e] text-[#22c55e] px-8 py-3 hover:bg-[#22c55e] hover:text-background transition-all duration-300 flex items-center group cursor-pointer font-mono text-sm font-bold"
-          >
-            <span className="mr-2">&gt;</span> Execute Initialization
-            <span className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity">_</span>
-          </button>
-        </div>
       </div>
     )
   }
@@ -323,7 +314,7 @@ export default function TabPage() {
       </header>
 
       {/* Hero Section */}
-      <main className="min-h-screen flex items-center justify-center pt-20 pb-32 px-4">
+      <main className="min-h-screen flex items-center justify-center pt-20 pb-32 px-4 relative z-10">
         <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Terminal UI Container */}
           <section className="lg:col-span-7 terminal-window p-8 rounded-lg shadow-2xl relative overflow-hidden flex flex-col justify-between">
@@ -376,13 +367,13 @@ export default function TabPage() {
       </main>
 
       {/* Scrolling Identity Bar */}
-      <div className="fixed bottom-24 w-full bg-card/65 border-y border-border py-4 overflow-hidden whitespace-nowrap z-30 select-none backdrop-blur-sm">
+      <div className="fixed bottom-24 w-full bg-card/65 border-y border-border py-4 overflow-hidden whitespace-nowrap z-0 select-none backdrop-blur-sm">
         <div className="flex ticker-scroll">
           <span className="text-3xl md:text-5xl font-bold text-transparent px-8" style={{ WebkitTextStroke: "1px rgba(34, 197, 94, 0.35)" }}>
-            • PORTFOLIO • DXWNTICHAKN • DAWN • DEK70 • PORTFOLIO • DXWNTICHAKN • DAWN • DEK70 •
+            • TICHAKORN • PORTFOLIO • DXWNTICHAKN • TICHAKORN • PORTFOLIO • DXWNTICHAKN •
           </span>
           <span className="text-3xl md:text-5xl font-bold text-transparent px-8" style={{ WebkitTextStroke: "1px rgba(34, 197, 94, 0.35)" }}>
-            • PORTFOLIO • DXWNTICHAKN • DAWN • DEK70 • PORTFOLIO • DXWNTICHAKN • DAWN • DEK70 •
+            • TICHAKORN • PORTFOLIO • DXWNTICHAKN • TICHAKORN • PORTFOLIO • DXWNTICHAKN •
           </span>
         </div>
       </div>
