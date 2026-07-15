@@ -14,6 +14,7 @@ import { KineticText } from "@/components/ui/kinetic-text"
 import { motion, AnimatePresence } from "framer-motion"
 import { LineShadowText } from "@/components/ui/line-shadow-text"
 import { DiaTextReveal } from "@/components/ui/dia-text-reveal"
+import { cn } from "@/lib/utils"
 
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] })
 
@@ -71,12 +72,68 @@ function MatrixRain() {
   return <canvas id="matrixCanvas" className="fixed inset-0 w-full h-full -z-10 bg-background pointer-events-none" />
 }
 
+function LaserBox({ 
+  active, 
+  children, 
+  type = "rect" 
+}: { 
+  active: boolean; 
+  children: React.ReactNode; 
+  type?: "rect" | "circle" 
+}) {
+  return (
+    <div className="relative w-full h-full">
+      {active && (
+        <svg className="absolute inset-0 w-full h-full pointer-events-none z-30 overflow-visible" viewBox="0 0 100 100" preserveAspectRatio="none">
+          {type === "rect" ? (
+            <motion.rect
+              x="0.2"
+              y="0.2"
+              width="99.6"
+              height="99.6"
+              rx="1.5"
+              ry="1.5"
+              fill="none"
+              stroke="#3b82f6"
+              strokeWidth="0.8"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 1.2, ease: "easeInOut" }}
+              style={{ 
+                filter: "drop-shadow(0 0 6px rgba(59, 130, 246, 0.85))",
+                strokeLinecap: "round"
+              }}
+            />
+          ) : (
+            <motion.circle
+              cx="50"
+              cy="50"
+              r="49"
+              fill="none"
+              stroke="#3b82f6"
+              strokeWidth="0.8"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 1.2, ease: "easeInOut" }}
+              style={{ 
+                filter: "drop-shadow(0 0 6px rgba(59, 130, 246, 0.85))",
+                strokeLinecap: "round"
+              }}
+            />
+          )}
+        </svg>
+      )}
+      {children}
+    </div>
+  );
+}
+
 export default function TabPage() {
   const [activeTab, setActiveTab] = useState<"index.html" | "projects.js" | "skills.py" | "contact.json">("index.html")
   const [nextTab, setNextTab] = useState<"index.html" | "projects.js" | "skills.py" | "contact.json" | null>(null)
   const [tabTransitionActive, setTabTransitionActive] = useState(false)
   const [isRedirecting, setIsRedirecting] = useState(false)
-  const [introStage, setIntroStage] = useState<"dial" | "tree" | "morph" | "done">("dial")
+  const [introStage, setIntroStage] = useState<"dial" | "tree" | "morph" | "laser" | "done">("dial")
 
   // File Tree Intro transition on page mount
   useEffect(() => {
@@ -90,14 +147,20 @@ export default function TabPage() {
       setIntroStage("morph")
     }, 3200)
 
-    // 3. Complete morphing and fade out at 4400ms
+    // 3. PROJECT_TICHAKORN completes its flight/slide to the top-right at 4400ms. Start laser wireframe drawing stage.
+    const laserTimer = setTimeout(() => {
+      setIntroStage("laser")
+    }, 4400)
+
+    // 4. Laser wireframes finish drawing (takes 1.2s). Fully transition to active done homepage at 5600ms.
     const doneTimer = setTimeout(() => {
       setIntroStage("done")
-    }, 4400)
+    }, 5600)
 
     return () => {
       clearTimeout(treeTimer)
       clearTimeout(morphTimer)
+      clearTimeout(laserTimer)
       clearTimeout(doneTimer)
     }
   }, [])
@@ -395,23 +458,31 @@ export default function TabPage() {
       <main className="min-h-screen flex items-center justify-center pt-20 pb-32 px-4 relative z-10">
         <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Terminal UI Container */}
-          <section className="lg:col-span-7 terminal-window p-8 rounded-lg shadow-2xl relative overflow-hidden flex flex-col justify-between">
-            {/* Terminal Header Controls */}
-            <div className="flex justify-between items-center mb-8 border-b border-border pb-4 select-none">
-              <div className="flex space-x-2">
-                <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div className="w-3 h-3 rounded-full bg-green-500"></div>
-              </div>
-              <span className="text-xs text-muted-foreground font-mono">bash — 80x24</span>
-            </div>
+          <section className="lg:col-span-7 relative h-full">
+            <LaserBox active={introStage === "laser"} type="rect">
+              <motion.div
+                animate={introStage === "laser" ? { opacity: [0, 0, 1] } : { opacity: 1 }}
+                transition={{ duration: 1.2, times: [0, 0.4, 1.0] }}
+                className="terminal-window p-8 rounded-lg shadow-2xl relative overflow-hidden flex flex-col justify-between w-full h-full"
+              >
+                {/* Terminal Header Controls */}
+                <div className="flex justify-between items-center mb-8 border-b border-border pb-4 select-none">
+                  <div className="flex space-x-2">
+                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  </div>
+                  <span className="text-xs text-muted-foreground font-mono">bash — 80x24</span>
+                </div>
 
-            <div className="min-h-[300px] flex flex-col justify-center">
-              {activeTab === "index.html" && renderIndexTab()}
-              {activeTab === "projects.js" && renderProjectsTab()}
-              {activeTab === "skills.py" && renderSkillsTab()}
-              {activeTab === "contact.json" && renderContactTab()}
-            </div>
+                <div className="min-h-[300px] flex flex-col justify-center">
+                  {activeTab === "index.html" && renderIndexTab()}
+                  {activeTab === "projects.js" && renderProjectsTab()}
+                  {activeTab === "skills.py" && renderSkillsTab()}
+                  {activeTab === "contact.json" && renderContactTab()}
+                </div>
+              </motion.div>
+            </LaserBox>
           </section>
 
           {/* Profile Image Section */}
@@ -421,20 +492,32 @@ export default function TabPage() {
               <div className="absolute -inset-4 border border-[#3b82f6]/25 rounded-full animate-pulse"></div>
               <div className="absolute -inset-8 border border-[#3b82f6]/15 rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
               
-              {/* Image Container */}
-              <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-[#3b82f6] relative z-10 bg-card shadow-[0_0_30px_rgba(59,130,246,0.2)] dark:shadow-[0_0_40px_rgba(59,130,246,0.3)] transition-all duration-300">
-                <img 
-                  alt="Tichakorn Profile" 
-                  className="w-full h-full object-cover" 
-                  src="/profile.png"
-                />
+              {/* Image Container with Laser Circle draw */}
+              <div className="relative">
+                <LaserBox active={introStage === "laser"} type="circle">
+                  <motion.div
+                    animate={introStage === "laser" ? { opacity: [0, 0, 1] } : { opacity: 1 }}
+                    transition={{ duration: 1.2, times: [0, 0.4, 1.0] }}
+                    className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-[#3b82f6] relative z-10 bg-card shadow-[0_0_30px_rgba(59,130,246,0.2)] dark:shadow-[0_0_40px_rgba(59,130,246,0.3)] transition-all duration-300"
+                  >
+                    <img 
+                      alt="Tichakorn Profile" 
+                      className="w-full h-full object-cover" 
+                      src="/profile.png"
+                    />
+                  </motion.div>
+                </LaserBox>
               </div>
 
               {/* ID Badge Decor */}
-              <div className="absolute -bottom-4 -right-4 bg-card border border-border px-4 py-2 text-[10px] text-[#3b82f6] z-20 shadow-xl leading-relaxed select-none font-bold">
+              <motion.div 
+                animate={introStage === "laser" ? { opacity: [0, 0, 1] } : { opacity: 1 }}
+                transition={{ duration: 1.2, times: [0, 0.5, 1.0] }}
+                className="absolute -bottom-4 -right-4 bg-card border border-border px-4 py-2 text-[10px] text-[#3b82f6] z-20 shadow-xl leading-relaxed select-none font-bold"
+              >
                 STATUS: ACTIVE<br/>
                 LEVEL: DEV_GEN_70
-              </div>
+              </motion.div>
             </div>
           </section>
         </div>
@@ -573,7 +656,7 @@ export default function TabPage() {
           <motion.div
             key="intro-overlay"
             initial={{ backgroundColor: "rgba(255, 255, 255, 1)" }}
-            animate={introStage === "morph"
+            animate={introStage === "morph" || introStage === "laser"
               ? { backgroundColor: "rgba(255, 255, 255, 0)" }
               : { backgroundColor: "rgba(255, 255, 255, 1)" }
             }
@@ -609,16 +692,16 @@ export default function TabPage() {
                         }
                 }
                 transition={{ duration: 0.5 }}
-                className="max-w-xs w-full border p-5 rounded-lg font-mono text-xs text-[#1a1a1a]"
+                className="max-w-md w-full border p-8 rounded-lg font-mono text-sm text-[#1a1a1a] relative"
               >
-                {/* Explorer Header - dxwntichakn via DiaTextReveal */}
+                {/* Explorer Header */}
                 <motion.div 
                   animate={introStage === "dial" || introStage === "morph" 
                     ? { borderBottomColor: "rgba(229, 229, 229, 0)" } 
                     : { borderBottomColor: "rgba(229, 229, 229, 1)" }
                   }
                   transition={{ duration: 0.4 }}
-                  className="pb-2 border-b mb-2 h-6 flex items-center gap-1.5 text-xs text-neutral-400 font-bold tracking-wider relative normal-case"
+                  className="pb-2 border-b mb-4 h-8 flex items-center gap-1.5 text-sm text-neutral-400 font-bold tracking-wider relative normal-case"
                 >
                   <motion.div 
                     animate={introStage === "morph" || introStage === "dial" ? { opacity: 0 } : { opacity: 1 }}
@@ -627,30 +710,32 @@ export default function TabPage() {
                   >
                     <span>📁</span>
                   </motion.div>
-                  
-                  {/* Single element animating from center large to header slot (NO morph warp!) */}
-                  <motion.div 
-                    animate={introStage === "dial" 
-                      ? { scale: 5.0, x: 140, y: 90, originX: 0.5, originY: 0.5 }
-                      : introStage === "morph"
-                        ? { scale: 1, x: 0, y: 0, opacity: 0 }
-                        : { scale: 1, x: 0, y: 0, opacity: 1 }
-                    }
-                    transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-                    className="absolute font-sans font-bold text-[#1a1a1a] left-[20px] normal-case"
-                  >
-                    <DiaTextReveal 
-                      text="dxwntichakn" 
-                      textColor="#1a1a1a"
-                      colors={["#3b82f6", "#2563eb", "#1d4ed8", "#1e3a8a"]} 
-                      duration={1.2}
-                      className="text-xs font-bold font-sans tracking-tight normal-case"
-                    />
-                  </motion.div>
+                  {/* Space reservation for header slot */}
+                  <div className="h-6 w-24" />
+                </motion.div>
+
+                {/* dxwntichakn absolute overlay (perfectly centered on viewport, scaling up to 7.0) */}
+                <motion.div 
+                  animate={introStage === "dial" 
+                    ? { scale: 7.0, left: "50%", top: "50%", x: "-50%", y: "-50%", originX: 0.5, originY: 0.5 }
+                    : introStage === "morph"
+                      ? { scale: 1.0, left: "52px", top: "38px", x: "0%", y: "0%", opacity: 0 }
+                      : { scale: 1.0, left: "52px", top: "38px", x: "0%", y: "0%", opacity: 1 }
+                  }
+                  transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+                  className="absolute font-sans font-bold text-[#1a1a1a] normal-case"
+                >
+                  <DiaTextReveal 
+                    text="dxwntichakn" 
+                    textColor="#1a1a1a"
+                    colors={["#3b82f6", "#2563eb", "#1d4ed8", "#1e3a8a"]} 
+                    duration={1.2}
+                    className="text-xs font-bold font-sans tracking-tight normal-case"
+                  />
                 </motion.div>
 
                 {/* File Tree Structure */}
-                <div className="space-y-1.5">
+                <div className="space-y-2">
                   {/* Root Node - PROJECT_TICHAKORN */}
                   <div className="flex items-center gap-1.5">
                     <motion.div 
@@ -658,7 +743,7 @@ export default function TabPage() {
                       transition={{ duration: 0.4 }}
                       className="flex items-center"
                     >
-                      <span className="text-[#3b82f6] text-sm">📁</span>
+                      <span className="text-[#3b82f6] text-base">📁</span>
                     </motion.div>
                     
                     <motion.div 
@@ -670,6 +755,7 @@ export default function TabPage() {
                           : introStage === "morph"
                             ? {
                                 opacity: 1,
+                                // Move Project Tichakorn to top-right controls first!
                                 x: [0, 80, "calc(50vw - 220px)"],
                                 y: [0, 70, "calc(-50vh + 24px)"],
                                 scale: [1, 2.0, 1],
@@ -697,16 +783,16 @@ export default function TabPage() {
                         : { opacity: 1 }
                     }
                     transition={{ duration: 0.4 }}
-                    className="pl-4 border-l border-neutral-200 ml-2 space-y-1.5 py-0.5"
+                    className="pl-5 border-l border-neutral-200 ml-2.5 space-y-2 py-0.5"
                   >
-                    <div className="flex items-center gap-1.5 text-neutral-500">
+                    <div className="flex items-center gap-1.5 text-neutral-500 text-sm">
                       <span>📁</span> <span>src</span>
                     </div>
-                    <div className="pl-4 border-l border-neutral-200 ml-2 space-y-1">
-                      <div className="flex items-center gap-1.5 text-neutral-500">
+                    <div className="pl-5 border-l border-neutral-200 ml-2.5 space-y-1.5">
+                      <div className="flex items-center gap-1.5 text-neutral-500 text-sm">
                         <span>📁</span> <span>app</span>
                       </div>
-                      <div className="pl-4 border-l border-neutral-200 ml-2 space-y-0.5 text-[10px] text-neutral-400">
+                      <div className="pl-5 border-l border-neutral-200 ml-2.5 space-y-1 text-xs text-neutral-400">
                         <div className="flex items-center gap-1">
                           <span>📄</span> <span>layout.tsx</span>
                         </div>
@@ -715,10 +801,10 @@ export default function TabPage() {
                         </div>
                       </div>
                       
-                      <div className="flex items-center gap-1.5 text-neutral-500">
+                      <div className="flex items-center gap-1.5 text-neutral-500 text-sm">
                         <span>📁</span> <span>components</span>
                       </div>
-                      <div className="pl-4 border-l border-neutral-200 ml-2 space-y-0.5 text-[10px] text-neutral-400">
+                      <div className="pl-5 border-l border-neutral-200 ml-2.5 space-y-1 text-xs text-neutral-400">
                         <div className="flex items-center gap-1">
                           <span>📄</span> <span>SidebarNav.tsx</span>
                         </div>
