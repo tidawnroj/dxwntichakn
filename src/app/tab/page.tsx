@@ -349,11 +349,9 @@ export default function TabPage() {
               <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-[#3b82f6]/45 relative z-10 bg-muted">
                 <img 
                   alt="Tichakorn Profile" 
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" 
+                  className="w-full h-full object-cover" 
                   src="/profile.png"
                 />
-                {/* Scanline Effect Overlay */}
-                <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.08)_50%),linear-gradient(90deg,rgba(59,130,246,0.03),rgba(59,130,246,0.01),rgba(59,130,246,0.03))] bg-[length:100%_2px,3px_100%]"></div>
               </div>
 
               {/* ID Badge Decor */}
