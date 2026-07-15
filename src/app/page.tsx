@@ -27,6 +27,7 @@ import { AnimatedCircularProgressBar } from "@/components/ui/animated-circular-p
 
 export default function Home() {
   const [loading, setLoading] = useState(true)
+  const [showPage, setShowPage] = useState(false)
   const [isReady, setIsReady] = useState(false)
 
   // Disable page scrolling while loading
@@ -35,21 +36,36 @@ export default function Home() {
       document.body.style.overflow = "hidden"
     } else {
       document.body.style.overflow = "unset"
-      const timer = setTimeout(() => {
-        setIsReady(true)
-      }, 1000)
-      return () => {
-        document.body.style.overflow = "unset"
-        clearTimeout(timer)
-      }
+    }
+    return () => {
+      document.body.style.overflow = "unset"
     }
   }, [loading])
 
+  // Trigger isReady after page mounts
+  useEffect(() => {
+    if (showPage) {
+      const timer = setTimeout(() => {
+        setIsReady(true)
+      }, 1000)
+      return () => clearTimeout(timer)
+    }
+  }, [showPage])
+
   return (
-    <AnimatePresence mode="wait">
-      {loading ? (
-        <IntroLoader key="loader" onComplete={() => setLoading(false)} />
-      ) : (
+    <>
+      <AnimatePresence 
+        mode="wait"
+        onExitComplete={() => {
+          setShowPage(true)
+        }}
+      >
+        {loading && (
+          <IntroLoader key="loader" onComplete={() => setLoading(false)} />
+        )}
+      </AnimatePresence>
+
+      {showPage && (
         <motion.div
           key="content"
           initial={{ opacity: 0, y: 15 }}
@@ -310,6 +326,6 @@ export default function Home() {
     </main>
     </motion.div>
       )}
-    </AnimatePresence>
+    </>
   );
 }
