@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import { JetBrains_Mono } from "next/font/google"
 import { ChevronRight, LogOut, Home as HomeIcon, FileText, Mail } from "lucide-react"
 import { GitHubLogoIcon, InstagramLogoIcon } from "@radix-ui/react-icons"
-import { NorenTransition } from "@/components/ui/noren-transition"
 import { NorenRedirect } from "@/components/ui/noren-redirect"
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler"
 import { Dock, DockIcon } from "@/components/ui/dock"
@@ -12,6 +11,7 @@ import { SmoothCursor } from "@/components/ui/smooth-cursor"
 import { AuroraText } from "@/components/ui/aurora-text"
 import { TextAnimate } from "@/components/ui/text-animate"
 import { KineticText } from "@/components/ui/kinetic-text"
+import { motion } from "framer-motion"
 
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] })
 
@@ -71,7 +71,34 @@ function MatrixRain() {
 
 export default function TabPage() {
   const [activeTab, setActiveTab] = useState<"index.html" | "projects.js" | "skills.py" | "contact.json">("index.html")
+  const [nextTab, setNextTab] = useState<"index.html" | "projects.js" | "skills.py" | "contact.json" | null>(null)
+  const [tabTransitionActive, setTabTransitionActive] = useState(false)
   const [isRedirecting, setIsRedirecting] = useState(false)
+
+  // Handle page-level tab curtain transition
+  useEffect(() => {
+    if (tabTransitionActive && nextTab) {
+      const timer = setTimeout(() => {
+        setActiveTab(nextTab)
+      }, 450)
+      
+      const endTimer = setTimeout(() => {
+        setTabTransitionActive(false)
+        setNextTab(null)
+      }, 950)
+
+      return () => {
+        clearTimeout(timer)
+        clearTimeout(endTimer)
+      }
+    }
+  }, [tabTransitionActive, nextTab])
+
+  const handleTabChange = (tabId: typeof activeTab) => {
+    if (tabId === activeTab || tabTransitionActive) return
+    setNextTab(tabId)
+    setTabTransitionActive(true)
+  }
 
   const renderIndexTab = () => {
     return (
@@ -190,7 +217,7 @@ export default function TabPage() {
           <h2 className="text-xl font-bold text-foreground">Contact & Timeline</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Metadata */}
+          {/* Contact Info */}
           <div className="bg-card/60 border border-border p-4 rounded-lg space-y-3 shadow-sm">
             <h3 className="text-foreground font-bold">// Contact Info</h3>
             <div className="space-y-2 text-muted-foreground">
@@ -293,7 +320,7 @@ export default function TabPage() {
               ].map((tab) => (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
+                  onClick={() => handleTabChange(tab.id as any)}
                   className={`flex items-center px-6 h-full text-sm border-r border-border transition-colors cursor-pointer font-mono ${
                     activeTab === tab.id 
                       ? "tab-active" 
@@ -336,14 +363,12 @@ export default function TabPage() {
               <span className="text-xs text-muted-foreground font-mono">bash — 80x24</span>
             </div>
 
-            <NorenTransition tabKey={activeTab}>
-              <div className="min-h-[300px] flex flex-col justify-center">
-                {activeTab === "index.html" && renderIndexTab()}
-                {activeTab === "projects.js" && renderProjectsTab()}
-                {activeTab === "skills.py" && renderSkillsTab()}
-                {activeTab === "contact.json" && renderContactTab()}
-              </div>
-            </NorenTransition>
+            <div className="min-h-[300px] flex flex-col justify-center">
+              {activeTab === "index.html" && renderIndexTab()}
+              {activeTab === "projects.js" && renderProjectsTab()}
+              {activeTab === "skills.py" && renderSkillsTab()}
+              {activeTab === "contact.json" && renderContactTab()}
+            </div>
           </section>
 
           {/* Profile Image Section */}
@@ -400,7 +425,7 @@ export default function TabPage() {
             <DockIcon key={item.id}>
               <div className="group relative w-full h-full flex items-center justify-center">
                 <button
-                  onClick={() => setActiveTab(item.id as any)}
+                  onClick={() => handleTabChange(item.id as any)}
                   className={`w-full h-full flex items-center justify-center rounded-full transition-all duration-200 hover:scale-125 hover:-translate-y-1.5 active:scale-95 cursor-pointer ${
                     activeTab === item.id 
                       ? "bg-[#3b82f6]/15 text-[#3b82f6]" 
@@ -457,6 +482,31 @@ export default function TabPage() {
           </DockIcon>
         </Dock>
       </footer>
+
+      {/* Tab Switch Curtain Transition */}
+      <div className={`fixed inset-0 flex z-[9999] ${tabTransitionActive ? "pointer-events-auto" : "pointer-events-none"}`}>
+        {[0, 1, 2].map((i) => (
+          <motion.div
+            key={`tab-transition-panel-${i}`}
+            custom={i}
+            variants={{
+              initial: { y: "-100%" },
+              animate: (i: number) => ({
+                y: tabTransitionActive ? ["-100%", "0%", "100%"] : "-100%",
+                transition: {
+                  duration: 0.8,
+                  times: [0, 0.5, 1],
+                  ease: [0.76, 0, 0.24, 1],
+                  delay: i * 0.08
+                }
+              })
+            }}
+            initial="initial"
+            animate="animate"
+            className="h-full flex-1 bg-background border-r border-border/10 last:border-r-0"
+          />
+        ))}
+      </div>
 
       {/* Redirect Curtain Transition */}
       <NorenRedirect active={isRedirecting} to="/" />
