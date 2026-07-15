@@ -77,7 +77,7 @@ export default function Home() {
           
           {isReady && (
             <div className="fixed inset-0 z-0 pointer-events-none opacity-50">
-              <GlyphMatrix className="w-full h-full" color="#1e40af" />
+              <GlyphMatrix className="w-full h-full" color="#000000" />
             </div>
           )}
 
