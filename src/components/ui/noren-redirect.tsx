@@ -53,9 +53,22 @@ export function NorenRedirect({ active, to }: NorenRedirectProps) {
           animate="animate"
           className="h-full flex-1 bg-white relative border-r last:border-r-0"
         >
-          {/* Glowing blue leading borders */}
-          <div className="absolute top-0 left-0 right-0 h-[4px] bg-[#3b82f6] shadow-[0_0_15px_#3b82f6,0_0_30px_#3b82f6]" />
-          <div className="absolute bottom-0 left-0 right-0 h-[4px] bg-[#3b82f6] shadow-[0_0_15px_#3b82f6,0_0_30px_#3b82f6]" />
+          {/* Glowing blue border all around (fades to white when covered, showing only on slides) */}
+          <motion.div
+            className="absolute inset-0 border-[3px] border-[#3b82f6] pointer-events-none z-10"
+            animate={{
+              opacity: active ? [1, 1, 0] : 1
+            }}
+            transition={{
+              duration: 0.65,
+              times: [0, 0.7, 1.0],
+              ease: "easeInOut",
+              delay: i * 0.08
+            }}
+            style={{
+              boxShadow: "inset 0 0 15px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.5)"
+            }}
+          />
         </motion.div>
       ))}
     </div>

@@ -489,13 +489,18 @@ export default function TabPage() {
 
             {/* Right Controls */}
             <div className="flex items-center gap-3 h-full pr-4">
-              {/* PROJECT_TICHAKORN is visible from morph stage onwards */}
               <div className="hidden md:flex items-center px-4 border-l border-border h-full font-mono select-none font-bold">
-                <motion.div layoutId="project-title-morph" style={{ display: "inline-block" }}>
-                  <LineShadowText shadowColor="#3b82f6" className="font-extrabold tracking-wider text-sm">
-                    PROJECT_TICHAKORN
-                  </LineShadowText>
-                </motion.div>
+                {(introStage === "morph" || introStage === "laser" || introStage === "done") && (
+                  <motion.div 
+                    layoutId="project-title-morph" 
+                    style={{ display: "inline-block" }}
+                    transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
+                  >
+                    <LineShadowText shadowColor="#3b82f6" className="font-extrabold tracking-wider text-sm">
+                      PROJECT_TICHAKORN
+                    </LineShadowText>
+                  </motion.div>
+                )}
               </div>
               {/* Buttons (Hidden during intro stages, fades in at done) */}
               <div 
@@ -703,9 +708,22 @@ export default function TabPage() {
             animate="animate"
             className="h-full flex-1 bg-white relative border-r last:border-r-0"
           >
-            {/* Glowing blue leading borders */}
-            <div className="absolute top-0 left-0 right-0 h-[4px] bg-[#3b82f6] shadow-[0_0_15px_#3b82f6,0_0_30px_#3b82f6]" />
-            <div className="absolute bottom-0 left-0 right-0 h-[4px] bg-[#3b82f6] shadow-[0_0_15px_#3b82f6,0_0_30px_#3b82f6]" />
+            {/* Glowing blue border all around (fades to white when covered, showing only on slides) */}
+            <motion.div
+              className="absolute inset-0 border-[3px] border-[#3b82f6] pointer-events-none z-10"
+              animate={{
+                opacity: tabTransitionActive ? [1, 1, 0, 0, 1, 1] : 1
+              }}
+              transition={{
+                duration: 1.6,
+                times: [0, 0.25, 0.35, 0.65, 0.75, 1.0],
+                ease: "easeInOut",
+                delay: i * 0.08
+              }}
+              style={{
+                boxShadow: "inset 0 0 15px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.5)"
+              }}
+            />
           </motion.div>
         ))}
       </div>
@@ -735,9 +753,22 @@ export default function TabPage() {
               }}
               className="h-full flex-1 bg-white relative border-r last:border-r-0"
             >
-              {/* Glowing blue leading borders */}
-              <div className="absolute top-0 left-0 right-0 h-[4px] bg-[#3b82f6] shadow-[0_0_15px_#3b82f6,0_0_30px_#3b82f6]" />
-              <div className="absolute bottom-0 left-0 right-0 h-[4px] bg-[#3b82f6] shadow-[0_0_15px_#3b82f6,0_0_30px_#3b82f6]" />
+              {/* Glowing blue border all around (fades in as it slides up to exit) */}
+              <motion.div
+                className="absolute inset-0 border-[3px] border-[#3b82f6] pointer-events-none z-10"
+                animate={{
+                  opacity: [0, 1, 1]
+                }}
+                transition={{
+                  duration: 0.65,
+                  times: [0, 0.3, 1.0],
+                  ease: "easeInOut",
+                  delay: i * 0.08
+                }}
+                style={{
+                  boxShadow: "inset 0 0 15px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.5)"
+                }}
+              />
             </motion.div>
           ))}
         </div>
@@ -842,32 +873,18 @@ export default function TabPage() {
                       <span className="text-[#3b82f6] text-base">📁</span>
                     </motion.div>
                     
-                    <motion.div 
-                      layoutId="project-title-morph" 
-                      style={{ display: "inline-block" }}
-                      animate={
-                        introStage === "dial"
-                          ? { opacity: 0, x: 0, y: 0, scale: 1 }
-                          : introStage === "morph"
-                            ? {
-                                opacity: 1,
-                                // Move Project Tichakorn to top-right controls first!
-                                x: [0, 80, "calc(50vw - 220px)"],
-                                y: [0, 70, "calc(-50vh + 24px)"],
-                                scale: [1, 2.0, 1],
-                                transition: {
-                                  duration: 1.2,
-                                  times: [0, 0.4, 1.0],
-                                  ease: "easeInOut"
-                                }
-                              }
-                            : { opacity: 1, x: 0, y: 0, scale: 1 }
-                      }
-                    >
-                      <span className="font-extrabold text-[#1a1a1a] tracking-wider text-sm">
-                        PROJECT_TICHAKORN
-                      </span>
-                    </motion.div>
+                    {(introStage === "dial" || introStage === "tree") && (
+                      <motion.div 
+                        layoutId="project-title-morph" 
+                        style={{ display: "inline-block" }}
+                        animate={introStage === "dial" ? { opacity: 0 } : { opacity: 1 }}
+                        transition={{ duration: 0.4 }}
+                      >
+                        <span className="font-extrabold text-[#1a1a1a] tracking-wider text-sm select-none">
+                          PROJECT_TICHAKORN
+                        </span>
+                      </motion.div>
+                    )}
                   </div>
                   
                   {/* Nested nodes (fades in during tree stage, fades out in morph stage) */}
