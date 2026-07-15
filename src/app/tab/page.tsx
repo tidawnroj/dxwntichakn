@@ -349,7 +349,7 @@ export default function TabPage() {
               <div className="absolute -inset-8 border border-[#3b82f6]/15 rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
               
               {/* Image Container */}
-              <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-[#3b82f6]/45 relative z-10 bg-muted">
+              <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-[#3b82f6] relative z-10 bg-card shadow-[0_0_30px_rgba(59,130,246,0.2)] dark:shadow-[0_0_40px_rgba(59,130,246,0.3)] transition-all duration-300">
                 <img 
                   alt="Tichakorn Profile" 
                   className="w-full h-full object-cover" 
