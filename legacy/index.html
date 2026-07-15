@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admissions Dossier</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts: Inter, Outfit, Kanit (for Thai), and JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800;900&family=Kanit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="theme-prc">
+    
+    <header class="header">
+        <div class="logo">ADMISSIONS DOSSIER</div>
+        <nav class="nav-links">
+            <a href="#profile" class="nav-link active" data-i18n="nav-profile" data-en="Profile" data-th="ประวัติส่วนตัว">Profile</a>
+            <a href="#academic" class="nav-link" data-i18n="nav-academic" data-en="Academic" data-th="วิชาการ">Academic</a>
+            <a href="#projects" class="nav-link" data-i18n="nav-projects" data-en="Projects" data-th="ผลงาน">Projects</a>
+            <a href="#skills" class="nav-link" data-i18n="nav-skills" data-en="Skills" data-th="ทักษะ">Skills</a>
+            <a href="#timeline" class="nav-link" data-i18n="nav-timeline" data-en="Timeline" data-th="เส้นทางศึกษา">Timeline</a>
+        </nav>
+        
+        <div class="header-actions" style="display: flex; align-items: center; gap: 1.5rem;">
+            <!-- Language Toggle -->
+            <div class="lang-toggle-wrapper">
+                <button id="lang-toggle" class="lang-toggle" aria-label="Toggle Language">
+                    <span class="lang-opt active" data-lang="en">EN</span>
+                    <span class="lang-divider">|</span>
+                    <span class="lang-opt" data-lang="th">TH</span>
+                </button>
+            </div>
+            
+            <div class="nav-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- Hero Section -->
+        <section id="profile" class="hero-section">
+            <div class="hero-content">
+                <div class="badge" data-i18n="hero-badge" data-en="TCA70 2025" data-th="TCA70 2568">TCA70 2025</div>
+                
+                <h1 class="hero-title" data-i18n="hero-title" data-en="<span class='title-line'>ADMISSIONS</span> <span class='title-highlight'>PORTFOLIO</span> <span class='title-line'>CANDIDATE</span>" data-th="<span class='title-line'>แฟ้มสะสมผลงาน</span> <span class='title-highlight'>เพื่อการเข้าศึกษาต่อ</span> <span class='title-line'>ระดับอุดมศึกษา</span>">
+                    <span class="title-line">ADMISSIONS</span>
+                    <span class="title-highlight">PORTFOLIO</span>
+                    <span class="title-line">CANDIDATE</span>
+                </h1>
+                
+                <p class="hero-description" data-i18n="hero-desc" data-en="A showcase of academic excellence, technical proficiency, and visionary projects curated for Thailand's premier universities. Focused on Engineering and Computer Science." data-th="รวบรวมผลงานทางวิชาการ ความเชี่ยวชาญด้านเทคโนโลยี และโปรเจกต์เชิงนวัตกรรมที่จัดทำขึ้นเพื่อยื่นสมัครมหาวิทยาลัยชั้นนำของประเทศไทย มุ่งเน้นด้านวิศวกรรมศาสตร์และวิทยาการคอมพิวเตอร์">
+                    A showcase of academic excellence, technical proficiency, and visionary projects curated for Thailand's premier universities. Focused on Engineering and Computer Science.
+                </p>
+                
+                <div class="hero-actions">
+                    <a href="#academic" class="btn btn-primary" data-i18n="hero-explore" data-en="EXPLORE DOSSIER <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12h14'/><path d='m12 5 7 7-7 7'/></svg>" data-th="ดูผลงานทั้งหมด <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12h14'/><path d='m12 5 7 7-7 7'/></svg>">
+                        EXPLORE DOSSIER 
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    </a>
+                    <a href="#cv" class="btn btn-outline" data-i18n="hero-download" data-en="DOWNLOAD CV (PDF)" data-th="ดาวน์โหลดประวัติ (PDF)">DOWNLOAD CV (PDF)</a>
+                </div>
+
+                <div class="theme-toggler">
+                    <h3 class="theme-label" data-i18n="theme-label" data-en="ADAPT INTERFACE TO UNIVERSITY COLORS:" data-th="เปลี่ยนสีธีมตามมหาวิทยาลัย:">ADAPT INTERFACE TO UNIVERSITY COLORS:</h3>
+                    <div class="swatch-container">
+                        <button class="theme-swatch" data-theme="chula" aria-label="Chulalongkorn University">
+                            <span class="color-box bg-chula"></span>
+                            <span class="swatch-name">CHULA</span>
+                        </button>
+                        <button class="theme-swatch" data-theme="mahidol" aria-label="Mahidol University">
+                            <span class="color-box bg-mahidol"></span>
+                            <span class="swatch-name">MAHIDOL</span>
+                        </button>
+                        <button class="theme-swatch" data-theme="kmitl" aria-label="KMITL">
+                            <span class="color-box bg-kmitl"></span>
+                            <span class="swatch-name">KMITL</span>
+                        </button>
+                        <button class="theme-swatch" data-theme="cmu" aria-label="Chiang Mai University">
+                            <span class="color-box bg-cmu"></span>
+                            <span class="swatch-name">CMU</span>
+                        </button>
+                        <button class="theme-swatch active" data-theme="prc" aria-label="Prince Royal's College">
+                            <span class="color-box bg-prc"></span>
+                            <span class="swatch-name">PRC</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="visual-wrapper">
+                    <div class="decor-block"></div>
+                    <!-- PLACEHOLDER FOR REAL PORTRAIT -->
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000&auto=format&fit=crop&grayscale=true" alt="Profile Portrait" class="profile-img">
+                    <div class="decor-border"></div>
+                    
+                    <div class="stats-card floating-stats">
+                        <div class="stat-row">
+                            <div class="stat-header">
+                                <span class="stat-label" data-i18n="stat-gpax-sr" data-en="GPAX <span class='stat-sub'>(HIGH SCHOOL)</span>" data-th="เกรดเฉลี่ยสะสม <span class='stat-sub'>(ม.ปลาย)</span>">GPAX <span class="stat-sub">(HIGH SCHOOL)</span></span>
+                                <span class="stat-value primary-text">3.75</span>
+                            </div>
+                            <div class="progress-track"><div class="progress-fill" style="width: 93.75%;"></div></div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-header">
+                                <span class="stat-label" data-i18n="stat-gpax-jr" data-en="GPAX <span class='stat-sub'>(JUNIOR HIGH)</span>" data-th="เกรดเฉลี่ยสะสม <span class='stat-sub'>(ม.ต้น)</span>">GPAX <span class="stat-sub">(JUNIOR HIGH)</span></span>
+                                <span class="stat-value primary-text">3.85</span>
+                            </div>
+                            <div class="progress-track"><div class="progress-fill" style="width: 96.25%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Academic Dashboard Section -->
+        <section id="academic" class="section-block">
+            <div class="dashboard-grid">
+                
+                <!-- Profile Card -->
+                <div class="bento-card profile-card" style="grid-column: span 6;">
+                    <div class="profile-card-inner">
+                        <div class="profile-avatar">
+                            <!-- PLACEHOLDER FOR REAL PORTRAIT -->
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=200&auto=format&fit=crop" alt="Avatar">
+                        </div>
+                        <div class="profile-info">
+                            <span class="mono-label" style="color: var(--color-text-muted);" data-i18n="profile-id" data-en="NICKNAME: DAWN | BORN: 24 DEC 2008" data-th="ชื่อเล่น: ดอน | เกิด: 24 ธันวาคม 2551">NICKNAME: DAWN | BORN: 24 DEC 2008</span>
+                            <h2 class="profile-name" data-i18n="profile-name" data-en="Tichakorn<br>Rojsiripisan" data-th="ทิชากร<br>โรจน์ศิริพิศาล">Tichakorn<br>Rojsiripisan</h2>
+                            <p class="profile-school" data-i18n="profile-school" data-en="Prince Royal's College &bull; Science-Math Track<br>Technology Gifted Program" data-th="โรงเรียนปรินส์รอยแยลส์วิทยาลัย &bull; แผนการเรียนวิทยาศาสตร์-คณิตศาสตร์<br>โปรแกรมส่งเสริมอัจฉริยภาพผู้เรียนทางด้านเทคโนโลยี">Prince Royal's College &bull; Science-Math Track<br>Technology Gifted Program</p>
+                            <div class="profile-actions">
+                                <button class="btn btn-primary btn-sm" data-i18n="btn-download" data-en="<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/><polyline points='7 10 12 15 17 10'/><line x1='12' y1='15' x2='12' y2='3'/></svg> DOWNLOAD DOSSIER" data-th="<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/><polyline points='7 10 12 15 17 10'/><line x1='12' y1='15' x2='12' y2='3'/></svg> โหลดแฟ้มสะสมผลงาน">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                    DOWNLOAD DOSSIER
+                                </button>
+                                <button class="btn btn-outline btn-sm" data-i18n="btn-contact" data-en="<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'/><polyline points='22,6 12,13 2,6'/></svg> CONTACT ME" data-th="<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'/><polyline points='22,6 12,13 2,6'/></svg> ติดต่อฉัน">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                                    CONTACT ME
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cumulative GPA Box -->
+                <div class="bento-card bg-primary-solid gpa-card" style="grid-column: span 6;">
+                    <span class="mono-label text-inverse" data-i18n="gpa-label" data-en="HIGH SCHOOL GPAX" data-th="เกรดเฉลี่ยสะสมมัธยมปลาย">HIGH SCHOOL GPAX</span>
+                    <div class="gpa-score">
+                        <span class="gpa-big">3.75</span><span class="gpa-small">/4.00</span>
+                    </div>
+                    <div class="progress-track inverted"><div class="progress-fill" style="width: 93.75%;"></div></div>
+                    <span class="mono-label text-inverse" style="display:block; margin-top:0.5rem; opacity:0.8;" data-i18n="gpa-rank" data-en="PRINCE ROYAL'S COLLEGE" data-th="โรงเรียนปรินส์รอยแยลส์วิทยาลัย">PRINCE ROYAL'S COLLEGE</span>
+                </div>
+
+                <!-- Contact & Socials -->
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-top-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <span class="mono-label" data-i18n="contact-title" data-en="CONTACT INFORMATION" data-th="ข้อมูลการติดต่อ">CONTACT INFORMATION</span>
+                    </div>
+                    
+                    <ul class="contact-list" style="list-style: none; padding: 0; margin-top: 1rem;">
+                        <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; font-size: 0.9rem;">
+                            <span class="text-primary" style="font-family: var(--font-mono); font-weight: bold;">TEL:</span> 092-9129230
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; font-size: 0.9rem;">
+                            <span class="text-primary" style="font-family: var(--font-mono); font-weight: bold;">MAIL:</span> tidawnroj@gmail.com
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; font-size: 0.9rem;">
+                            <span class="text-primary" style="font-family: var(--font-mono); font-weight: bold;">FB:</span> Tichakorn Roj
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; font-size: 0.9rem;">
+                            <span class="text-primary" style="font-family: var(--font-mono); font-weight: bold;">IG:</span> @dxwntichakn
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; font-size: 0.9rem;">
+                            <span class="text-primary" style="font-family: var(--font-mono); font-weight: bold;">GIT:</span> dxwntichakn
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Residence & Personal -->
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-top-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span class="mono-label" data-i18n="residence-title" data-en="RESIDENCE" data-th="ที่อยู่ปัจจุบัน">RESIDENCE</span>
+                    </div>
+                    <p class="bio-text" style="margin-bottom: 1.5rem;" data-i18n="residence-content" data-en="49/2 Moo 8, San Kamphaeng, <br>Chiang Mai, Thailand 50130" data-th="49/2 หมู่ 8 ต.สันกำแพง อ.สันกำแพง <br>จ.เชียงใหม่ 50130">49/2 Moo 8, San Kamphaeng, <br>Chiang Mai, Thailand 50130</p>
+                    
+                    <div class="card-top-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+                        <span class="mono-label" data-i18n="personal-title" data-en="ACADEMIC FOCUS" data-th="ความสนใจทางวิชาการ">ACADEMIC FOCUS</span>
+                    </div>
+                    <p class="bio-text" data-i18n="personal-content" data-en="Software Engineering, Artificial Intelligence, and Embedded Systems" data-th="วิศวกรรมซอฟต์แวร์, ปัญญาประดิษฐ์, และระบบสมองกลฝังตัว">Software Engineering, Artificial Intelligence, and Embedded Systems</p>
+                </div>
+
+                <!-- Academic Records -->
+                <div class="bento-card" style="grid-column: span 4; grid-row: span 2;">
+                    <span class="mono-label" style="display:block; margin-bottom:1.5rem;" data-i18n="test-title" data-en="ACADEMIC RECORDS" data-th="ผลการศึกษา">ACADEMIC RECORDS</span>
+                    
+                    <div class="stat-row">
+                        <div class="stat-header">
+                            <span class="stat-label" style="font-size:0.8rem; font-weight:500;" data-i18n="rec-jr" data-en="Junior High School (GPAX)" data-th="ระดับมัธยมศึกษาตอนต้น (GPAX)">Junior High School (GPAX)</span>
+                            <span class="stat-value" style="font-size:0.8rem; font-family:var(--font-mono); color:var(--color-primary);">3.85/4.00</span>
+                        </div>
+                        <div class="progress-track"><div class="progress-fill" style="width: 96.25%;"></div></div>
+                    </div>
+                    
+                    <div class="stat-row" style="margin-top: 1.5rem;">
+                        <div class="stat-header">
+                            <span class="stat-label" style="font-size:0.8rem; font-weight:500;" data-i18n="rec-sr" data-en="Senior High School (GPAX)" data-th="ระดับมัธยมศึกษาตอนปลาย (GPAX)">Senior High School (GPAX)</span>
+                            <span class="stat-value" style="font-size:0.8rem; font-family:var(--font-mono); color:var(--color-primary);">3.75/4.00</span>
+                        </div>
+                        <div class="progress-track"><div class="progress-fill" style="width: 93.75%;"></div></div>
+                    </div>
+                    
+                    <!-- School Badge -->
+                    <div class="school-badge">
+                        <div class="school-logo-placeholder">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <h4 class="school-name" data-i18n="badge-school" data-en="Prince Royal's College" data-th="โรงเรียนปรินส์รอยแยลส์วิทยาลัย">Prince Royal's College</h4>
+                        <span class="mono-label" style="font-size:0.6rem;" data-i18n="badge-city" data-en="CHIANG MAI, THAILAND" data-th="เชียงใหม่, ประเทศไทย">CHIANG MAI, THAILAND</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Academic Excellence -->
+        <section class="section-block">
+            <h2 class="section-title" data-i18n="excellence-title" data-en="ACADEMIC EXCELLENCE" data-th="ความเป็นเลิศทางวิชาการ">ACADEMIC EXCELLENCE</h2>
+            
+            <div class="three-col-grid">
+                <!-- Card 1 -->
+                <div class="bento-card img-card">
+                    <div class="card-img-top">
+                        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=600&auto=format&fit=crop" alt="Science Lab">
+                        <div class="img-badge" data-i18n="badge-honor" data-en="HONOR" data-th="รางวัล">HONOR</div>
+                    </div>
+                    <div class="card-content">
+                        <span class="mono-label" data-i18n="card1-label" data-en="SCIENCE & TECH" data-th="วิทยาศาสตร์และเทคโนโลยี">SCIENCE & TECH</span>
+                        <h3 data-i18n="card1-title" data-en="Science Olympiad Finalist" data-th="ผู้เข้ารอบสุดท้ายโอลิมปิกวิชาการ">Science Olympiad Finalist</h3>
+                        <p data-i18n="card1-desc" data-en="National Silver Medalist in Physics (POSN Center), demonstrating advanced problem-solving in classical mechanics and electromagnetism." data-th="เหรียญเงินระดับชาติ สาขาฟิสิกส์ (ศูนย์ สอวน.) แสดงความสามารถในการแก้ปัญหาขั้นสูงทางกลศาสตร์คลาสสิกและแม่เหล็กไฟฟ้า">National Silver Medalist in Physics (POSN Center), demonstrating advanced problem-solving in classical mechanics and electromagnetism.</p>
+                        <div class="tag-group">
+                            <span class="tag">PHYSICS</span>
+                            <span class="tag">NATIONAL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bento-card img-card">
+                    <div class="card-img-top">
+                        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=600&auto=format&fit=crop" alt="Math Blackboard">
+                        <div class="img-badge" data-i18n="badge-cert" data-en="CERTIFIED" data-th="รับรอง">CERTIFIED</div>
+                    </div>
+                    <div class="card-content">
+                        <span class="mono-label" data-i18n="card2-label" data-en="MATHEMATICS" data-th="คณิตศาสตร์">MATHEMATICS</span>
+                        <h3 data-i18n="card2-title" data-en="AP Calculus BC Score: 5/5" data-th="คะแนน AP Calculus BC: 5/5">AP Calculus BC Score: 5/5</h3>
+                        <p data-i18n="card2-desc" data-en="Mastery of differential and integral calculus with emphasis on series and polar coordinates. Top achievement score." data-th="ความเชี่ยวชาญด้านแคลคูลัสเชิงอนุพันธ์และปริพันธ์ เน้นเรื่องอนุกรมและพิกัดเชิงขั้ว ได้คะแนนสูงสุด">Mastery of differential and integral calculus with emphasis on series and polar coordinates. Top achievement score.</p>
+                        <div class="tag-group">
+                            <span class="tag">AP BOARD</span>
+                            <span class="tag">STEM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bento-card img-card">
+                    <div class="card-img-top">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=600&auto=format&fit=crop" alt="Office Hallway">
+                        <div class="img-badge" data-i18n="badge-leader" data-en="LEADERSHIP" data-th="ผู้นำ">LEADERSHIP</div>
+                    </div>
+                    <div class="card-content">
+                        <span class="mono-label" data-i18n="card3-label" data-en="COMMUNITY" data-th="สังคมส่วนรวม">COMMUNITY</span>
+                        <h3 data-i18n="card3-title" data-en="Student Council President" data-th="ประธานสภานักเรียน">Student Council President</h3>
+                        <p data-i18n="card3-desc" data-en="Elected leader managing a team of 30, coordinating school-wide events and academic mentoring programs for over 2,000 students." data-th="ได้รับเลือกให้เป็นผู้นำจัดการทีมกว่า 30 คน ประสานงานกิจกรรมระดับโรงเรียนและโครงการติววิชาการสำหรับนักเรียนกว่า 2,000 คน">Elected leader managing a team of 30, coordinating school-wide events and academic mentoring programs for over 2,000 students.</p>
+                        <div class="tag-group">
+                            <span class="tag">LEADERSHIP</span>
+                            <span class="tag">ELECTED</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Curriculum Overview Box -->
+            <div class="curriculum-box">
+                <div class="curriculum-header">
+                    <h2 data-i18n="curr-title" data-en="CURRICULUM OVERVIEW" data-th="ภาพรวมหลักสูตรการศึกษา">CURRICULUM OVERVIEW</h2>
+                    <p data-i18n="curr-desc" data-en="Selected advanced coursework at Prince Royal's College" data-th="รายวิชาขั้นสูงที่เลือกเรียน ณ โรงเรียนปรินส์รอยแยลส์วิทยาลัย">Selected advanced coursework at Prince Royal's College</p>
+                </div>
+                <div class="curriculum-grid">
+                    <div class="bento-card curriculum-item">
+                        <span class="curr-icon">Σ</span>
+                        <span class="mono-label" data-i18n="curr1-label" data-en="PURE MATH" data-th="คณิตศาสตร์บริสุทธิ์">PURE MATH</span>
+                        <ul>
+                            <li data-i18n="curr1-1" data-en="Vector Analysis" data-th="การวิเคราะห์เวกเตอร์">Vector Analysis</li>
+                            <li data-i18n="curr1-2" data-en="Linear Algebra" data-th="พีชคณิตเชิงเส้น">Linear Algebra</li>
+                        </ul>
+                    </div>
+                    <div class="bento-card curriculum-item">
+                        <span class="curr-icon">⚗</span>
+                        <span class="mono-label" data-i18n="curr2-label" data-en="SCIENCES" data-th="วิทยาศาสตร์">SCIENCES</span>
+                        <ul>
+                            <li data-i18n="curr2-1" data-en="Advanced Physics" data-th="ฟิสิกส์ขั้นสูง">Advanced Physics</li>
+                            <li data-i18n="curr2-2" data-en="Org Chemistry" data-th="เคมีอินทรีย์">Org Chemistry</li>
+                        </ul>
+                    </div>
+                    <div class="bento-card curriculum-item">
+                        <span class="curr-icon">⌨</span>
+                        <span class="mono-label" data-i18n="curr3-label" data-en="TECHNOLOGY" data-th="เทคโนโลยี">TECHNOLOGY</span>
+                        <ul>
+                            <li data-i18n="curr3-1" data-en="Data Structures" data-th="โครงสร้างข้อมูล">Data Structures</li>
+                            <li data-i18n="curr3-2" data-en="Python ML" data-th="แมชชีนเลิร์นนิง Python">Python ML</li>
+                        </ul>
+                    </div>
+                    <div class="bento-card curriculum-item">
+                        <span class="curr-icon">🌍</span>
+                        <span class="mono-label" data-i18n="curr4-label" data-en="HUMANITIES" data-th="มนุษยศาสตร์">HUMANITIES</span>
+                        <ul>
+                            <li data-i18n="curr4-1" data-en="World Economics" data-th="เศรษฐศาสตร์โลก">World Economics</li>
+                            <li data-i18n="curr4-2" data-en="Global Politics" data-th="การเมืองโลก">Global Politics</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects & Achievements Section -->
+        <section id="projects" class="section-block">
+            <span class="mono-label" data-i18n="proj-badge" data-en="PORTFOLIO EXHIBITION" data-th="นิทรรศการผลงาน">PORTFOLIO EXHIBITION</span>
+            <h2 class="section-title" data-i18n="proj-title" data-en="Projects & Achievements" data-th="ผลงานและความสำเร็จ">Projects & Achievements</h2>
+            <p class="section-desc" data-i18n="proj-desc" data-en="A curated selection of technical ventures, academic research, and competitive milestones that define my pursuit of excellence in Computer Science." data-th="การรวบรวมโปรเจกต์ทางเทคนิค งานวิจัยเชิงวิชาการ และการแข่งขันสำคัญที่สะท้อนถึงความมุ่งมั่นสู่ความเป็นเลิศในด้านวิทยาการคอมพิวเตอร์">A curated selection of technical ventures, academic research, and competitive milestones that define my pursuit of excellence in Computer Science.</p>
+
+            <!-- Stats Row -->
+            <div class="stats-row">
+                <div class="bento-card stat-box">
+                    <span class="stat-number">12+</span>
+                    <span class="mono-label" data-i18n="stat1-label" data-en="PROJECTS" data-th="โปรเจกต์">PROJECTS</span>
+                </div>
+                <div class="bento-card stat-box">
+                    <span class="stat-number">05</span>
+                    <span class="mono-label" data-i18n="stat2-label" data-en="HACKATHONS" data-th="แฮกกาธอน">HACKATHONS</span>
+                </div>
+                <div class="bento-card stat-box">
+                    <span class="stat-number">08</span>
+                    <span class="mono-label" data-i18n="stat3-label" data-en="CERTIFICATES" data-th="ประกาศนียบัตร">CERTIFICATES</span>
+                </div>
+                <div class="bento-card stat-box">
+                    <span class="stat-number">02</span>
+                    <span class="mono-label" data-i18n="stat4-label" data-en="AWARDS" data-th="รางวัล">AWARDS</span>
+                </div>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="projects-grid">
+                
+                <!-- Main Project (Spans 2 columns) -->
+                <div class="bento-card project-card-large">
+                    <div class="project-img-large">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop" alt="AI Network">
+                    </div>
+                    <div class="project-content-large">
+                        <div class="proj-top">
+                            <span class="tag" data-i18n="tag-research" data-en="INNOVATION & AWARDS" data-th="นวัตกรรมและรางวัล">INNOVATION & AWARDS</span>
+                            <span class="mono-label" data-i18n="date-oct23" data-en="2025-2026" data-th="2025-2026">2025-2026</span>
+                        </div>
+                        <h2 data-i18n="proj1-title" data-en="REBEXs: AI Breast Cancer Screening" data-th="REBEXs: ระบบตรวจคัดกรองมะเร็งเต้านมด้วย AI">REBEXs: AI Breast Cancer Screening</h2>
+                        <p data-i18n="proj1-desc" data-en="Award-winning system utilizing EIT and AI for breast cancer screening. Winner of Medical Track at CEDT Innovation Summit 2025, Gold Medal at CSITF 2026, and Winner of I-NEWGEN 2026. Responsible for Hardware (PCB, 3D CAD) and Software (Web App, AI Chatbot, Backend, UX/UI)." data-th="ระบบคัดกรองมะเร็งเต้านมด้วย EIT และ AI ชนะเลิศ Medical Track ใน CEDT Innovation Summit 2025, เหรียญทอง CSITF 2026 (เซี่ยงไฮ้) และชนะเลิศ I-NEWGEN 2026 รับผิดชอบด้าน Hardware (PCB, 3D CAD) และ Software (Web App, AI Chatbot, Backend, UX/UI)">Award-winning system utilizing EIT and AI for breast cancer screening. Winner of Medical Track at CEDT Innovation Summit 2025, Gold Medal at CSITF 2026, and Winner of I-NEWGEN 2026. Responsible for Hardware (PCB, 3D CAD) and Software (Web App, AI Chatbot, Backend, UX/UI).</p>
+                        <div class="tag-group">
+                            <span class="tag">AI CHATBOT</span>
+                            <span class="tag">WEB APP</span>
+                            <span class="tag">HARDWARE</span>
+                            <span class="tag">UX/UI</span>
+                        </div>
+                        <a href="#" class="link-arrow mt-auto" data-i18n="link-case" data-en="VIEW DETAILS &rarr;" data-th="ดูรายละเอียด &rarr;">VIEW DETAILS &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Secondary Project 1 -->
+                <div class="bento-card project-card-tall">
+                    <div class="project-img-tall">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=600&auto=format&fit=crop" alt="Award">
+                    </div>
+                    <div class="project-content">
+                        <span class="mono-label" data-i18n="tag-comp" data-en="COMPETITION" data-th="การแข่งขัน">COMPETITION</span>
+                        <h3 data-i18n="proj2-title" data-en="1st Place: National Robotics Challenge" data-th="รางวัลชนะเลิศ: National Robotics Challenge">1st Place: National Robotics Challenge</h3>
+                        <p data-i18n="proj2-desc" data-en="Led a team of four to design an autonomous search-and-rescue drone..." data-th="นำทีม 4 คนเพื่อออกแบบโดรนกู้ภัยค้นหาอัตโนมัติ...">Led a team of four to design an autonomous search-and-rescue drone...</p>
+                        <div class="proj-bottom">
+                            <span class="mono-label" data-i18n="date-may23" data-en="MAY 2023" data-th="พฤษภาคม 2023">MAY 2023</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Small Project 1 -->
+                <div class="bento-card project-card-small">
+                    <div class="project-img-small">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600&auto=format&fit=crop" alt="Dashboard">
+                    </div>
+                    <div class="project-content">
+                        <span class="mono-label" data-i18n="tag-dev" data-en="DEVELOPMENT" data-th="การพัฒนาซอฟต์แวร์">DEVELOPMENT</span>
+                        <h3 data-i18n="proj3-title" data-en="EduTrack Dashboard" data-th="แดชบอร์ด EduTrack">EduTrack Dashboard</h3>
+                        <p data-i18n="proj3-desc" data-en="A full-stack student management system with automated grade tracking." data-th="ระบบจัดการนักเรียนแบบ Full-stack พร้อมติดตามผลการเรียนอัตโนมัติ">A full-stack student management system with automated grade tracking.</p>
+                        <div class="proj-bottom">
+                            <span class="mono-label" data-i18n="date-jan24" data-en="JAN 2024" data-th="มกราคม 2024">JAN 2024</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Small Project 2 -->
+                <div class="bento-card project-card-small">
+                    <div class="project-img-small">
+                        <img src="https://images.unsplash.com/photo-1642104704074-907c0698cbd9?q=80&w=600&auto=format&fit=crop" alt="Data Science">
+                    </div>
+                    <div class="project-content">
+                        <span class="mono-label" data-i18n="tag-ds" data-en="DATA SCIENCE" data-th="วิทยาการข้อมูล">DATA SCIENCE</span>
+                        <h3 data-i18n="proj4-title" data-en="Market Trend Analysis" data-th="วิเคราะห์แนวโน้มตลาด">Market Trend Analysis</h3>
+                        <p data-i18n="proj4-desc" data-en="Leveraged NLP techniques to analyze social media sentiment." data-th="ใช้เทคนิค NLP ในการวิเคราะห์ความรู้สึกจากโซเชียลมีเดีย">Leveraged NLP techniques to analyze social media sentiment.</p>
+                        <div class="proj-bottom">
+                            <span class="mono-label" data-i18n="date-nov23" data-en="NOV 2023" data-th="พฤศจิกายน 2023">NOV 2023</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" x2="21" y1="9" y2="9"/><line x1="9" x2="9" y1="21" y2="9"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Small Project 3 -->
+                <div class="bento-card project-card-small">
+                    <div class="project-img-small">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=600&auto=format&fit=crop" alt="Cyber Security">
+                    </div>
+                    <div class="project-content">
+                        <span class="mono-label" data-i18n="tag-cert" data-en="CERTIFICATION" data-th="ใบรับรอง">CERTIFICATION</span>
+                        <h3 data-i18n="proj5-title" data-en="Google Cloud Professional" data-th="ผู้เชี่ยวชาญ Google Cloud">Google Cloud Professional</h3>
+                        <p data-i18n="proj5-desc" data-en="Validated expertise in cloud architecture, deployment, and security." data-th="รับรองความเชี่ยวชาญด้านสถาปัตยกรรมคลาวด์ การปรับใช้ และความปลอดภัย">Validated expertise in cloud architecture, deployment, and security.</p>
+                        <div class="proj-bottom">
+                            <span class="mono-label" data-i18n="date-aug23" data-en="AUG 2023" data-th="สิงหาคม 2023">AUG 2023</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CTA Box -->
+            <div class="cta-box">
+                <h2 data-i18n="cta-title" data-en="Want to see more of my work?" data-th="ต้องการรับชมผลงานเพิ่มเติม?">Want to see more of my work?</h2>
+                <p data-i18n="cta-desc" data-en="Detailed technical documentation for all projects is available on my Github repository or by request for academic review." data-th="เอกสารทางเทคนิคของทุกโปรเจกต์สามารถเข้าไปดูได้ที่ Github ของฉัน หรือสามารถร้องขอได้เพื่อการตรวจสอบทางวิชาการ">Detailed technical documentation for all projects is available on my Github repository or by request for academic review.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary" data-i18n="cta-btn1" data-en="<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/><polyline points='14 2 14 8 20 8'/><line x1='12' y1='18' x2='12' y2='12'/><line x1='9' y1='15' x2='15' y2='15'/></svg> DOWNLOAD FULL PORTFOLIO" data-th="<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/><polyline points='14 2 14 8 20 8'/><line x1='12' y1='18' x2='12' y2='12'/><line x1='9' y1='15' x2='15' y2='15'/></svg> โหลดแฟ้มเต็ม (Full)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                        DOWNLOAD FULL PORTFOLIO
+                    </a>
+                    <a href="#" class="btn btn-outline" data-i18n="cta-btn2" data-en="<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M2 12h20'/><path d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/></svg> GET IN TOUCH" data-th="<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M2 12h20'/><path d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/></svg> ติดต่อฉัน">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        GET IN TOUCH
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Competencies & Journey Section -->
+        <section id="skills" class="section-block">
+            <h2 class="section-title" data-i18n="skills-title" data-en="Competencies & Journey" data-th="ความสามารถและการเดินทาง">Competencies & Journey</h2>
+            <p class="section-desc" data-i18n="skills-desc" data-en="A comprehensive overview of my technical expertise, professional soft skills, and the academic milestones that have shaped my perspective." data-th="ภาพรวมที่ครอบคลุมเกี่ยวกับความเชี่ยวชาญด้านเทคนิค ทักษะทางสังคมในวิชาชีพ และก้าวสำคัญทางวิชาการที่หล่อหลอมมุมมองของฉัน">A comprehensive overview of my technical expertise, professional soft skills, and the academic milestones that have shaped my perspective.</p>
+
+            <!-- Skills Grid -->
+            <div class="skills-grid">
+                <!-- Tech Skills (Grid Layout) -->
+                <div class="bento-card skills-card">
+                    <div class="card-top-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                        <h3 data-i18n="tech-title" data-en="Technical Proficiencies" data-th="ทักษะด้านโปรแกรมมิ่งและการออกแบบ">Technical Proficiencies</h3>
+                    </div>
+                    
+                    <div class="tech-stack-container" style="margin-top: 1.5rem;">
+                        <span class="mono-label" style="display: block; margin-bottom: 0.5rem;" data-i18n="ts-prog" data-en="PROGRAMMING" data-th="การเขียนโปรแกรม">PROGRAMMING</span>
+                        <div class="tech-grid">
+                            <div class="tech-badge">C++</div>
+                            <div class="tech-badge">Python</div>
+                            <div class="tech-badge">React</div>
+                            <div class="tech-badge">Java</div>
+                            <div class="tech-badge">Swift</div>
+                            <div class="tech-badge">Arduino IDE</div>
+                        </div>
+
+                        <span class="mono-label" style="display: block; margin-top: 1.5rem; margin-bottom: 0.5rem;" data-i18n="ts-des" data-en="DESIGN & OTHER" data-th="การออกแบบและเครื่องมืออื่นๆ">DESIGN & OTHER</span>
+                        <div class="tech-grid">
+                            <div class="tech-badge">Shapr3D</div>
+                            <div class="tech-badge">Fritzing</div>
+                            <div class="tech-badge">EasyEDA</div>
+                            <div class="tech-badge">Figma</div>
+                            <div class="tech-badge">Google Stitch</div>
+                            <div class="tech-badge">Antigravity</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interests & Skills -->
+                <div class="bento-card bg-primary-solid skills-card text-inverse">
+                    <div class="card-top-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 1 0 0 8 4 4 0 1 0 0-8z"/><path d="M4 22v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2"/></svg>
+                        <h3 data-i18n="soft-title" data-en="Interests & Skills" data-th="ทักษะและความสนใจ">Interests & Skills</h3>
+                    </div>
+                    <ul class="soft-skills-list">
+                        <li data-i18n="soft1" data-en="Software & Website Development" data-th="การพัฒนาซอฟต์แวร์และเว็บไซต์">Software & Website Development</li>
+                        <li data-i18n="soft2" data-en="Artificial Intelligence (AI) Model Development" data-th="การพัฒนาโมเดลปัญญาประดิษฐ์ (AI)">Artificial Intelligence (AI) Model Development</li>
+                        <li data-i18n="soft3" data-en="Microcontroller Programming" data-th="การเขียนโปรแกรมไมโครคอนโทรลเลอร์">Microcontroller Programming</li>
+                        <li data-i18n="soft4" data-en="3D Modeling & Prototyping" data-th="การออกแบบโมเดลสามมิติและผลิตภัณฑ์ต้นแบบ">3D Modeling & Prototyping</li>
+                        <li data-i18n="soft5" data-en="Electronic Circuit & Hardware Design" data-th="การออกแบบวงจรอิเล็กทรอนิกส์และฮาร์ดแวร์">Electronic Circuit & Hardware Design</li>
+                        <li data-i18n="soft6" data-en="Mathematical Problem Solving & Analytical Thinking" data-th="การแก้ปัญหาทางคณิตศาสตร์และการคิดเชิงวิเคราะห์">Mathematical Problem Solving & Analytical Thinking</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <div id="timeline" class="timeline-container">
+                <div class="timeline-header text-center">
+                    <span class="mono-label" data-i18n="tl-badge" data-en="GROWTH PATH" data-th="เส้นทางการเติบโต">GROWTH PATH</span>
+                    <h2 class="section-title" data-i18n="tl-title" data-en="Academic Timeline" data-th="ไทม์ไลน์ประวัติการศึกษา">Academic Timeline</h2>
+                </div>
+
+                <div class="timeline">
+                    <!-- Line -->
+                    <div class="timeline-line"></div>
+                    
+                    <!-- Item 1: POSN (Odd) -->
+                    <div class="timeline-item">
+                        <div class="timeline-content left-content text-right">
+                            <h3 class="timeline-title" data-i18n="t1-title" data-en="POSN Computer Olympiad Camp 1" data-th="โอลิมปิกวิชาการ สอวน.คอมพิวเตอร์ ค่าย 1">POSN Computer Olympiad Camp 1</h3>
+                            <span class="mono-label" data-i18n="t1-date" data-en="OCTOBER 2024" data-th="ตุลาคม 2024">OCTOBER 2024</span>
+                            <p data-i18n="t1-desc" data-en="Selected to participate in the prestigious POSN Computer Olympiad training camp." data-th="ผ่านการคัดเลือกเข้าค่ายฝึกอบรมโอลิมปิกวิชาการ สอวน. สาขาคอมพิวเตอร์ ค่าย 1">Selected to participate in the prestigious POSN Computer Olympiad training camp.</p>
+                        </div>
+                        <div class="timeline-node">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                        </div>
+                        <div class="timeline-img right-img">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop&grayscale=true" alt="Coding">
+                        </div>
+                    </div>
+
+                    <!-- Item 2: CEDT (Even) -->
+                    <div class="timeline-item">
+                        <div class="timeline-img left-img">
+                            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=600&auto=format&fit=crop&grayscale=true" alt="Medical Tech">
+                        </div>
+                        <div class="timeline-node">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        </div>
+                        <div class="timeline-content right-content text-left">
+                            <h3 class="timeline-title" data-i18n="t2-title" data-en="CEDT Innovation Summit 2025" data-th="CEDT Innovation Summit 2025">CEDT Innovation Summit 2025</h3>
+                            <span class="mono-label" data-i18n="t2-date" data-en="APRIL 2025" data-th="เมษายน 2025">APRIL 2025</span>
+                            <p data-i18n="t2-desc" data-en="Winner of Medical Track with the innovative project: <strong>REBEXs Tools</strong>." data-th="ได้รับรางวัลชนะเลิศ (Winner) ในสาย Medical Track ด้วยผลงาน <strong>REBEXs Tools</strong>">Winner of Medical Track with the innovative project: <strong>REBEXs Tools</strong>.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3: SUPER AI Eng (Odd) -->
+                    <div class="timeline-item">
+                        <div class="timeline-content left-content text-right">
+                            <h3 class="timeline-title" data-i18n="t3-title" data-en="SUPER AI : Engineer SS5" data-th="SUPER AI : Engineer SS5">SUPER AI : Engineer SS5</h3>
+                            <span class="mono-label" data-i18n="t3-date" data-en="MAY 2025" data-th="พฤษภาคม 2025">MAY 2025</span>
+                            <p data-i18n="t3-desc" data-en="Successfully passed the intensive Level 2 selection process." data-th="ผ่านการคัดเลือก Level 2 ในโครงการอบรมเชิงปฏิบัติการปัญญาประดิษฐ์">Successfully passed the intensive Level 2 selection process.</p>
+                        </div>
+                        <div class="timeline-node">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg>
+                        </div>
+                        <div class="timeline-img right-img">
+                            <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=600&auto=format&fit=crop&grayscale=true" alt="AI Circuit">
+                        </div>
+                    </div>
+
+                    <!-- Item 4: HYLIFE Hackathon (Even) -->
+                    <div class="timeline-item">
+                        <div class="timeline-img left-img">
+                            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop&grayscale=true" alt="Hackathon">
+                        </div>
+                        <div class="timeline-node">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        </div>
+                        <div class="timeline-content right-content text-left">
+                            <h3 class="timeline-title" data-i18n="t4-title" data-en="HYLIFE Hackathon" data-th="HYLIFE Hackathon">HYLIFE Hackathon</h3>
+                            <span class="mono-label" data-i18n="t4-date" data-en="AUGUST 2025" data-th="สิงหาคม 2025">AUGUST 2025</span>
+                            <p data-i18n="t4-desc" data-en="Achieved 1st Place (Winner) by developing the <strong>Stroke Sight</strong> application." data-th="คว้ารางวัลชนะเลิศ จากการพัฒนาผลงานแอปพลิเคชัน <strong>Stroke Sight</strong>">Achieved 1st Place (Winner) by developing the <strong>Stroke Sight</strong> application.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 5: SUPER AI Innovator (Odd) -->
+                    <div class="timeline-item">
+                        <div class="timeline-content left-content text-right">
+                            <h3 class="timeline-title" data-i18n="t5-title" data-en="SUPER AI : Innovator SS5" data-th="SUPER AI : Innovator SS5">SUPER AI : Innovator SS5</h3>
+                            <span class="mono-label" data-i18n="t5-date" data-en="OCTOBER 2025" data-th="ตุลาคม 2025">OCTOBER 2025</span>
+                            <p data-i18n="t5-desc" data-en="Crowned as the Overall Winner in the Innovator track." data-th="คว้ารางวัลชนะเลิศ ในสาย Innovator แสดงความสามารถด้านนวัตกรรม AI">Crowned as the Overall Winner in the Innovator track.</p>
+                        </div>
+                        <div class="timeline-node">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+                        </div>
+                        <div class="timeline-img right-img">
+                            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=600&auto=format&fit=crop&grayscale=true" alt="Innovation">
+                        </div>
+                    </div>
+
+                    <!-- Item 6: FTC Decode (Even) -->
+                    <div class="timeline-item">
+                        <div class="timeline-img left-img">
+                            <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=600&auto=format&fit=crop&grayscale=true" alt="Robotics">
+                        </div>
+                        <div class="timeline-node">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <div class="timeline-content right-content text-left">
+                            <h3 class="timeline-title" data-i18n="t6-title" data-en="FIRST TECH CHALLENGE: Decode" data-th="FIRST TECH CHALLENGE: Decode">FIRST TECH CHALLENGE: Decode</h3>
+                            <span class="mono-label" data-i18n="t6-date" data-en="DECEMBER 2025" data-th="ธันวาคม 2025">DECEMBER 2025</span>
+                            <p data-i18n="t6-desc" data-en="Awarded 3rd Place Inspired Award with team <strong>PRC-GC Minerva</strong>." data-th="คว้ารางวัล Inspired Award อันดับที่ 3 ร่วมกับทีม <strong>PRC-GC Minerva</strong>">Awarded 3rd Place Inspired Award with team <strong>PRC-GC Minerva</strong>.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 7: I-NEW GEN (Odd) -->
+                    <div class="timeline-item">
+                        <div class="timeline-content left-content text-right">
+                            <h3 class="timeline-title" data-i18n="t7-title" data-en="I-NEW GEN Award 2025" data-th="I-NEW GEN Award 2025">I-NEW GEN Award 2025</h3>
+                            <span class="mono-label" data-i18n="t7-date" data-en="JANUARY 2026" data-th="มกราคม 2026">JANUARY 2026</span>
+                            <p data-i18n="t7-desc" data-en="Double victory: Winner and Gold Medalist for <strong>REBEXs Tools</strong>." data-th="คว้า 2 รางวัลใหญ่: รางวัลชนะเลิศ และ รางวัลเหรียญทอง จากผลงาน <strong>REBEXs Tools</strong>">Double victory: Winner and Gold Medalist for <strong>REBEXs Tools</strong>.</p>
+                        </div>
+                        <div class="timeline-node">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                        </div>
+                        <div class="timeline-img right-img">
+                            <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=600&auto=format&fit=crop&grayscale=true" alt="Medal">
+                        </div>
+                    </div>
+
+                    <!-- Item 8: Thailand Inventors (Even) -->
+                    <div class="timeline-item">
+                        <div class="timeline-img left-img">
+                            <img src="https://images.unsplash.com/photo-1475721028314-3b47bd21c0b3?q=80&w=600&auto=format&fit=crop&grayscale=true" alt="Speaking">
+                        </div>
+                        <div class="timeline-node">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                        </div>
+                        <div class="timeline-content right-content text-left">
+                            <h3 class="timeline-title" data-i18n="t8-title" data-en="Thailand Inventors' Day 2026" data-th="วันนักประดิษฐ์แห่งชาติ 2026">Thailand Inventors' Day 2026</h3>
+                            <span class="mono-label" data-i18n="t8-date" data-en="MAY 2026" data-th="พฤษภาคม 2026">MAY 2026</span>
+                            <p data-i18n="t8-desc" data-en="Honored as a Guest Speaker at the Road Show, presenting REBEXs Tools." data-th="ได้รับเกียรติให้เป็นวิทยากรบรรยายในงาน Road Show เพื่อนำเสนอผลงาน REBEXs Tools">Honored as a Guest Speaker at the Road Show, presenting REBEXs Tools.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 9: CSITF (Odd) -->
+                    <div class="timeline-item">
+                        <div class="timeline-content left-content text-right">
+                            <h3 class="timeline-title" data-i18n="t9-title" data-en="CSITF 2026" data-th="CSITF 2026">CSITF 2026</h3>
+                            <span class="mono-label" data-i18n="t9-date" data-en="JUNE 2026" data-th="มิถุนายน 2026">JUNE 2026</span>
+                            <p data-i18n="t9-desc" data-en="Exhibiting at the China Shanghai International Technology Fair." data-th="จัดแสดงผลงานระดับนานาชาติในงาน China Shanghai International Technology Fair">Exhibiting at the China Shanghai International Technology Fair.</p>
+                        </div>
+                        <div class="timeline-node">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </div>
+                        <div class="timeline-img right-img">
+                            <img src="https://images.unsplash.com/photo-1541888086425-d81bb19240f5?q=80&w=600&auto=format&fit=crop&grayscale=true" alt="Exhibition">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer-left">
+            <div class="footer-logo">TCA70 PORTFOLIO</div>
+            <p class="footer-text" data-i18n="footer-desc" data-en="Built with precision for the 2024 admissions cycle.<br>Documenting a journey of constant learning and excellence." data-th="สร้างขึ้นอย่างตั้งใจสำหรับรอบการรับสมัคร 2024<br>บันทึกเรื่องราวแห่งการเรียนรู้และการพัฒนาอย่างต่อเนื่อง">Built with precision for the 2024 admissions cycle.<br>Documenting a journey of constant learning and excellence.</p>
+            <p class="copyright" style="margin-top: 1rem;" data-i18n="footer-copy" data-en="&copy; 2026 TCA70 PORTFOLIO CANDIDATE. ALL RIGHTS RESERVED." data-th="&copy; 2026 ผู้สมัคร TCA70 สงวนสิทธิ์ทุกประการ">&copy; 2026 TCA70 PORTFOLIO CANDIDATE. ALL RIGHTS RESERVED.</p>
+        </div>
+        <div class="footer-right">
+            <div class="footer-links">
+                <a href="#privacy" data-i18n="foot-link1" data-en="Privacy Policy" data-th="นโยบายความเป็นส่วนตัว">Privacy Policy</a>
+                <a href="#terms" data-i18n="foot-link2" data-en="Terms of Service" data-th="เงื่อนไขการให้บริการ">Terms of Service</a>
+                <a href="#contact" data-i18n="foot-link3" data-en="Contact Me" data-th="ติดต่อฉัน">Contact Me</a>
+            </div>
+            <div class="footer-socials" style="margin-top: 1rem; display: flex; gap: 0.5rem; justify-content: flex-end;">
+                <a href="#" class="social-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                </a>
+                <a href="#" class="social-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

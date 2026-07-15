@@ -5,10 +5,9 @@ import { AnimatePresence, motion } from "framer-motion"
 import { IntroLoader } from "@/components/IntroLoader"
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid"
 import { BlurFade } from "@/components/ui/blur-fade"
-import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
 import { AuroraText } from "@/components/ui/aurora-text"
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler"
-import { Download, GraduationCap, MapPin, User, ChevronRight, Home as HomeIcon, FileText, Mail, Phone } from "lucide-react"
+import { GraduationCap, MapPin, User, Home as HomeIcon, FileText, Mail, Phone } from "lucide-react"
 import { GitHubLogoIcon, InstagramLogoIcon } from "@radix-ui/react-icons"
 import { ProjectsSection } from "@/components/ProjectsSection"
 import { SkillsSection } from "@/components/SkillsSection"
@@ -24,11 +23,14 @@ import { KineticText } from "@/components/ui/kinetic-text"
 import { Marquee } from "@/components/ui/marquee"
 import { AnimatedList } from "@/components/ui/animated-list"
 import { AnimatedCircularProgressBar } from "@/components/ui/animated-circular-progress-bar"
+import { NorenTransition } from "@/components/ui/noren-transition"
 
 export default function Home() {
   const [loading, setLoading] = useState(true)
   const [showPage, setShowPage] = useState(false)
   const [isReady, setIsReady] = useState(false)
+  const [navMode, setNavMode] = useState<"scroll" | "tab">("scroll")
+  const [activeTab, setActiveTab] = useState<string>("home")
 
   // Disable page scrolling while loading
   useEffect(() => {
@@ -52,86 +54,54 @@ export default function Home() {
     }
   }, [showPage])
 
-  return (
-    <>
-      <AnimatePresence 
-        mode="wait"
-        onExitComplete={() => {
-          setShowPage(true)
-        }}
-      >
-        {loading && (
-          <IntroLoader key="loader" onComplete={() => setLoading(false)} />
-        )}
-      </AnimatePresence>
-
-      {showPage && (
-        <motion.div
-          key="content"
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}
-        >
-        <SidebarNav />
-        {isReady && (
-          <div className="fixed inset-0 z-0 pointer-events-none opacity-50">
-            <GlyphMatrix className="w-full h-full" color="#22c55e" />
-          </div>
-        )}
-        <main className="min-h-screen p-8 max-w-5xl mx-auto space-y-24 relative z-10">
-        <SmoothCursor />
-      <header className="sticky top-4 z-40 flex justify-between items-center py-2.5 px-6 bg-background/80 backdrop-blur-md border border-border/50 rounded-full shadow-lg w-full max-w-md mx-auto">
-        <div className="font-bold tracking-tighter text-base">dxwntichakn</div>
-        <div className="flex items-center gap-4">
-          <AnimatedThemeToggler />
-        </div>
-      </header>
-
-      <div className="space-y-4 !mt-6" id="home">
-        {/* Hero Section */}
-        <section className="flex flex-col md:flex-row items-center md:items-start justify-between py-4 gap-8 relative z-10">
-          <div className="flex-1 space-y-6 text-center md:text-left">
-            <BlurFade delay={0.1} inView>
-              <h1 className="text-5xl md:text-7xl font-bold tracking-tighter flex flex-wrap justify-center md:justify-start gap-x-4 items-center">
-                <TextAnimate animation="blurInUp" by="character">Hi, I'm</TextAnimate>
-                <AuroraText>Tichakorn</AuroraText>
-              </h1>
-            </BlurFade>
-            
-            <KineticText 
-              as="p"
-              text="AI Innovator and Medical Tech Developer. I love building things that solve real-world problems and pushing the boundaries of what's possible with technology."
-              className="text-xl text-muted-foreground max-w-xl leading-relaxed mx-auto md:mx-0 font-medium"
-            />
-          </div>
-          
-          <BlurFade delay={0.3} inView>
-            <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-8 border-background/50 shadow-2xl backdrop-blur-sm group">
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent z-10" />
-              <img
-                src="/profile.png"
-                alt="Tichakorn Rojsirphisal"
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-              />
-              {isReady && <Meteors number={20} />}
-            </div>
+  const renderHomeContent = () => (
+    <div className="space-y-4 !mt-6" id="home">
+      {/* Hero Section */}
+      <section className="flex flex-col md:flex-row items-center md:items-start justify-between py-4 gap-8 relative z-10">
+        <div className="flex-1 space-y-6 text-center md:text-left">
+          <BlurFade delay={0.1} inView>
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tighter flex flex-wrap justify-center md:justify-start gap-x-4 items-center">
+              <TextAnimate animation="blurInUp" by="character">Hi, I'm</TextAnimate>
+              <AuroraText>Tichakorn</AuroraText>
+            </h1>
           </BlurFade>
-        </section>
+          
+          <KineticText 
+            as="p"
+            text="AI Innovator and Medical Tech Developer. I love building things that solve real-world problems and pushing the boundaries of what's possible with technology."
+            className="text-xl text-muted-foreground max-w-xl leading-relaxed mx-auto md:mx-0 font-medium"
+          />
+        </div>
+        
+        <BlurFade delay={0.3} inView>
+          <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-8 border-background/50 shadow-2xl backdrop-blur-sm group">
+            <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent z-10" />
+            <img
+              src="/profile.png"
+              alt="Tichakorn Rojsirphisal"
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            />
+            {isReady && <Meteors number={20} />}
+          </div>
+        </BlurFade>
+      </section>
 
-        {/* Velocity Scroll Section */}
-        <section className="w-full overflow-hidden py-4 border-y border-border/10 relative z-10 my-2">
-          <ScrollVelocityContainer>
-            <ScrollVelocityRow baseVelocity={1.2} className="font-bold tracking-tighter text-3xl md:text-4xl uppercase">
-              dxwntichakn • Dawn • DEK70 • Portfolio •{" "}
-            </ScrollVelocityRow>
-            <ScrollVelocityRow baseVelocity={-1.2} className="font-bold tracking-tighter text-3xl md:text-4xl uppercase">
-              dxwntichakn • Dawn • DEK70 • Portfolio •{" "}
-            </ScrollVelocityRow>
-          </ScrollVelocityContainer>
-        </section>
+      {/* Velocity Scroll Section */}
+      <section className="w-full overflow-hidden py-4 border-y border-border/10 relative z-10 my-2">
+        <ScrollVelocityContainer>
+          <ScrollVelocityRow baseVelocity={1.2} className="font-bold tracking-tighter text-3xl md:text-4xl uppercase">
+            dxwntichakn • Dawn • DEK70 • Portfolio •{" "}
+          </ScrollVelocityRow>
+          <ScrollVelocityRow baseVelocity={-1.2} className="font-bold tracking-tighter text-3xl md:text-4xl uppercase">
+            dxwntichakn • Dawn • DEK70 • Portfolio •{" "}
+          </ScrollVelocityRow>
+        </ScrollVelocityContainer>
+      </section>
+    </div>
+  )
 
-      </div>
-
+  const renderProfileContent = () => (
+    <div className="space-y-24">
       {/* About Section */}
       <section id="profile" className="py-8 space-y-4 max-w-3xl relative z-10">
         <BlurFade delay={0.4} inView>
@@ -216,7 +186,7 @@ export default function Home() {
               href="#"
               cta="Contact Me"
             />
-             <BentoCard
+            <BentoCard
               name="Residence"
               className="lg:col-span-2 lg:row-span-1"
               background={
@@ -240,92 +210,169 @@ export default function Home() {
           </BentoGrid>
         </BlurFade>
       </section>
-      <ProjectsSection isReady={isReady} />
-      <SkillsSection isReady={isReady} />
-      <TimelineSection />
+    </div>
+  )
 
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
-        <Dock direction="middle">
-          {/* Home Icon */}
-          <DockIcon>
-            <div className="group relative w-full h-full flex items-center justify-center">
-              <a href="#" className="w-full h-full flex items-center justify-center rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800/50 hover:scale-125 hover:-translate-y-1.5 active:scale-95 transition-all duration-200" aria-label="Home">
-                <HomeIcon className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors" />
-              </a>
-              <span className="pointer-events-none absolute -top-10 scale-0 transition-all duration-200 rounded bg-neutral-900/90 dark:bg-neutral-100/90 px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-neutral-50 dark:text-neutral-900 shadow-md group-hover:scale-100 origin-bottom">
-                Home
-              </span>
-            </div>
-          </DockIcon>
+  return (
+    <>
+      <AnimatePresence 
+        mode="wait"
+        onExitComplete={() => {
+          setShowPage(true)
+        }}
+      >
+        {loading && (
+          <IntroLoader key="loader" onComplete={() => setLoading(false)} />
+        )}
+      </AnimatePresence>
+
+      {showPage && (
+        <motion.div
+          key="content"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}
+        >
+          <SidebarNav 
+            mode={navMode}
+            activeTab={activeTab}
+            onTabChange={(tab) => setActiveTab(tab)}
+          />
           
-          {/* Docs Icon */}
-          <DockIcon>
-            <div className="group relative w-full h-full flex items-center justify-center">
-              <a href="#timeline" className="w-full h-full flex items-center justify-center rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800/50 hover:scale-125 hover:-translate-y-1.5 active:scale-95 transition-all duration-200" aria-label="Timeline / Docs">
-                <FileText className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors" />
-              </a>
-              <span className="pointer-events-none absolute -top-10 scale-0 transition-all duration-200 rounded bg-neutral-900/90 dark:bg-neutral-100/90 px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-neutral-50 dark:text-neutral-900 shadow-md group-hover:scale-100 origin-bottom">
-                Timeline
-              </span>
+          {isReady && (
+            <div className="fixed inset-0 z-0 pointer-events-none opacity-50">
+              <GlyphMatrix className="w-full h-full" color="#22c55e" />
             </div>
-          </DockIcon>
+          )}
 
-          {/* Separator */}
-          <div className="h-6 w-[1px] bg-border mx-1 self-center" />
+          <main className="min-h-screen p-8 max-w-5xl mx-auto space-y-24 relative z-10">
+            <SmoothCursor />
+            <header className="sticky top-4 z-40 flex justify-between items-center py-2.5 px-6 bg-background/80 backdrop-blur-md border border-border/50 rounded-full shadow-lg w-full max-w-md mx-auto">
+              <div className="font-bold tracking-tighter text-base">dxwntichakn</div>
+              <div className="flex items-center gap-3">
+                {/* Scroll/Tab Navigation Mode Switch */}
+                <button
+                  onClick={() => setNavMode(prev => prev === "scroll" ? "tab" : "scroll")}
+                  className="text-[9px] font-mono font-bold tracking-wider uppercase border border-border/60 px-3 py-1.5 rounded-full bg-background hover:bg-accent hover:text-accent-foreground active:scale-95 transition-all shadow-sm cursor-pointer"
+                >
+                  Mode: {navMode}
+                </button>
+                <AnimatedThemeToggler />
+              </div>
+            </header>
 
-          {/* Github Icon */}
-          <DockIcon>
-            <div className="group relative w-full h-full flex items-center justify-center">
-              <a href="https://github.com/tidawnroj" target="_blank" rel="noopener noreferrer" className="w-full h-full flex items-center justify-center rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800/50 hover:scale-125 hover:-translate-y-1.5 active:scale-95 transition-all duration-200" aria-label="GitHub">
-                <GitHubLogoIcon className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors" />
-              </a>
-              <span className="pointer-events-none absolute -top-10 scale-0 transition-all duration-200 rounded bg-neutral-900/90 dark:bg-neutral-100/90 px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-neutral-50 dark:text-neutral-900 shadow-md group-hover:scale-100 origin-bottom">
-                GitHub
-              </span>
+            {navMode === "tab" ? (
+              <NorenTransition tabKey={activeTab}>
+                <div className="min-h-[55vh] flex flex-col justify-center py-4">
+                  {activeTab === "home" && renderHomeContent()}
+                  {activeTab === "profile" && renderProfileContent()}
+                  {activeTab === "projects" && <ProjectsSection isReady={isReady} />}
+                  {activeTab === "skills" && <SkillsSection isReady={isReady} />}
+                  {activeTab === "timeline" && <TimelineSection />}
+                </div>
+              </NorenTransition>
+            ) : (
+              <>
+                {renderHomeContent()}
+                {renderProfileContent()}
+                <ProjectsSection isReady={isReady} />
+                <SkillsSection isReady={isReady} />
+                <TimelineSection />
+              </>
+            )}
+
+            <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
+              <Dock direction="middle">
+                {/* Home Icon */}
+                <DockIcon>
+                  <div className="group relative w-full h-full flex items-center justify-center">
+                    <a 
+                      href={navMode === "tab" ? undefined : "#"} 
+                      onClick={navMode === "tab" ? () => setActiveTab("home") : undefined}
+                      className="w-full h-full flex items-center justify-center rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800/50 hover:scale-125 hover:-translate-y-1.5 active:scale-95 transition-all duration-200 cursor-pointer" 
+                      aria-label="Home"
+                    >
+                      <HomeIcon className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors" />
+                    </a>
+                    <span className="pointer-events-none absolute -top-10 scale-0 transition-all duration-200 rounded bg-neutral-900/90 dark:bg-neutral-100/90 px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-neutral-50 dark:text-neutral-900 shadow-md group-hover:scale-100 origin-bottom">
+                      Home
+                    </span>
+                  </div>
+                </DockIcon>
+                
+                {/* Docs Icon */}
+                <DockIcon>
+                  <div className="group relative w-full h-full flex items-center justify-center">
+                    <a 
+                      href={navMode === "tab" ? undefined : "#timeline"} 
+                      onClick={navMode === "tab" ? () => setActiveTab("timeline") : undefined}
+                      className="w-full h-full flex items-center justify-center rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800/50 hover:scale-125 hover:-translate-y-1.5 active:scale-95 transition-all duration-200 cursor-pointer" 
+                      aria-label="Timeline / Docs"
+                    >
+                      <FileText className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors" />
+                    </a>
+                    <span className="pointer-events-none absolute -top-10 scale-0 transition-all duration-200 rounded bg-neutral-900/90 dark:bg-neutral-100/90 px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-neutral-50 dark:text-neutral-900 shadow-md group-hover:scale-100 origin-bottom">
+                      Timeline
+                    </span>
+                  </div>
+                </DockIcon>
+
+                {/* Separator */}
+                <div className="h-6 w-[1px] bg-border mx-1 self-center" />
+
+                {/* Github Icon */}
+                <DockIcon>
+                  <div className="group relative w-full h-full flex items-center justify-center">
+                    <a href="https://github.com/tidawnroj" target="_blank" rel="noopener noreferrer" className="w-full h-full flex items-center justify-center rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800/50 hover:scale-125 hover:-translate-y-1.5 active:scale-95 transition-all duration-200" aria-label="GitHub">
+                      <GitHubLogoIcon className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors" />
+                    </a>
+                    <span className="pointer-events-none absolute -top-10 scale-0 transition-all duration-200 rounded bg-neutral-900/90 dark:bg-neutral-100/90 px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-neutral-50 dark:text-neutral-900 shadow-md group-hover:scale-100 origin-bottom">
+                      GitHub
+                    </span>
+                  </div>
+                </DockIcon>
+
+                {/* Instagram Icon */}
+                <DockIcon>
+                  <div className="group relative w-full h-full flex items-center justify-center">
+                    <a href="https://instagram.com/dxwntichakn" target="_blank" rel="noopener noreferrer" className="w-full h-full flex items-center justify-center rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800/50 hover:scale-125 hover:-translate-y-1.5 active:scale-95 transition-all duration-200" aria-label="Instagram">
+                      <InstagramLogoIcon className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors" />
+                    </a>
+                    <span className="pointer-events-none absolute -top-10 scale-0 transition-all duration-200 rounded bg-neutral-900/90 dark:bg-neutral-100/90 px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-neutral-50 dark:text-neutral-900 shadow-md group-hover:scale-100 origin-bottom">
+                      Instagram
+                    </span>
+                  </div>
+                </DockIcon>
+
+                {/* Email Icon */}
+                <DockIcon>
+                  <div className="group relative w-full h-full flex items-center justify-center">
+                    <a href="mailto:tidawnroj@gmail.com" className="w-full h-full flex items-center justify-center rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800/50 hover:scale-125 hover:-translate-y-1.5 active:scale-95 transition-all duration-200" aria-label="Email">
+                      <Mail className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors" />
+                    </a>
+                    <span className="pointer-events-none absolute -top-10 scale-0 transition-all duration-200 rounded bg-neutral-900/90 dark:bg-neutral-100/90 px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-neutral-50 dark:text-neutral-900 shadow-md group-hover:scale-100 origin-bottom">
+                      Email
+                    </span>
+                  </div>
+                </DockIcon>
+
+                {/* Theme Mode Toggler */}
+                <DockIcon>
+                  <div className="group relative w-full h-full flex items-center justify-center">
+                    <AnimatedThemeToggler 
+                      className="w-full h-full flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors [&_svg]:w-5 [&_svg]:h-5 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800/50 hover:scale-125 hover:-translate-y-1.5 active:scale-95 transition-all duration-200" 
+                      fromCenter={false} 
+                    />
+                    <span className="pointer-events-none absolute -top-10 scale-0 transition-all duration-200 rounded bg-neutral-900/90 dark:bg-neutral-100/90 px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-neutral-50 dark:text-neutral-900 shadow-md group-hover:scale-100 origin-bottom">
+                      Theme
+                    </span>
+                  </div>
+                </DockIcon>
+              </Dock>
             </div>
-          </DockIcon>
-
-          {/* Instagram Icon */}
-          <DockIcon>
-            <div className="group relative w-full h-full flex items-center justify-center">
-              <a href="https://instagram.com/dxwntichakn" target="_blank" rel="noopener noreferrer" className="w-full h-full flex items-center justify-center rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800/50 hover:scale-125 hover:-translate-y-1.5 active:scale-95 transition-all duration-200" aria-label="Instagram">
-                <InstagramLogoIcon className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors" />
-              </a>
-              <span className="pointer-events-none absolute -top-10 scale-0 transition-all duration-200 rounded bg-neutral-900/90 dark:bg-neutral-100/90 px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-neutral-50 dark:text-neutral-900 shadow-md group-hover:scale-100 origin-bottom">
-                Instagram
-              </span>
-            </div>
-          </DockIcon>
-
-          {/* Email Icon */}
-          <DockIcon>
-            <div className="group relative w-full h-full flex items-center justify-center">
-              <a href="mailto:tidawnroj@gmail.com" className="w-full h-full flex items-center justify-center rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800/50 hover:scale-125 hover:-translate-y-1.5 active:scale-95 transition-all duration-200" aria-label="Email">
-                <Mail className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors" />
-              </a>
-              <span className="pointer-events-none absolute -top-10 scale-0 transition-all duration-200 rounded bg-neutral-900/90 dark:bg-neutral-100/90 px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-neutral-50 dark:text-neutral-900 shadow-md group-hover:scale-100 origin-bottom">
-                Email
-              </span>
-            </div>
-          </DockIcon>
-
-          {/* Theme Mode Toggler */}
-          <DockIcon>
-            <div className="group relative w-full h-full flex items-center justify-center">
-              <AnimatedThemeToggler 
-                className="w-full h-full flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors [&_svg]:w-5 [&_svg]:h-5 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800/50 hover:scale-125 hover:-translate-y-1.5 active:scale-95 transition-all duration-200" 
-                fromCenter={false} 
-              />
-              <span className="pointer-events-none absolute -top-10 scale-0 transition-all duration-200 rounded bg-neutral-900/90 dark:bg-neutral-100/90 px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-neutral-50 dark:text-neutral-900 shadow-md group-hover:scale-100 origin-bottom">
-                Theme
-              </span>
-            </div>
-          </DockIcon>
-        </Dock>
-      </div>
-    </main>
-    </motion.div>
+          </main>
+        </motion.div>
       )}
     </>
-  );
+  )
 }
