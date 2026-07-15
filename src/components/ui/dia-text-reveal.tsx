@@ -10,7 +10,6 @@ import {
   useTransform,
   type HTMLMotionProps,
 } from "framer-motion"
-
 import { cn } from "@/lib/utils"
 
 const DEFAULT_COLORS = ["#c679c4", "#fa3d1d", "#ffb005", "#e1e1fe", "#0358f7"]
@@ -40,7 +39,7 @@ function buildGradient(pos: number, colors: string[], textColor: string) {
   })
 
   if (bandEnd < 100)
-    parts.push(`color-mix(in srgb, ${textColor} 20%, transparent) ${bandEnd.toFixed(2)}%`, `color-mix(in srgb, ${textColor} 20%, transparent) 100%`)
+    parts.push(`transparent ${bandEnd.toFixed(2)}%`, `transparent 100%`)
 
   return `linear-gradient(90deg, ${parts.join(", ")})`
 }

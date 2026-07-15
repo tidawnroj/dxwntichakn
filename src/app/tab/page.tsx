@@ -11,8 +11,9 @@ import { SmoothCursor } from "@/components/ui/smooth-cursor"
 import { AuroraText } from "@/components/ui/aurora-text"
 import { TextAnimate } from "@/components/ui/text-animate"
 import { KineticText } from "@/components/ui/kinetic-text"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { LineShadowText } from "@/components/ui/line-shadow-text"
+import { DiaTextReveal } from "@/components/ui/dia-text-reveal"
 
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] })
 
@@ -75,14 +76,30 @@ export default function TabPage() {
   const [nextTab, setNextTab] = useState<"index.html" | "projects.js" | "skills.py" | "contact.json" | null>(null)
   const [tabTransitionActive, setTabTransitionActive] = useState(false)
   const [isRedirecting, setIsRedirecting] = useState(false)
-  const [norenReveal, setNorenReveal] = useState(true)
+  const [introStage, setIntroStage] = useState<"dial" | "tree" | "morph" | "done">("dial")
 
-  // Reveal curtain on page mount to complete transition loop
+  // File Tree Intro transition on page mount
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setNorenReveal(false)
-    }, 1000)
-    return () => clearTimeout(timer)
+    // 1. Dial Text Reveal runs from 0ms to 1600ms
+    const treeTimer = setTimeout(() => {
+      setIntroStage("tree")
+    }, 1600)
+
+    // 2. File Tree displays, then starts zooming/morphing at 3200ms
+    const morphTimer = setTimeout(() => {
+      setIntroStage("morph")
+    }, 3200)
+
+    // 3. Complete morphing and fade out by 4200ms
+    const doneTimer = setTimeout(() => {
+      setIntroStage("done")
+    }, 4200)
+
+    return () => {
+      clearTimeout(treeTimer)
+      clearTimeout(morphTimer)
+      clearTimeout(doneTimer)
+    }
   }, [])
 
   // Handle page-level tab curtain transition
@@ -326,9 +343,11 @@ export default function TabPage() {
           <div className="flex items-center h-full">
             {/* File Explorer Mock-up on left */}
             <div className="hidden md:flex items-center px-4 border-r border-border text-xs text-foreground uppercase h-full font-mono select-none font-bold">
-              <LineShadowText shadowColor="#3b82f6" className="font-extrabold tracking-wider text-sm">
-                PROJECT_TICHAKORN
-              </LineShadowText>
+              <motion.div layoutId="project-title-morph" style={{ display: "inline-block" }}>
+                <LineShadowText shadowColor="#3b82f6" className="font-extrabold tracking-wider text-sm">
+                  PROJECT_TICHAKORN
+                </LineShadowText>
+              </motion.div>
             </div>
             {/* Tabs */}
             <nav className="flex h-full select-none">
@@ -358,7 +377,12 @@ export default function TabPage() {
           {/* Right Controls */}
           <div className="flex items-center gap-3 px-4">
             <button
-              onClick={() => setIsRedirecting(true)}
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  sessionStorage.setItem("fromTabMode", "true")
+                }
+                setIsRedirecting(true)
+              }}
               className="text-[9px] font-mono font-bold tracking-wider uppercase border border-border px-3 py-1.5 rounded-full bg-background hover:bg-muted active:scale-95 transition-all shadow-sm cursor-pointer flex items-center gap-1 text-muted-foreground"
             >
               <LogOut className="w-3 h-3" /> Scroll Mode
@@ -544,39 +568,106 @@ export default function TabPage() {
       {/* Redirect Curtain Transition */}
       <NorenRedirect active={isRedirecting} to="/" />
 
-      {/* Page Reveal Curtain Transition on Mount */}
-      {norenReveal && (
-        <div className="fixed inset-0 flex z-[99999] pointer-events-none">
-          {[0, 1, 2].map((i) => (
-            <motion.div
-              key={`reveal-panel-${i}`}
-              custom={i}
-              variants={{
-                initial: { y: "0%", borderRightColor: "#ffffff", boxShadow: "0 0 0px rgba(59, 130, 246, 0)" },
-                animate: (i: number) => ({
-                  y: "100%",
-                  borderRightColor: ["#ffffff", "#ffffff", "#3b82f6", "#3b82f6"],
-                  boxShadow: [
-                    "0 0 0px rgba(59, 130, 246, 0)",
-                    "0 0 0px rgba(59, 130, 246, 0)",
-                    "0 0 15px rgba(59, 130, 246, 0.3)",
-                    "0 0 15px rgba(59, 130, 246, 0.3)"
-                  ],
-                  transition: {
-                    duration: 0.9,
-                    times: [0, 0.25, 0.5, 1.0],
-                    ease: [0.76, 0, 0.24, 1],
-                    delay: i * 0.08
-                  }
-                })
-              }}
-              initial="initial"
-              animate="animate"
-              className="h-full flex-1 bg-white border-r last:border-r-0"
-            />
-          ))}
-        </div>
-      )}
+      {/* File Tree Intro Transition & Zoom Morphing on Mount */}
+      <AnimatePresence>
+        {introStage !== "done" && (
+          <motion.div
+            key="intro-overlay"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            className="fixed inset-0 bg-white z-[99999] flex flex-col items-center justify-center select-none"
+          >
+            {introStage === "dial" && (
+              <div className="text-center">
+                <DiaTextReveal 
+                  text="dxwntichakn" 
+                  textColor="#1a1a1a"
+                  colors={["#3b82f6", "#2563eb", "#1d4ed8", "#1e3a8a"]} 
+                  duration={1.2}
+                  className="text-4xl md:text-6xl font-bold font-sans tracking-tight"
+                />
+              </div>
+            )}
+
+            {(introStage === "tree" || introStage === "morph") && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={introStage === "morph" 
+                  ? { 
+                      opacity: [1, 1, 0], 
+                      scale: 1.45,
+                      y: -120,
+                      x: -220,
+                      transition: { duration: 1.0, times: [0, 0.4, 1.0], ease: "easeInOut" } 
+                    } 
+                  : { opacity: 1, scale: 1 }
+                }
+                className="max-w-xs w-full bg-[#f8f9fa] border border-neutral-200 p-5 rounded-lg shadow-sm font-mono text-xs text-[#1a1a1a]"
+              >
+                <div className="flex items-center gap-1.5 pb-2 border-b border-neutral-200 mb-2 text-[10px] text-neutral-400 font-bold uppercase tracking-wider">
+                  <span>📁</span> Explorer
+                </div>
+
+                {/* File Tree Structure */}
+                <div className="space-y-1.5">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[#3b82f6] text-sm">📁</span>
+                    {introStage === "morph" ? (
+                      <motion.div 
+                        layoutId="project-title-morph" 
+                        style={{ display: "inline-block" }}
+                      >
+                        <span className="font-extrabold text-[#1a1a1a] tracking-wider text-[13px]">
+                          PROJECT_TICHAKORN
+                        </span>
+                      </motion.div>
+                    ) : (
+                      <motion.div 
+                        layoutId="project-title-morph" 
+                        style={{ display: "inline-block" }}
+                      >
+                        <span className="font-extrabold text-[#1a1a1a] tracking-wider text-[13px]">
+                          PROJECT_TICHAKORN
+                        </span>
+                      </motion.div>
+                    )}
+                  </div>
+                  
+                  {/* Nested nodes matching user's diagram */}
+                  <div className="pl-4 border-l border-neutral-200 ml-2 space-y-1.5 py-0.5">
+                    <div className="flex items-center gap-1.5 text-neutral-500">
+                      <span>📁</span> <span>src</span>
+                    </div>
+                    <div className="pl-4 border-l border-neutral-200 ml-2 space-y-1">
+                      <div className="flex items-center gap-1.5 text-neutral-500">
+                        <span>📁</span> <span>app</span>
+                      </div>
+                      <div className="pl-4 border-l border-neutral-200 ml-2 space-y-0.5 text-[10px] text-neutral-400">
+                        <div className="flex items-center gap-1">
+                          <span>📄</span> <span>layout.tsx</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <span>📄</span> <span>page.tsx</span>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center gap-1.5 text-neutral-500">
+                        <span>📁</span> <span>components</span>
+                      </div>
+                      <div className="pl-4 border-l border-neutral-200 ml-2 space-y-0.5 text-[10px] text-neutral-400">
+                        <div className="flex items-center gap-1">
+                          <span>📄</span> <span>SidebarNav.tsx</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
