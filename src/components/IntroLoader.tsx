@@ -57,8 +57,8 @@ export function IntroLoader({ onComplete }: { onComplete: () => void }) {
             className="h-full flex-1 bg-background relative border-r border-border/10 last:border-r-0 pointer-events-auto"
           >
             {/* Glowing blue leading borders */}
-            <div className="absolute top-0 left-0 right-0 h-[4px] bg-[#3b82f6] shadow-[0_0_15px_#3b82f6,0_0_30px_#3b82f6]" />
-            <div className="absolute bottom-0 left-0 right-0 h-[4px] bg-[#3b82f6] shadow-[0_0_15px_#3b82f6,0_0_30px_#3b82f6]" />
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-[#3b82f6] shadow-[0_0_8px_#3b82f6,0_0_15px_#3b82f6]" />
+            <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-[#3b82f6] shadow-[0_0_8px_#3b82f6,0_0_15px_#3b82f6]" />
             {/* Individual curved bottom for each panel */}
             <svg 
               className="absolute top-full left-0 w-full h-[15vh] fill-background pointer-events-none" 

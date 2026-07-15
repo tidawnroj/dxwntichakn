@@ -710,7 +710,7 @@ export default function TabPage() {
           >
             {/* Glowing blue border all around (fades to white when covered, showing only on slides) */}
             <motion.div
-              className="absolute inset-0 border-[3px] border-[#3b82f6] pointer-events-none z-10"
+              className="absolute inset-0 border border-[#3b82f6] pointer-events-none z-10"
               animate={{
                 opacity: tabTransitionActive ? [1, 1, 0, 0, 1, 1] : 1
               }}
@@ -755,7 +755,7 @@ export default function TabPage() {
             >
               {/* Glowing blue border all around (fades in as it slides up to exit) */}
               <motion.div
-                className="absolute inset-0 border-[3px] border-[#3b82f6] pointer-events-none z-10"
+                className="absolute inset-0 border border-[#3b82f6] pointer-events-none z-10"
                 animate={{
                   opacity: [0, 1, 1]
                 }}
