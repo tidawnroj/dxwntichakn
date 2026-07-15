@@ -8,6 +8,7 @@ import { NorenTransition } from "@/components/ui/noren-transition"
 import { NorenRedirect } from "@/components/ui/noren-redirect"
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler"
 import { Dock, DockIcon } from "@/components/ui/dock"
+import { SmoothCursor } from "@/components/ui/smooth-cursor"
 
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] })
 
@@ -223,6 +224,7 @@ export default function TabPage() {
 
   return (
     <div className={`${jetbrainsMono.className} bg-background text-foreground font-mono selection:bg-[#3b82f6] selection:text-background min-h-screen relative flex flex-col justify-between overflow-x-hidden z-10`}>
+      <SmoothCursor />
       {/* Custom styles override */}
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes glow {
