@@ -75,6 +75,15 @@ export default function TabPage() {
   const [nextTab, setNextTab] = useState<"index.html" | "projects.js" | "skills.py" | "contact.json" | null>(null)
   const [tabTransitionActive, setTabTransitionActive] = useState(false)
   const [isRedirecting, setIsRedirecting] = useState(false)
+  const [norenReveal, setNorenReveal] = useState(true)
+
+  // Reveal curtain on page mount to complete transition loop
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setNorenReveal(false)
+    }, 1000)
+    return () => clearTimeout(timer)
+  }, [])
 
   // Handle page-level tab curtain transition
   useEffect(() => {
@@ -521,6 +530,32 @@ export default function TabPage() {
 
       {/* Redirect Curtain Transition */}
       <NorenRedirect active={isRedirecting} to="/" />
+
+      {/* Page Reveal Curtain Transition on Mount */}
+      {norenReveal && (
+        <div className="fixed inset-0 flex z-[99999] pointer-events-none">
+          {[0, 1, 2].map((i) => (
+            <motion.div
+              key={`reveal-panel-${i}`}
+              custom={i}
+              variants={{
+                initial: { y: "0%" },
+                animate: (i: number) => ({
+                  y: "100%",
+                  transition: {
+                    duration: 0.55,
+                    ease: [0.76, 0, 0.24, 1],
+                    delay: i * 0.08
+                  }
+                })
+              }}
+              initial="initial"
+              animate="animate"
+              className="h-full flex-1 bg-background border-r border-border/10 last:border-r-0"
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
