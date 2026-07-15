@@ -9,6 +9,9 @@ import { NorenRedirect } from "@/components/ui/noren-redirect"
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler"
 import { Dock, DockIcon } from "@/components/ui/dock"
 import { SmoothCursor } from "@/components/ui/smooth-cursor"
+import { AuroraText } from "@/components/ui/aurora-text"
+import { TextAnimate } from "@/components/ui/text-animate"
+import { KineticText } from "@/components/ui/kinetic-text"
 
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] })
 
@@ -75,16 +78,18 @@ export default function TabPage() {
       <div className="space-y-6">
         <div className="space-y-2">
           <p className="text-[#3b82f6] text-sm font-mono font-bold">$ whoami</p>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground font-mono">
-            Hi, I'm <br/>
-            <span className="text-[#3b82f6] neon-text">Tichakorn</span>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tighter text-foreground font-mono flex flex-wrap gap-x-3 items-center">
+            <TextAnimate animation="blurInUp" by="character">Hi, I'm</TextAnimate>
+            <AuroraText>Tichakorn</AuroraText>
           </h1>
         </div>
         <div className="space-y-4">
           <p className="text-[#3b82f6] text-sm font-mono font-bold">$ info --role</p>
-          <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl font-mono">
-            AI Innovator and Medical Tech Developer. I love building things that solve real-world problems and pushing the boundaries of what's possible with technology.
-          </p>
+          <KineticText 
+            as="p"
+            text="AI Innovator and Medical Tech Developer. I love building things that solve real-world problems and pushing the boundaries of what's possible with technology."
+            className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl font-mono font-medium"
+          />
         </div>
       </div>
     )
