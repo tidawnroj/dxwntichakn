@@ -624,7 +624,7 @@ export default function TabPage() {
                   {/* Single element animating from center large to header slot (NO morph warp!) */}
                   <motion.div 
                     animate={introStage === "dial" 
-                      ? { scale: 3.5, x: 120, y: 90, originX: 0.5, originY: 0.5 }
+                      ? { scale: 3.5, x: 140, y: 100, originX: 0.5, originY: 0.5 }
                       : introStage === "morph"
                         ? { scale: 1, x: 0, y: 0, opacity: 0 }
                         : { scale: 1, x: 0, y: 0, opacity: 1 }
@@ -657,18 +657,22 @@ export default function TabPage() {
                     <motion.div 
                       layoutId="project-title-morph" 
                       style={{ display: "inline-block" }}
-                      animate={introStage === "morph"
-                        ? {
-                            x: [0, 80, "calc(50vw - 220px)"],
-                            y: [0, 70, "calc(-50vh + 24px)"],
-                            scale: [1, 2.0, 1],
-                            transition: {
-                              duration: 1.2,
-                              times: [0, 0.4, 1.0],
-                              ease: "easeInOut"
-                            }
-                          }
-                        : { x: 0, y: 0, scale: 1 }
+                      animate={
+                        introStage === "dial"
+                          ? { opacity: 0, x: 0, y: 0, scale: 1 }
+                          : introStage === "morph"
+                            ? {
+                                opacity: 1,
+                                x: [0, 80, "calc(50vw - 220px)"],
+                                y: [0, 70, "calc(-50vh + 24px)"],
+                                scale: [1, 2.0, 1],
+                                transition: {
+                                  duration: 1.2,
+                                  times: [0, 0.4, 1.0],
+                                  ease: "easeInOut"
+                                }
+                              }
+                            : { opacity: 1, x: 0, y: 0, scale: 1 }
                       }
                     >
                       <span className="font-extrabold text-[#1a1a1a] tracking-wider text-sm">
