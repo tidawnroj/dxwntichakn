@@ -937,48 +937,49 @@ export default function TabPage() {
                 transition={{ duration: 0.5 }}
                 className="max-w-md w-full border p-8 rounded-lg font-mono text-sm text-[#1a1a1a] relative"
               >
-                {/* Explorer Header */}
+                {/* Explorer Header with dxwntichakn inline */}
                 <motion.div 
                   animate={introStage === "dial" || introStage === "morph" 
                     ? { borderBottomColor: "rgba(229, 229, 229, 0)" } 
                     : { borderBottomColor: "rgba(229, 229, 229, 1)" }
                   }
                   transition={{ duration: 0.4 }}
-                  className="pb-2 border-b mb-4 h-8 flex items-center gap-1.5 text-sm text-neutral-400 font-bold tracking-wider relative normal-case"
+                  className="pb-2 border-b mb-4 h-8 flex items-center gap-1.5 text-sm font-bold tracking-wider relative normal-case overflow-visible"
                 >
+                  {/* Folder icon — hidden during dial/morph */}
                   <motion.div 
                     animate={introStage === "morph" || introStage === "dial" ? { opacity: 0 } : { opacity: 1 }}
                     transition={{ duration: 0.4 }}
-                    className="flex items-center"
+                    className="flex-shrink-0"
                   >
                     <svg className="size-4 text-[#3b82f6]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" /></svg>
                   </motion.div>
-                  {/* Space reservation for header slot */}
-                  <div className="h-6 w-24" />
-                </motion.div>
 
-                {/* dxwntichakn absolute overlay (perfectly centered on viewport, scaling up to 7.0) */}
-                <motion.div 
-                  animate={introStage === "dial" 
-                    ? { scale: 7.0, left: "50%", top: "50%", x: "-50%", y: "-50%", originX: 0.5, originY: 0.5 }
-                    : introStage === "morph"
-                      ? { scale: 1.0, left: "52px", top: "38px", x: "0%", y: "0%", opacity: 0 }
-                      : { scale: 1.0, left: "52px", top: "38px", x: "0%", y: "0%", opacity: 1 }
-                  }
-                  transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-                  className="absolute font-sans font-bold text-[#1a1a1a] normal-case"
-                >
-                  <DiaTextReveal 
-                    text="dxwntichakn" 
-                    textColor="#1a1a1a"
-                    colors={["#3b82f6", "#2563eb", "#1d4ed8", "#1e3a8a"]} 
-                    duration={1.2}
-                    className="text-xs font-bold font-sans tracking-tight normal-case"
-                  />
+                  {/* dxwntichakn inline in header — scale 7× and shift to viewport center during dial stage */}
+                  <motion.div
+                    animate={introStage === "dial"
+                      ? { scale: 7.0, y: "45vh", opacity: 1 }
+                      : introStage === "morph"
+                        ? { scale: 1.0, y: 0, opacity: 0 }
+                        : { scale: 1.0, y: 0, opacity: 1 }
+                    }
+                    transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+                    style={{ transformOrigin: "center center" }}
+                    className="font-sans font-bold text-[#1a1a1a] normal-case"
+                  >
+                    <DiaTextReveal 
+                      text="dxwntichakn" 
+                      textColor="#1a1a1a"
+                      colors={["#3b82f6", "#2563eb", "#1d4ed8", "#1e3a8a"]} 
+                      duration={1.2}
+                      className="text-xs font-bold font-sans tracking-tight normal-case"
+                    />
+                  </motion.div>
                 </motion.div>
 
                 {/* File Tree Structure - Magic UI Tree */}
                 <motion.div
+                  initial={{ opacity: 0 }}
                   animate={introStage === "dial" 
                     ? { opacity: 0 } 
                     : introStage === "morph" 
