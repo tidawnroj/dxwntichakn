@@ -962,14 +962,13 @@ export default function TabPage() {
                 {/* dxwntichakn — single permanently mounted instance positioned absolutely inside card */}
                 {/* Starts centered (50%/50% translate -50%/-50%) scaled 7x, morphs to inline position (54px, 40px) scaled 1x */}
                 <motion.div
-                  className="absolute font-sans font-bold text-[#1a1a1a] normal-case tracking-tight text-xs select-none"
-                  style={{ transformOrigin: "left center" }}
-                  initial={{ scale: 7.0, left: "50%", top: "50%", x: "-50%", y: "-50%", opacity: 1 }}
+                  className="absolute font-sans font-bold text-[#1a1a1a] normal-case tracking-tight text-xs select-none w-max"
+                  initial={{ scale: 7.0, left: "50%", top: "50%", x: "-50%", y: "-50%", opacity: 1, transformOrigin: "center center" }}
                   animate={introStage === "dial"
-                    ? { scale: 7.0, left: "50%", top: "50%", x: "-50%", y: "-50%", opacity: 1 }
+                    ? { scale: 7.0, left: "50%", top: "50%", x: "-50%", y: "-50%", opacity: 1, transformOrigin: "center center" }
                     : introStage === "morph"
-                      ? { scale: 1.0, left: "54px", top: "40px", x: "0%", y: "0%", opacity: 0 }
-                      : { scale: 1.0, left: "54px", top: "40px", x: "0%", y: "0%", opacity: 1 }
+                      ? { scale: 1.0, left: "54px", top: "40px", x: "0%", y: "0%", opacity: 0, transformOrigin: "left center" }
+                      : { scale: 1.0, left: "54px", top: "40px", x: "0%", y: "0%", opacity: 1, transformOrigin: "left center" }
                   }
                   transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
                 >
