@@ -700,8 +700,8 @@ export default function TabPage() {
                     <GraduationCap className="w-4 h-4 text-[#3b82f6]" /> // Education
                   </h3>
                   <div className="space-y-1.5 font-mono">
-                    <p className="text-foreground font-semibold text-xs md:text-sm">Prince Royal's College</p>
-                    <p className="text-[10px] text-muted-foreground">Science-Math Track • Tech Gifted Program</p>
+                    <p className="text-foreground font-semibold text-xs md:text-sm">The Prince Royal’s College</p>
+                    <p className="text-[10px] text-muted-foreground">TEP : Technology Excellence Program</p>
                   </div>
                 </div>
                 <div className="mt-4 pt-4 border-t border-border flex justify-between items-center font-mono">
@@ -719,20 +719,20 @@ export default function TabPage() {
                   <div className="border-l-2 border-border/60 pl-4 space-y-1.5 relative">
                     <div className="absolute -left-[5px] top-1.5 w-[8px] h-[8px] rounded-full bg-[#3b82f6] shadow-[0_0_8px_#3b82f6]" />
                     <span className="text-[9px] text-[#3b82f6] font-bold">2024 - PRESENT</span>
-                    <h4 className="font-bold text-foreground text-xs md:text-sm">Senior High School</h4>
-                    <p className="text-muted-foreground leading-relaxed">Technology Gifted Program, focusing on AI algorithms, data structures, and bio-signal interface development.</p>
+                    <h4 className="font-bold text-foreground text-xs md:text-sm">The Prince Royal’s College</h4>
+                    <p className="text-muted-foreground leading-relaxed">TEP : Technology Excellence Program. Focused on advanced AI systems, computer engineering, and research.</p>
                   </div>
                   <div className="border-l-2 border-border/60 pl-4 space-y-1.5 relative">
                     <div className="absolute -left-[5px] top-1.5 w-[8px] h-[8px] rounded-full bg-[#3b82f6]/40" />
                     <span className="text-[9px] text-muted-foreground font-bold">2021 - 2023</span>
-                    <h4 className="font-bold text-foreground text-xs md:text-sm">Junior High School</h4>
-                    <p className="text-muted-foreground leading-relaxed">Explored basic robotics, embedded C programming, microcontrollers, and scientific inquiry projects.</p>
+                    <h4 className="font-bold text-foreground text-xs md:text-sm">The Prince Royal’s College</h4>
+                    <p className="text-muted-foreground leading-relaxed">Pre-Engineering Program. Explored embedded logic, basic robotics, and engineering principles.</p>
                   </div>
                   <div className="border-l-2 border-border/60 pl-4 space-y-1.5 relative">
                     <div className="absolute -left-[5px] top-1.5 w-[8px] h-[8px] rounded-full bg-[#3b82f6]/20" />
                     <span className="text-[9px] text-muted-foreground font-bold">2015 - 2020</span>
-                    <h4 className="font-bold text-foreground text-xs md:text-sm">Primary School</h4>
-                    <p className="text-muted-foreground leading-relaxed">Acquired logical problem-solving foundations through advanced mathematics and science coursework.</p>
+                    <h4 className="font-bold text-foreground text-xs md:text-sm">Tonkla School Chiang Mai</h4>
+                    <p className="text-muted-foreground leading-relaxed">Primary School. Developed foundational thinking skills through active learning, math, and science.</p>
                   </div>
                 </div>
               </div>

@@ -191,7 +191,7 @@ export default function Home() {
                       </div>
                     }
                     Icon={User}
-                    description="Prince Royal's College • Science-Math Track • Technology Gifted Program"
+                    description="The Prince Royal’s College • TEP : Technology Excellence Program"
                     href="#"
                     cta="Download Dossier"
                   />
