@@ -318,21 +318,62 @@ export default function TabPage() {
 
   const renderIndexTab = () => {
     return (
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <p className="text-[#3b82f6] text-sm font-mono font-bold">$ whoami</p>
-          <h1 className="tracking-tighter text-foreground font-mono leading-none">
-            <span className="block text-3xl md:text-5xl font-bold"><TextAnimate animation="blurInUp" by="character">Hi, I'm</TextAnimate></span>
-            <span className="block mt-2 text-6xl md:text-8xl font-extrabold tracking-tighter"><AuroraText>Tichakorn</AuroraText></span>
-          </h1>
+      <div className="space-y-6 font-mono text-xs">
+        <div className="space-y-2 border-b border-border pb-2">
+          <p className="text-[#3b82f6] text-sm font-bold">$ profile --version 2.0</p>
+          <h2 className="text-xl font-bold text-foreground">Interactive Dossier</h2>
         </div>
-        <div className="space-y-4">
-          <p className="text-[#3b82f6] text-sm font-mono font-bold">$ info --role</p>
-          <KineticText 
-            as="p"
-            text="AI Innovator and Medical Tech Developer. I love building things that solve real-world problems and pushing the boundaries of what's possible with technology."
-            className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl font-mono font-medium"
-          />
+        
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          {/* Left Panel: Whoami & Bio */}
+          <div className="lg:col-span-7 space-y-4">
+            <div className="space-y-1">
+              <p className="text-[#3b82f6] text-[10px] font-bold">// WHOAMI</p>
+              <h1 className="tracking-tighter text-foreground leading-none">
+                <span className="block text-2xl font-bold">Hi, I'm</span>
+                <span className="block mt-1 text-4xl md:text-5xl font-extrabold tracking-tighter"><AuroraText>Tichakorn</AuroraText></span>
+              </h1>
+            </div>
+            <p className="text-muted-foreground leading-relaxed text-xs">
+              At the end of 2024, I dedicated myself to competing in top-tier technology competitions and advancing my skills in Artificial Intelligence. In the past, <span className="text-foreground font-semibold">I won the Medical Track at CEDT Innovation Summit 2025</span>, <span className="text-foreground font-semibold">became the Overall Winner of SUPER AI Innovator SS5</span>, and <span className="text-foreground font-semibold">achieved a Gold Medal at I-NEW GEN Award 2026</span>. I also presented <span className="text-foreground font-semibold">REBEXs Tools</span> globally at CSITF 2026 in Shanghai.
+            </p>
+          </div>
+          
+          {/* Right Panel: Spec Sheet / JSON Meta */}
+          <div className="lg:col-span-5 bg-card/40 border border-border p-4 rounded-lg space-y-3 shadow-sm">
+            <h3 className="text-foreground font-bold text-[11px] border-b border-border/50 pb-1.5 flex items-center justify-between">
+              <span>// SYSTEM SPECIFICATIONS</span>
+              <span className="text-[9px] text-[#3b82f6] px-1.5 py-0.5 rounded bg-[#3b82f6]/10 border border-[#3b82f6]/20">v2.0</span>
+            </h3>
+            <div className="space-y-2 text-[11px] leading-relaxed text-muted-foreground">
+              <div className="flex justify-between border-b border-border/20 pb-1">
+                <span className="text-[#3b82f6] font-bold">GPAX:</span>
+                <span className="text-foreground font-semibold">3.75 / 4.00</span>
+              </div>
+              <div className="flex justify-between border-b border-border/20 pb-1">
+                <span className="text-[#3b82f6] font-bold">School:</span>
+                <span className="text-foreground font-semibold truncate max-w-[150px]" title="Prince Royal's College">Prince Royal's College</span>
+              </div>
+              <div className="flex justify-between border-b border-border/20 pb-1">
+                <span className="text-[#3b82f6] font-bold">Program:</span>
+                <span className="text-foreground font-semibold text-right">Tech Gifted (Sci-Math)</span>
+              </div>
+              <div className="flex justify-between border-b border-border/20 pb-1">
+                <span className="text-[#3b82f6] font-bold">Location:</span>
+                <span className="text-foreground font-semibold">Chiang Mai, Thailand</span>
+              </div>
+              <div className="flex justify-between pb-0.5">
+                <span className="text-[#3b82f6] font-bold">Status:</span>
+                <span className="text-foreground font-semibold flex items-center gap-1.5">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                  Active Dev
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     )
