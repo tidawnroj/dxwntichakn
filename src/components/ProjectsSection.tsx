@@ -642,7 +642,7 @@ export function ProjectsSection({ isReady = true }: { isReady?: boolean }) {
   ), [scrollYProgress]);
 
   const achievementsMergerContent = useMemo(() => (
-    <div ref={achievementsRef} className="relative w-full h-[220vh] my-16">
+    <div ref={achievementsRef} className="relative w-full h-[380vh] my-16">
       <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden">
         <AchievementsMerger scrollYProgress={scrollYProgress} />
       </div>
