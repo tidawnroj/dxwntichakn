@@ -961,7 +961,11 @@ export default function TabPage() {
                       layoutId="dxwntichakn-morph-intro"
                       className="font-sans font-bold text-[#1a1a1a] normal-case text-xs tracking-tight"
                       style={{ originX: 0, originY: 0.5 }}
-                      animate={introStage === "morph" ? { opacity: 0 } : { opacity: 1 }}
+                      initial={{ scale: 7.0 }}
+                      animate={introStage === "morph" 
+                        ? { opacity: 0, scale: 1.0 } 
+                        : { opacity: 1, scale: 1.0 }
+                      }
                       transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
                     >
                       <DiaTextReveal 
@@ -1015,9 +1019,10 @@ export default function TabPage() {
                   bottom: 0,
                   margin: "auto",
                   width: "max-content",
-                  height: "max-content",
-                  scale: 7.0
+                  height: "max-content"
                 }}
+                initial={{ scale: 7.0 }}
+                animate={{ scale: 7.0 }}
                 transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
               >
                 <DiaTextReveal 
