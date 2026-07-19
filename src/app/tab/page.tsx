@@ -954,8 +954,30 @@ export default function TabPage() {
                   >
                     <svg className="size-4 text-[#3b82f6]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" /></svg>
                   </motion.div>
-                  {/* Invisible placeholder to maintain header layout space */}
-                  <div className="opacity-0 text-xs font-bold select-none" aria-hidden="true">dxwntichakn</div>
+
+                  {/* dxwntichakn inline during tree and morph stages */}
+                  {(introStage === "tree" || introStage === "morph") && (
+                    <motion.div
+                      layoutId="dxwntichakn-morph-intro"
+                      className="font-sans font-bold text-[#1a1a1a] normal-case text-xs tracking-tight"
+                      style={{ originX: 0, originY: 0.5 }}
+                      animate={introStage === "morph" ? { opacity: 0 } : { opacity: 1 }}
+                      transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+                    >
+                      <DiaTextReveal 
+                        text="dxwntichakn" 
+                        textColor="#1a1a1a"
+                        colors={["#3b82f6", "#2563eb", "#1d4ed8", "#1e3a8a"]} 
+                        duration={1.2}
+                        className="text-xs font-bold font-sans tracking-tight normal-case"
+                      />
+                    </motion.div>
+                  )}
+                  
+                  {/* Invisible placeholder when not tree/morph to maintain spacing */}
+                  {(introStage !== "tree" && introStage !== "morph") && (
+                    <div className="opacity-0 text-xs font-bold select-none" aria-hidden="true">dxwntichakn</div>
+                  )}
                 </motion.div>
 
                 {/* File Tree Structure - Magic UI Tree */}
@@ -981,18 +1003,19 @@ export default function TabPage() {
               </motion.div>
             )}
 
-            {/* dxwntichakn — lives OUTSIDE the card, absolute in the full-viewport overlay */}
-            {/* left:50% top:50% here = TRUE viewport center, not card center */}
-            {(introStage === "dial" || introStage === "tree" || introStage === "morph") && (
+            {/* dxwntichakn — lives OUTSIDE the card, absolute in the full-viewport overlay when in dial stage */}
+            {introStage === "dial" && (
               <motion.div 
-                animate={introStage === "dial" 
-                  ? { scale: 7.0, left: "50%", top: "50%", x: "-50%", y: "-50%" }
-                  : introStage === "morph"
-                    ? { scale: 1.0, left: "calc(50% - 170px)", top: "calc(50% - 102px)", x: "0%", y: "0%", opacity: 0 }
-                    : { scale: 1.0, left: "calc(50% - 170px)", top: "calc(50% - 102px)", x: "0%", y: "0%" }
-                }
+                layoutId="dxwntichakn-morph-intro"
+                className="absolute font-sans font-bold text-[#1a1a1a] normal-case z-[100000]"
+                style={{ 
+                  left: "50%", 
+                  top: "50%", 
+                  x: "-50%", 
+                  y: "-50%",
+                  scale: 7.0
+                }}
                 transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-                className="absolute font-sans font-bold text-[#1a1a1a] normal-case"
               >
                 <DiaTextReveal 
                   text="dxwntichakn" 
