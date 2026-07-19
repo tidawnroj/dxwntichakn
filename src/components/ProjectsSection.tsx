@@ -340,7 +340,7 @@ const certificatesData = [
 
 export function ProjectsSection({ isReady = true }: { isReady?: boolean }) {
   const [activeSection, setActiveSection] = useState<"projects" | "achievements" | "certificates">("projects");
-  const [activeProject, setActiveProject] = useState<string>("");
+  const [activeProject, setActiveProject] = useState<string>("project-rebexs");
   const [isStatsRowVisible, setIsStatsRowVisible] = useState<boolean>(true);
   const [isProjectsSectionActive, setIsProjectsSectionActive] = useState<boolean>(true);
   const [isProjectsSubsectionActive, setIsProjectsSubsectionActive] = useState<boolean>(false);
@@ -821,13 +821,13 @@ export function ProjectsSection({ isReady = true }: { isReady?: boolean }) {
 
       {/* Floating Project Mini-Navigator */}
       <AnimatePresence>
-        {isProjectsSectionActive && activeSection === "projects" && !isStatsRowVisible && activeProject && (
+        {isProjectsSectionActive && activeSection === "projects" && activeProject && (
           <motion.div
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
             transition={{ duration: 0.3 }}
-            className="fixed top-20 left-1/2 -translate-x-1/2 z-40 bg-background/80 dark:bg-neutral-900/80 backdrop-blur-md px-4 py-1.5 rounded-full border border-border/50 shadow-xl flex items-center gap-1 text-[10px] md:text-xs font-mono font-medium"
+            className="fixed top-24 left-1/2 -translate-x-1/2 z-40 bg-background/80 dark:bg-neutral-900/80 backdrop-blur-md px-4 py-1.5 rounded-full border border-border/50 shadow-xl flex items-center gap-1 text-[10px] md:text-xs font-mono font-medium"
           >
             {projectsList.map((proj) => {
               const isActive = activeProject === proj.id;
