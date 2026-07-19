@@ -26,10 +26,12 @@ export function IntroLoader({ onComplete }: { onComplete: () => void }) {
   // 3 vertical noren panels for staggered exit
   const panelVariants: Variants = {
     initial: {
-      y: "0%"
+      y: "0%",
+      skewX: -12
     },
     exit: (i: number) => ({
       y: "-100vh",
+      skewX: -12,
       transition: {
         duration: 0.8,
         ease: [0.76, 0, 0.24, 1],
@@ -45,8 +47,8 @@ export function IntroLoader({ onComplete }: { onComplete: () => void }) {
       exit={{ opacity: 1 }} // Dummy exit to keep wrapper in DOM
       transition={{ duration: 1.0 }} // Matches total animation time (0.2s delay + 0.8s duration)
     >
-      {/* Staggered Noren Backdrop Panels */}
-      <div className="absolute inset-0 flex w-full h-full pointer-events-none">
+      {/* Staggered Noren Backdrop Panels (expanded and skewed for slanted transition) */}
+      <div className="absolute -inset-y-10 -inset-x-[20vw] flex pointer-events-none overflow-hidden">
         {[0, 1, 2].map((i) => (
           <motion.div
             key={`loader-panel-${i}`}

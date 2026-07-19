@@ -759,15 +759,16 @@ export default function TabPage() {
       </footer>
 
       {/* Tab Switch Curtain Transition */}
-      <div className={`fixed inset-0 flex z-[9999] ${tabTransitionActive ? "pointer-events-auto" : "pointer-events-none"}`}>
+      <div className={`fixed -inset-y-10 -inset-x-[20vw] flex z-[9999] ${tabTransitionActive ? "pointer-events-auto" : "pointer-events-none"} overflow-hidden`}>
         {[0, 1, 2].map((i) => (
           <motion.div
             key={`tab-transition-panel-${i}`}
             custom={i}
             variants={{
-              initial: { y: "-100%" },
+              initial: { y: "-100%", skewX: -12 },
               animate: (i: number) => ({
                 y: tabTransitionActive ? ["-100%", "0%", "0%", "0%", "0%", "-100%"] : "-100%",
+                skewX: -12,
                 transition: {
                   duration: 1.6,
                   times: [0, 0.25, 0.35, 0.65, 0.75, 1.0],
@@ -802,15 +803,16 @@ export default function TabPage() {
 
       {/* Mount Reveal Transition from Scroll Mode */}
       {tabReveal && (
-        <div className="fixed inset-0 flex z-[99999] pointer-events-none">
+        <div className="fixed -inset-y-10 -inset-x-[20vw] flex z-[99999] pointer-events-none overflow-hidden">
           {[0, 1, 2].map((i) => (
             <motion.div
               key={`tab-reveal-panel-${i}`}
               custom={i}
               variants={{
-                initial: { y: "0%" },
+                initial: { y: "0%", skewX: -12 },
                 animate: (i: number) => ({
                   y: "-100%",
+                  skewX: -12,
                   transition: {
                     duration: 0.65,
                     ease: [0.76, 0, 0.24, 1],
@@ -851,15 +853,16 @@ export default function TabPage() {
 
       {/* Intro Home Reveal Curtain (after laser stage) */}
       {introStage === "reveal" && (
-        <div className="fixed inset-0 flex z-[99998] pointer-events-none">
+        <div className="fixed -inset-y-10 -inset-x-[20vw] flex z-[99998] pointer-events-none overflow-hidden">
           {[0, 1, 2].map((i) => (
             <motion.div
               key={`intro-reveal-panel-${i}`}
               custom={i}
               variants={{
-                initial: { y: "-100%" },
+                initial: { y: "-100%", skewX: -12 },
                 animate: (i: number) => ({
                   y: ["-100%", "0%", "0%", "0%", "0%", "-100%"],
+                  skewX: -12,
                   transition: {
                     duration: 1.6,
                     times: [0, 0.25, 0.35, 0.65, 0.75, 1.0],

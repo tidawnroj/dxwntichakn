@@ -27,10 +27,12 @@ export function NorenRedirect({ active, to }: NorenRedirectProps) {
 
   const panelVariants: Variants = {
     initial: {
-      y: "-100%"
+      y: "-100%",
+      skewX: -12
     },
     animate: (i: number) => ({
       y: active ? ["-100%", "0%", "0%"] : "-100%",
+      skewX: -12,
       transition: {
         duration: 0.65,
         times: [0, 0.7, 1.0],
@@ -43,7 +45,7 @@ export function NorenRedirect({ active, to }: NorenRedirectProps) {
   if (!active) return null
 
   return (
-    <div className="fixed inset-0 pointer-events-auto z-[99999] flex">
+    <div className="fixed -inset-y-10 -inset-x-[20vw] pointer-events-auto z-[99999] flex overflow-hidden">
       {[0, 1, 2].map((i) => (
         <motion.div
           key={`redirect-panel-${i}`}
