@@ -603,8 +603,8 @@ export default function TabPage() {
         {activeTab === "projects.js" ? (
           /* Projects 3.0 Full Screen Section */
           <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={introStage === "done" ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            initial={{ opacity: 0 }}
+            animate={introStage === "done" ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.6 }}
             className="w-full"
           >

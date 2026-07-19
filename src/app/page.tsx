@@ -90,8 +90,8 @@ export default function Home() {
       {showPage && (
         <motion.div
           key="content"
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}
         >
           <SidebarNav />

@@ -342,7 +342,7 @@ export function ProjectsSection({ isReady = true }: { isReady?: boolean }) {
   const [activeSection, setActiveSection] = useState<"projects" | "achievements" | "certificates">("projects");
   const [activeProject, setActiveProject] = useState<string>("");
   const [isStatsRowVisible, setIsStatsRowVisible] = useState<boolean>(true);
-  const [isProjectsSectionActive, setIsProjectsSectionActive] = useState<boolean>(false);
+  const [isProjectsSectionActive, setIsProjectsSectionActive] = useState<boolean>(true);
   const [isProjectsSubsectionActive, setIsProjectsSubsectionActive] = useState<boolean>(false);
   
   const achievementsRef = useRef<HTMLDivElement>(null);
@@ -720,13 +720,13 @@ export function ProjectsSection({ isReady = true }: { isReady?: boolean }) {
 
       {/* Morphed Top-Right Floating Sub-Navigator */}
       <AnimatePresence>
-        {!isStatsRowVisible && isProjectsSectionActive && (
+        {isProjectsSectionActive && (
           <motion.div
             initial={{ opacity: 0, scale: 0.9, x: 20 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             exit={{ opacity: 0, scale: 0.9, x: 20 }}
             transition={{ duration: 0.2 }}
-            className="hidden md:flex fixed top-4 right-4 md:right-8 z-50 bg-background/80 dark:bg-neutral-900/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-border/50 shadow-xl items-center gap-1 text-[10px] md:text-xs font-mono font-medium"
+            className="hidden md:flex fixed top-16 right-4 md:right-8 z-50 bg-background/80 dark:bg-neutral-900/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-border/50 shadow-xl items-center gap-1 text-[10px] md:text-xs font-mono font-medium"
           >
             {[
               { id: "projects", label: "Projects" },

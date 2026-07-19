@@ -18,7 +18,7 @@ export const TextReveal: FC<TextRevealProps> = ({ text, className }) => {
   const sectionRef = useRef<HTMLDivElement | null>(null)
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start start", "end end"]
+    offset: ["start 0.85", "start 0.15"]
   })
 
   if (typeof text !== "string") {
@@ -28,7 +28,7 @@ export const TextReveal: FC<TextRevealProps> = ({ text, className }) => {
   const words = text.split(" ")
 
   return (
-    <div ref={sectionRef} className={cn("relative z-0 h-[200vh]", className)}>
+    <div ref={sectionRef} className={cn("relative z-0 h-[120vh]", className)}>
       <div
         className={
           "sticky top-0 mx-auto flex h-[50%] max-w-4xl items-center bg-transparent px-4 py-20"
