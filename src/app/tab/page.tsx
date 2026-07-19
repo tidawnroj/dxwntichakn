@@ -1009,10 +1009,13 @@ export default function TabPage() {
                 layoutId="dxwntichakn-morph-intro"
                 className="absolute font-sans font-bold text-[#1a1a1a] normal-case z-[100000]"
                 style={{ 
-                  left: "50%", 
-                  top: "50%", 
-                  x: "-50%", 
-                  y: "-50%",
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  bottom: 0,
+                  margin: "auto",
+                  width: "max-content",
+                  height: "max-content",
                   scale: 7.0
                 }}
                 transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
