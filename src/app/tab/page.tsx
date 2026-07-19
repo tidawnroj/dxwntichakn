@@ -17,6 +17,7 @@ import { DiaTextReveal } from "@/components/ui/dia-text-reveal"
 import { cn } from "@/lib/utils"
 import { Tree, Folder, File } from "@/components/ui/file-tree"
 import type { TreeViewElement } from "@/components/ui/file-tree"
+import { ProjectsSection } from "@/components/ProjectsSection"
 
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] })
 
@@ -599,145 +600,158 @@ export default function TabPage() {
 
       {/* Hero Section */}
       <main className="min-h-screen flex flex-col items-center justify-start pt-28 pb-48 px-4 relative z-10 max-w-6xl mx-auto w-full space-y-16">
-        {/* Top Grid: Terminal and Profile Pic */}
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <section className="lg:col-span-7 relative h-full">
-            <LaserBox active={introStage === "laser"} type="rect">
-              <motion.div
-                animate={introStage === "done" ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ duration: 0.5 }}
-                className="terminal-window p-8 rounded-lg shadow-2xl relative overflow-hidden flex flex-col justify-between w-full h-full"
-              >
-                {/* Terminal Header Controls */}
-                <div className="flex justify-between items-center mb-8 border-b border-border pb-4 select-none">
-                  <div className="flex space-x-2">
-                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                  </div>
-                  <span className="text-xs text-muted-foreground font-mono">bash — 80x24</span>
-                </div>
-
-                <div className="min-h-[300px] flex flex-col justify-center">
-                  {activeTab === "index.html" && renderIndexTab()}
-                  {activeTab === "projects.js" && renderProjectsTab()}
-                  {activeTab === "skills.py" && renderSkillsTab()}
-                  {activeTab === "contact.json" && renderContactTab()}
-                </div>
-              </motion.div>
-            </LaserBox>
-          </section>
-
-          {/* Profile Image Section */}
-          <section className="lg:col-span-5 flex justify-center">
-            <div className="relative group">
-              {/* Geometric Glitch Frames */}
-              <div className="absolute -inset-4 border border-[#3b82f6]/25 rounded-full animate-pulse"></div>
-              <div className="absolute -inset-8 border border-[#3b82f6]/15 rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
-              
-              {/* Image Container with Laser Circle draw */}
-              <div className="relative">
-                <LaserBox active={introStage === "laser"} type="circle">
+        {activeTab === "projects.js" ? (
+          /* Projects 3.0 Full Screen Section */
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={introStage === "done" ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.6 }}
+            className="w-full"
+          >
+            <ProjectsSection />
+          </motion.div>
+        ) : (
+          <>
+            {/* Top Grid: Terminal and Profile Pic */}
+            <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              <section className="lg:col-span-7 relative h-full">
+                <LaserBox active={introStage === "laser"} type="rect">
                   <motion.div
                     animate={introStage === "done" ? { opacity: 1 } : { opacity: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-[#3b82f6] relative z-10 bg-card shadow-[0_0_30px_rgba(59,130,246,0.2)] dark:shadow-[0_0_40px_rgba(59,130,246,0.3)] transition-all duration-300"
+                    className="terminal-window p-8 rounded-lg shadow-2xl relative overflow-hidden flex flex-col justify-between w-full h-full"
                   >
-                    <img 
-                      alt="Tichakorn Profile" 
-                      className="w-full h-full object-cover" 
-                      src="/profile.png"
-                    />
+                    {/* Terminal Header Controls */}
+                    <div className="flex justify-between items-center mb-8 border-b border-border pb-4 select-none">
+                      <div className="flex space-x-2">
+                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                      </div>
+                      <span className="text-xs text-muted-foreground font-mono">bash — 80x24</span>
+                    </div>
+
+                    <div className="min-h-[300px] flex flex-col justify-center">
+                      {activeTab === "index.html" && renderIndexTab()}
+                      {activeTab === "skills.py" && renderSkillsTab()}
+                      {activeTab === "contact.json" && renderContactTab()}
+                    </div>
                   </motion.div>
                 </LaserBox>
-              </div>
+              </section>
 
-              {/* ID Badge Decor */}
-              <motion.div 
-                animate={introStage === "done" ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ duration: 0.5 }}
-                className="absolute -bottom-4 -right-4 bg-card border border-border px-4 py-2 text-[10px] text-[#3b82f6] z-20 shadow-xl leading-relaxed select-none font-bold"
+              {/* Profile Image Section */}
+              <section className="lg:col-span-5 flex justify-center">
+                <div className="relative group">
+                  {/* Geometric Glitch Frames */}
+                  <div className="absolute -inset-4 border border-[#3b82f6]/25 rounded-full animate-pulse"></div>
+                  <div className="absolute -inset-8 border border-[#3b82f6]/15 rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
+                  
+                  {/* Image Container with Laser Circle draw */}
+                  <div className="relative">
+                    <LaserBox active={introStage === "laser"} type="circle">
+                      <motion.div
+                        animate={introStage === "done" ? { opacity: 1 } : { opacity: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-[#3b82f6] relative z-10 bg-card shadow-[0_0_30px_rgba(59,130,246,0.2)] dark:shadow-[0_0_40px_rgba(59,130,246,0.3)] transition-all duration-300"
+                      >
+                        <img 
+                          alt="Tichakorn Profile" 
+                          className="w-full h-full object-cover" 
+                          src="/profile.png"
+                        />
+                      </motion.div>
+                    </LaserBox>
+                  </div>
+
+                  {/* ID Badge Decor */}
+                  <motion.div 
+                    animate={introStage === "done" ? { opacity: 1 } : { opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="absolute -bottom-4 -right-4 bg-card border border-border px-4 py-2 text-[10px] text-[#3b82f6] z-20 shadow-xl leading-relaxed select-none font-bold"
+                  >
+                    STATUS: ACTIVE<br/>
+                    LEVEL: DEV_GEN_70
+                  </motion.div>
+                </div>
+              </section>
+            </div>
+
+            {/* Bottom Section: Profile 2.0 (Only renders for index.html tab) */}
+            {activeTab === "index.html" && (
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={introStage === "done" ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="w-full space-y-8"
               >
-                STATUS: ACTIVE<br/>
-                LEVEL: DEV_GEN_70
+                {/* Modular Title */}
+                <div className="flex items-center gap-4">
+                  <span className="text-[#3b82f6] font-mono text-sm font-bold flex items-center gap-1.5">
+                    <ChevronRight className="w-4 h-4" /> profile-module-2.0.json
+                  </span>
+                  <div className="h-[1px] bg-border flex-grow opacity-50" />
+                </div>
+
+                {/* Profile Grid Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* About card */}
+                  <div className="md:col-span-2 border border-border/80 p-6 rounded-lg bg-card/45 backdrop-blur-md space-y-4 hover:border-[#3b82f6]/40 transition-colors shadow-sm">
+                    <h3 className="text-foreground font-mono font-bold text-sm flex items-center gap-2">
+                      <User className="w-4 h-4 text-[#3b82f6]" /> // About Me
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed text-xs md:text-sm font-mono font-medium">
+                      At the end of 2024, I dedicated myself to competing in top-tier technology competitions and advancing my skills in Artificial Intelligence. In the past, <span className="text-[#3b82f6] font-bold">I won the Medical Track at CEDT Innovation Summit 2025</span>, <span className="text-[#3b82f6] font-bold">became the Overall Winner of SUPER AI Innovator SS5</span>, and <span className="text-[#3b82f6] font-bold">achieved a Gold Medal at I-NEW GEN Award 2026</span>. I also had the honor of presenting <span className="text-foreground font-semibold">REBEXs Tools</span> globally at CSITF 2026 in Shanghai.
+                    </p>
+                  </div>
+
+                  {/* GPAX card */}
+                  <div className="border border-border/80 p-6 rounded-lg bg-card/45 backdrop-blur-md flex flex-col justify-between hover:border-[#3b82f6]/40 transition-colors shadow-sm">
+                    <div className="space-y-4">
+                      <h3 className="text-foreground font-mono font-bold text-sm flex items-center gap-2">
+                        <GraduationCap className="w-4 h-4 text-[#3b82f6]" /> // Education
+                      </h3>
+                      <div className="space-y-1.5 font-mono">
+                        <p className="text-foreground font-semibold text-xs md:text-sm">The Prince Royal’s College</p>
+                        <p className="text-[10px] text-muted-foreground">TEP : Technology Excellence Program</p>
+                      </div>
+                    </div>
+                    <div className="mt-4 pt-4 border-t border-border flex justify-between items-center font-mono">
+                      <span className="text-[10px] text-muted-foreground font-bold">GPAX (High School):</span>
+                      <span className="text-base font-extrabold text-[#3b82f6]">3.75 / 4.00</span>
+                    </div>
+                  </div>
+
+                  {/* Timeline card */}
+                  <div className="md:col-span-3 border border-border/80 p-6 rounded-lg bg-card/45 backdrop-blur-md space-y-6 hover:border-[#3b82f6]/30 transition-colors shadow-sm">
+                    <h3 className="text-foreground font-mono font-bold text-sm flex items-center gap-2">
+                      <span className="text-[#3b82f6] font-bold">//</span> Academic Journey Timeline
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-[10px] md:text-xs">
+                      <div className="border-l-2 border-border/60 pl-4 space-y-1.5 relative">
+                        <div className="absolute -left-[5px] top-1.5 w-[8px] h-[8px] rounded-full bg-[#3b82f6] shadow-[0_0_8px_#3b82f6]" />
+                        <span className="text-[9px] text-[#3b82f6] font-bold">2024 - PRESENT</span>
+                        <h4 className="font-bold text-foreground text-xs md:text-sm">The Prince Royal’s College</h4>
+                        <p className="text-muted-foreground leading-relaxed">TEP : Technology Excellence Program. Focused on advanced AI systems, computer engineering, and research.</p>
+                      </div>
+                      <div className="border-l-2 border-border/60 pl-4 space-y-1.5 relative">
+                        <div className="absolute -left-[5px] top-1.5 w-[8px] h-[8px] rounded-full bg-[#3b82f6]/40" />
+                        <span className="text-[9px] text-muted-foreground font-bold">2021 - 2023</span>
+                        <h4 className="font-bold text-foreground text-xs md:text-sm">The Prince Royal’s College</h4>
+                        <p className="text-muted-foreground leading-relaxed">Pre-Engineering Program. Explored embedded logic, basic robotics, and engineering principles.</p>
+                      </div>
+                      <div className="border-l-2 border-border/60 pl-4 space-y-1.5 relative">
+                        <div className="absolute -left-[5px] top-1.5 w-[8px] h-[8px] rounded-full bg-[#3b82f6]/20" />
+                        <span className="text-[9px] text-muted-foreground font-bold">2015 - 2020</span>
+                        <h4 className="font-bold text-foreground text-xs md:text-sm">Tonkla School Chiang Mai</h4>
+                        <p className="text-muted-foreground leading-relaxed">Primary School. Developed foundational thinking skills through active learning, math, and science.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </motion.div>
-            </div>
-          </section>
-        </div>
-
-        {/* Bottom Section: Profile 2.0 (Only renders for index.html tab) */}
-        {activeTab === "index.html" && (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={introStage === "done" ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="w-full space-y-8"
-          >
-            {/* Modular Title */}
-            <div className="flex items-center gap-4">
-              <span className="text-[#3b82f6] font-mono text-sm font-bold flex items-center gap-1.5">
-                <ChevronRight className="w-4 h-4" /> profile-module-2.0.json
-              </span>
-              <div className="h-[1px] bg-border flex-grow opacity-50" />
-            </div>
-
-            {/* Profile Grid Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* About card */}
-              <div className="md:col-span-2 border border-border/80 p-6 rounded-lg bg-card/45 backdrop-blur-md space-y-4 hover:border-[#3b82f6]/40 transition-colors shadow-sm">
-                <h3 className="text-foreground font-mono font-bold text-sm flex items-center gap-2">
-                  <User className="w-4 h-4 text-[#3b82f6]" /> // About Me
-                </h3>
-                <p className="text-muted-foreground leading-relaxed text-xs md:text-sm font-mono font-medium">
-                  At the end of 2024, I dedicated myself to competing in top-tier technology competitions and advancing my skills in Artificial Intelligence. In the past, <span className="text-[#3b82f6] font-bold">I won the Medical Track at CEDT Innovation Summit 2025</span>, <span className="text-[#3b82f6] font-bold">became the Overall Winner of SUPER AI Innovator SS5</span>, and <span className="text-[#3b82f6] font-bold">achieved a Gold Medal at I-NEW GEN Award 2026</span>. I also had the honor of presenting <span className="text-foreground font-semibold">REBEXs Tools</span> globally at CSITF 2026 in Shanghai.
-                </p>
-              </div>
-
-              {/* GPAX card */}
-              <div className="border border-border/80 p-6 rounded-lg bg-card/45 backdrop-blur-md flex flex-col justify-between hover:border-[#3b82f6]/40 transition-colors shadow-sm">
-                <div className="space-y-4">
-                  <h3 className="text-foreground font-mono font-bold text-sm flex items-center gap-2">
-                    <GraduationCap className="w-4 h-4 text-[#3b82f6]" /> // Education
-                  </h3>
-                  <div className="space-y-1.5 font-mono">
-                    <p className="text-foreground font-semibold text-xs md:text-sm">The Prince Royal’s College</p>
-                    <p className="text-[10px] text-muted-foreground">TEP : Technology Excellence Program</p>
-                  </div>
-                </div>
-                <div className="mt-4 pt-4 border-t border-border flex justify-between items-center font-mono">
-                  <span className="text-[10px] text-muted-foreground font-bold">GPAX (High School):</span>
-                  <span className="text-base font-extrabold text-[#3b82f6]">3.75 / 4.00</span>
-                </div>
-              </div>
-
-              {/* Timeline card */}
-              <div className="md:col-span-3 border border-border/80 p-6 rounded-lg bg-card/45 backdrop-blur-md space-y-6 hover:border-[#3b82f6]/30 transition-colors shadow-sm">
-                <h3 className="text-foreground font-mono font-bold text-sm flex items-center gap-2">
-                  <span className="text-[#3b82f6] font-bold">//</span> Academic Journey Timeline
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-[10px] md:text-xs">
-                  <div className="border-l-2 border-border/60 pl-4 space-y-1.5 relative">
-                    <div className="absolute -left-[5px] top-1.5 w-[8px] h-[8px] rounded-full bg-[#3b82f6] shadow-[0_0_8px_#3b82f6]" />
-                    <span className="text-[9px] text-[#3b82f6] font-bold">2024 - PRESENT</span>
-                    <h4 className="font-bold text-foreground text-xs md:text-sm">The Prince Royal’s College</h4>
-                    <p className="text-muted-foreground leading-relaxed">TEP : Technology Excellence Program. Focused on advanced AI systems, computer engineering, and research.</p>
-                  </div>
-                  <div className="border-l-2 border-border/60 pl-4 space-y-1.5 relative">
-                    <div className="absolute -left-[5px] top-1.5 w-[8px] h-[8px] rounded-full bg-[#3b82f6]/40" />
-                    <span className="text-[9px] text-muted-foreground font-bold">2021 - 2023</span>
-                    <h4 className="font-bold text-foreground text-xs md:text-sm">The Prince Royal’s College</h4>
-                    <p className="text-muted-foreground leading-relaxed">Pre-Engineering Program. Explored embedded logic, basic robotics, and engineering principles.</p>
-                  </div>
-                  <div className="border-l-2 border-border/60 pl-4 space-y-1.5 relative">
-                    <div className="absolute -left-[5px] top-1.5 w-[8px] h-[8px] rounded-full bg-[#3b82f6]/20" />
-                    <span className="text-[9px] text-muted-foreground font-bold">2015 - 2020</span>
-                    <h4 className="font-bold text-foreground text-xs md:text-sm">Tonkla School Chiang Mai</h4>
-                    <p className="text-muted-foreground leading-relaxed">Primary School. Developed foundational thinking skills through active learning, math, and science.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+            )}
+          </>
         )}
       </main>
 
