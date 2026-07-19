@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { JetBrains_Mono } from "next/font/google"
-import { ChevronRight, LogOut, Home as HomeIcon, FileText, Mail } from "lucide-react"
+import { ChevronRight, LogOut, Home as HomeIcon, FileText, Mail, User, GraduationCap } from "lucide-react"
 import { GitHubLogoIcon, InstagramLogoIcon } from "@radix-ui/react-icons"
 import { NorenRedirect } from "@/components/ui/noren-redirect"
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler"
@@ -318,62 +318,21 @@ export default function TabPage() {
 
   const renderIndexTab = () => {
     return (
-      <div className="space-y-6 font-mono text-xs">
-        <div className="space-y-2 border-b border-border pb-2">
-          <p className="text-[#3b82f6] text-sm font-bold">$ profile --version 2.0</p>
-          <h2 className="text-xl font-bold text-foreground">Interactive Dossier</h2>
+      <div className="space-y-6">
+        <div className="space-y-2">
+          <p className="text-[#3b82f6] text-sm font-mono font-bold">$ whoami</p>
+          <h1 className="tracking-tighter text-foreground font-mono leading-none">
+            <span className="block text-3xl md:text-5xl font-bold"><TextAnimate animation="blurInUp" by="character">Hi, I'm</TextAnimate></span>
+            <span className="block mt-2 text-6xl md:text-8xl font-extrabold tracking-tighter"><AuroraText>Tichakorn</AuroraText></span>
+          </h1>
         </div>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          {/* Left Panel: Whoami & Bio */}
-          <div className="lg:col-span-7 space-y-4">
-            <div className="space-y-1">
-              <p className="text-[#3b82f6] text-[10px] font-bold">// WHOAMI</p>
-              <h1 className="tracking-tighter text-foreground leading-none">
-                <span className="block text-2xl font-bold">Hi, I'm</span>
-                <span className="block mt-1 text-4xl md:text-5xl font-extrabold tracking-tighter"><AuroraText>Tichakorn</AuroraText></span>
-              </h1>
-            </div>
-            <p className="text-muted-foreground leading-relaxed text-xs">
-              At the end of 2024, I dedicated myself to competing in top-tier technology competitions and advancing my skills in Artificial Intelligence. In the past, <span className="text-foreground font-semibold">I won the Medical Track at CEDT Innovation Summit 2025</span>, <span className="text-foreground font-semibold">became the Overall Winner of SUPER AI Innovator SS5</span>, and <span className="text-foreground font-semibold">achieved a Gold Medal at I-NEW GEN Award 2026</span>. I also presented <span className="text-foreground font-semibold">REBEXs Tools</span> globally at CSITF 2026 in Shanghai.
-            </p>
-          </div>
-          
-          {/* Right Panel: Spec Sheet / JSON Meta */}
-          <div className="lg:col-span-5 bg-card/40 border border-border p-4 rounded-lg space-y-3 shadow-sm">
-            <h3 className="text-foreground font-bold text-[11px] border-b border-border/50 pb-1.5 flex items-center justify-between">
-              <span>// SYSTEM SPECIFICATIONS</span>
-              <span className="text-[9px] text-[#3b82f6] px-1.5 py-0.5 rounded bg-[#3b82f6]/10 border border-[#3b82f6]/20">v2.0</span>
-            </h3>
-            <div className="space-y-2 text-[11px] leading-relaxed text-muted-foreground">
-              <div className="flex justify-between border-b border-border/20 pb-1">
-                <span className="text-[#3b82f6] font-bold">GPAX:</span>
-                <span className="text-foreground font-semibold">3.75 / 4.00</span>
-              </div>
-              <div className="flex justify-between border-b border-border/20 pb-1">
-                <span className="text-[#3b82f6] font-bold">School:</span>
-                <span className="text-foreground font-semibold truncate max-w-[150px]" title="Prince Royal's College">Prince Royal's College</span>
-              </div>
-              <div className="flex justify-between border-b border-border/20 pb-1">
-                <span className="text-[#3b82f6] font-bold">Program:</span>
-                <span className="text-foreground font-semibold text-right">Tech Gifted (Sci-Math)</span>
-              </div>
-              <div className="flex justify-between border-b border-border/20 pb-1">
-                <span className="text-[#3b82f6] font-bold">Location:</span>
-                <span className="text-foreground font-semibold">Chiang Mai, Thailand</span>
-              </div>
-              <div className="flex justify-between pb-0.5">
-                <span className="text-[#3b82f6] font-bold">Status:</span>
-                <span className="text-foreground font-semibold flex items-center gap-1.5">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                  </span>
-                  Active Dev
-                </span>
-              </div>
-            </div>
-          </div>
+        <div className="space-y-4">
+          <p className="text-[#3b82f6] text-sm font-mono font-bold">$ info --role</p>
+          <KineticText 
+            as="p"
+            text="AI Innovator and Medical Tech Developer. I love building things that solve real-world problems and pushing the boundaries of what's possible with technology."
+            className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl font-mono font-medium"
+          />
         </div>
       </div>
     )
@@ -639,8 +598,9 @@ export default function TabPage() {
       </LaserBox>
 
       {/* Hero Section */}
-      <main className="min-h-screen flex items-center justify-center pt-20 pb-32 px-4 relative z-10">
-        <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <main className="min-h-screen flex flex-col items-center justify-start pt-28 pb-48 px-4 relative z-10 max-w-6xl mx-auto w-full space-y-16">
+        {/* Top Grid: Terminal and Profile Pic */}
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <section className="lg:col-span-7 relative h-full">
             <LaserBox active={introStage === "laser"} type="rect">
               <motion.div
@@ -704,6 +664,81 @@ export default function TabPage() {
             </div>
           </section>
         </div>
+
+        {/* Bottom Section: Profile 2.0 (Only renders for index.html tab) */}
+        {activeTab === "index.html" && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={introStage === "done" ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="w-full space-y-8"
+          >
+            {/* Modular Title */}
+            <div className="flex items-center gap-4">
+              <span className="text-[#3b82f6] font-mono text-sm font-bold flex items-center gap-1.5">
+                <ChevronRight className="w-4 h-4" /> profile-module-2.0.json
+              </span>
+              <div className="h-[1px] bg-border flex-grow opacity-50" />
+            </div>
+
+            {/* Profile Grid Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* About card */}
+              <div className="md:col-span-2 border border-border/80 p-6 rounded-lg bg-card/45 backdrop-blur-md space-y-4 hover:border-[#3b82f6]/40 transition-colors shadow-sm">
+                <h3 className="text-foreground font-mono font-bold text-sm flex items-center gap-2">
+                  <User className="w-4 h-4 text-[#3b82f6]" /> // About Me
+                </h3>
+                <p className="text-muted-foreground leading-relaxed text-xs md:text-sm font-mono font-medium">
+                  At the end of 2024, I dedicated myself to competing in top-tier technology competitions and advancing my skills in Artificial Intelligence. In the past, <span className="text-[#3b82f6] font-bold">I won the Medical Track at CEDT Innovation Summit 2025</span>, <span className="text-[#3b82f6] font-bold">became the Overall Winner of SUPER AI Innovator SS5</span>, and <span className="text-[#3b82f6] font-bold">achieved a Gold Medal at I-NEW GEN Award 2026</span>. I also had the honor of presenting <span className="text-foreground font-semibold">REBEXs Tools</span> globally at CSITF 2026 in Shanghai.
+                </p>
+              </div>
+
+              {/* GPAX card */}
+              <div className="border border-border/80 p-6 rounded-lg bg-card/45 backdrop-blur-md flex flex-col justify-between hover:border-[#3b82f6]/40 transition-colors shadow-sm">
+                <div className="space-y-4">
+                  <h3 className="text-foreground font-mono font-bold text-sm flex items-center gap-2">
+                    <GraduationCap className="w-4 h-4 text-[#3b82f6]" /> // Education
+                  </h3>
+                  <div className="space-y-1.5 font-mono">
+                    <p className="text-foreground font-semibold text-xs md:text-sm">Prince Royal's College</p>
+                    <p className="text-[10px] text-muted-foreground">Science-Math Track • Tech Gifted Program</p>
+                  </div>
+                </div>
+                <div className="mt-4 pt-4 border-t border-border flex justify-between items-center font-mono">
+                  <span className="text-[10px] text-muted-foreground font-bold">GPAX (High School):</span>
+                  <span className="text-base font-extrabold text-[#3b82f6]">3.75 / 4.00</span>
+                </div>
+              </div>
+
+              {/* Timeline card */}
+              <div className="md:col-span-3 border border-border/80 p-6 rounded-lg bg-card/45 backdrop-blur-md space-y-6 hover:border-[#3b82f6]/30 transition-colors shadow-sm">
+                <h3 className="text-foreground font-mono font-bold text-sm flex items-center gap-2">
+                  <span className="text-[#3b82f6] font-bold">//</span> Academic Journey Timeline
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-[10px] md:text-xs">
+                  <div className="border-l-2 border-border/60 pl-4 space-y-1.5 relative">
+                    <div className="absolute -left-[5px] top-1.5 w-[8px] h-[8px] rounded-full bg-[#3b82f6] shadow-[0_0_8px_#3b82f6]" />
+                    <span className="text-[9px] text-[#3b82f6] font-bold">2024 - PRESENT</span>
+                    <h4 className="font-bold text-foreground text-xs md:text-sm">Senior High School</h4>
+                    <p className="text-muted-foreground leading-relaxed">Technology Gifted Program, focusing on AI algorithms, data structures, and bio-signal interface development.</p>
+                  </div>
+                  <div className="border-l-2 border-border/60 pl-4 space-y-1.5 relative">
+                    <div className="absolute -left-[5px] top-1.5 w-[8px] h-[8px] rounded-full bg-[#3b82f6]/40" />
+                    <span className="text-[9px] text-muted-foreground font-bold">2021 - 2023</span>
+                    <h4 className="font-bold text-foreground text-xs md:text-sm">Junior High School</h4>
+                    <p className="text-muted-foreground leading-relaxed">Explored basic robotics, embedded C programming, microcontrollers, and scientific inquiry projects.</p>
+                  </div>
+                  <div className="border-l-2 border-border/60 pl-4 space-y-1.5 relative">
+                    <div className="absolute -left-[5px] top-1.5 w-[8px] h-[8px] rounded-full bg-[#3b82f6]/20" />
+                    <span className="text-[9px] text-muted-foreground font-bold">2015 - 2020</span>
+                    <h4 className="font-bold text-foreground text-xs md:text-sm">Primary School</h4>
+                    <p className="text-muted-foreground leading-relaxed">Acquired logical problem-solving foundations through advanced mathematics and science coursework.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
       </main>
 
       {/* Scrolling Identity Bar */}
