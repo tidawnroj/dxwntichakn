@@ -967,8 +967,8 @@ export default function TabPage() {
                   animate={introStage === "dial"
                     ? { scale: 7.0, left: "50%", top: "50%", x: "-50%", y: "-50%", opacity: 1, transformOrigin: "center center" }
                     : introStage === "morph"
-                      ? { scale: 1.0, left: "54px", top: "40px", x: "0%", y: "0%", opacity: 0, transformOrigin: "left center" }
-                      : { scale: 1.0, left: "54px", top: "40px", x: "0%", y: "0%", opacity: 1, transformOrigin: "left center" }
+                      ? { scale: 1.0, left: "54px", top: "40px", x: "0%", y: "0%", opacity: 0, transformOrigin: "center center" }
+                      : { scale: 1.0, left: "54px", top: "40px", x: "0%", y: "0%", opacity: 1, transformOrigin: "center center" }
                   }
                   transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
                 >
