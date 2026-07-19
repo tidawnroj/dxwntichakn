@@ -388,12 +388,6 @@ export function ProjectsSection({ isReady = true }: { isReady?: boolean }) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setActiveProject(entry.target.id);
-          } else if (entry.target.id === "project-tmd" && entry.boundingClientRect.top < 0) {
-            // Clears when scrolled past TMD downwards
-            setActiveProject("");
-          } else if (entry.target.id === "project-rebexs" && entry.boundingClientRect.top > 0) {
-            // Clears when scrolled above REBEXs upwards
-            setActiveProject("");
           }
         });
       },
